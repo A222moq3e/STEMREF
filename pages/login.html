@@ -5,12 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
+    <!-- CSS  -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
         <title>STEMREF | Login Page</title>
 </head>
 <body>
@@ -22,6 +25,20 @@
         </nav>
         <div class="box">
             <div class="container">
+                <form action="">
+                    <!-- Username input field -->
+                    <div class="username">
+                        <input type="text" id="username" name="username"  required>
+                        <label for="username">Username</label>
+                    </div>
+                    <!-- Password input field -->
+                    <div class="password">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <button>Login</button>
+                </form>
             </div>
         </div>
     </main>

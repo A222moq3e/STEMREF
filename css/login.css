@@ -1,0 +1,47 @@
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    /* min-width: 250px; */
+    
+}
+
+form div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+form label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    color: #ddd;
+    cursor: text;
+
+}
+
+form input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+    width: 100%;
+
+}
+form input:focus +label,
+form input:valid + label{
+    display: none;
+}
+form button{
+    
+}
