@@ -43,6 +43,9 @@ nav{
 nav .container{
     justify-content: space-between;
 }
+nav .logo{
+    cursor: pointer;
+}
 .box{
     height: 90vh;
 }
