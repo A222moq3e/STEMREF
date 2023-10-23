@@ -9,13 +9,30 @@ form{
     flex-direction: column;
     /* flex-wrap: wrap; */
     gap: 10px;
-overflow: hidden;
-width: 300px;
-/* width: fit-content; */
-
-    /* min-width: 250px; */
+    overflow: hidden;
+    min-width: 300px;
 }
-
+/* Top Text */
+.top-text h1 {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: left;
+    letter-spacing: 2.32px;
+    line-height: 20.8px;
+    white-space: nowrap;
+}
+  
+.top-text .hi-message {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 8px;
+    text-align: left;
+    letter-spacing: 1.16px;
+    line-height: 10.4px;
+    white-space: nowrap;
+}
+/* Inputs */
 form .username, form .password{
     display: flex;
     justify-content: center;
@@ -56,27 +73,12 @@ form button{
 .top-text{
     width: 100%;
 }
+.remember, .remember *{
+    cursor: pointer;
+    /* background-color: red; */
+}
 
 
-.top-text h1 {
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 16px;
-    text-align: left;
-    letter-spacing: 2.32px;
-    line-height: 20.8px;
-    white-space: nowrap;
-}
-  
-.top-text .hi-message {
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 8px;
-    text-align: left;
-    letter-spacing: 1.16px;
-    line-height: 10.4px;
-    white-space: nowrap;
-}
 .Oauth-items{
     display: flex;
     justify-content: center;

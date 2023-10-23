@@ -10,7 +10,7 @@ connect.then(()=>{
     
 })
 
-// Create Schema
+// Create User Schema
 const LoginSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -20,9 +20,46 @@ const LoginSchema = new mongoose.Schema({
         required:true
     }
 })
+// Create Courses Schema
+const Courseschema = new mongoose.Schema({
+    "name": {
+      "type": "String"
+    },
+    "description": {
+      "type": "String"
+    },
+    "Content": {
+      "Videos": {
+        "type": [
+          "Mixed"
+        ]
+      },
+      "Articles": {
+        "type": [
+          "Mixed"
+        ]
+      },
+      "Quizzes": {
+        "type": [
+          "Mixed"
+        ]
+      },
+      "Assignments": {
+        "type": [
+          "Mixed"
+        ]
+      },
+      "Others": {
+        "type": [
+          "Mixed"
+        ]
+      }
+    }
+  })
 
 
-// Collection
-const collection = new mongoose.model("users", LoginSchema)
+// Collections
+const usersCollection = new mongoose.model("users", LoginSchema)
+const coursesCollection = new mongoose.model("courses", Courseschema)
 
-module.exports = collection;
+module.exports = {usersCollection,coursesCollection };

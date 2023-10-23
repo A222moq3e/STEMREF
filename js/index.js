@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const collection = require('./config')
+const {usersCollection, coursesCollection} = require('./config')
 const port = 3000;
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
@@ -36,13 +36,13 @@ app.post('/register',async (req,res)=>{
         email: req.body.email
     }
     // check if the user already exists
-    const userIsExist = await collection.findOne({name: data.name})
+    const userIsExist = await usersCollection.findOne({name: data.name})
     console.log('userIsExist:', userIsExist);
     if(userIsExist){
         res.send("User already exists. Please choos diffrent Name")
     }else{
         // add Data   
-        const userdata = await collection.insertMany(data);
+        const userdata = await usersCollection.insertMany(data);
         console.log(userdata);
     }
 
@@ -51,7 +51,7 @@ app.post('/register',async (req,res)=>{
 
 app.post('/login',async (req,res)=>{
     try {
-        const check = await collection.findOne({name:req.body.username})
+        const check = await usersCollection.findOne({name:req.body.username})
         if(!check){
             res.send("user not found!");
         }
@@ -63,6 +63,29 @@ app.post('/login',async (req,res)=>{
     } catch (error) {
         console.log(error);
         res.send("wrong Details")
+    }
+})
+app.get('/addCourse',async (req,res)=>{
+    const data= {
+        name:"CS290",
+        description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        Content: {
+            "Videos":[{name:"Countonting",url:"http://"}],
+            "Articles":[{name:"Countonting",url:"http://"}],
+            "Quizzes":[{name:"Countonting",url:"http://"}],
+            "Assignments":[{name:"Countonting",url:"http://"}],
+            "Others":[{name:"Countonting5",url:"http://"}],
+        }
+    }
+    const CourseIsExist = await coursesCollection.findOne({name: data.name})
+    console.log('CourseIsExist:', CourseIsExist);
+    if(CourseIsExist){
+        res.send("Course already exists. Please choos diffrent Name")
+    }else{
+        // add Data   
+        const Coursedata = await coursesCollection.insertMany(data);
+        res.send("Course Added!")
+        console.log(Coursedata);
     }
 })
 
