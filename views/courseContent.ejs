@@ -30,32 +30,18 @@
           <div class="container">
             <div class="box">
               <div class="top-text">
-                  <h1>CS205</h1>
+                  <h1><%= data.name %></h1>
                 <p>
-                  Lorem ipsum dolor sit ameis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus.
+                    <%= data.desc %>
                 </p>
               </div>
               <div class="items">
-                <div class="item">
-                  <div class="item-title">Videos</div>
-                <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                </div>
-              <div class="item">
-                <div class="item-title">Articles</div>
-                <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-              </div>
-              <div class="item">
-                <div class="item-title">Quizzes</div>
-                <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-              </div>
-              <div class="item">
-                <div class="item-title">Assignments</div>
-                <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-              </div>
-              <div class="item">
-                <div class="item-title">Others</div>
-                <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-              </div>
+                  <% for(const [key, value] of Object.entries(data.content)){ %>
+                    <div class="item">
+                        <div class="item-title"><%= key %></div>
+                      <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
+                      </div>
+                  <% } %>
             </div>
           </div>
         </div>

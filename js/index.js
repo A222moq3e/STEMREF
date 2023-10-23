@@ -65,6 +65,38 @@ app.post('/login',async (req,res)=>{
         res.send("wrong Details")
     }
 })
+
+// Search Page
+app.get('/search',async (req,res)=>{
+    res.render('search')
+    console.log('coursesCollection',coursesCollection);
+    const data = await coursesCollection.find({})
+    let coursesHtml = document.querySelector('courses');
+    let courses = '';
+    for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        courses += courseBuilder(element.name, element.desc, element.content);
+    }
+    coursesHtml.innerHTML = courses;
+
+})
+// Course Page
+app.get('/courseContent',async (req,res)=>{
+    res.redirect('search')
+})
+app.get('/courseContent/:name',async (req,res)=>{
+    const data = await coursesCollection.findOne({name: req.params.name})
+    console.log('data',data);
+    if(!data)
+        res.send('sorry this course not found')
+    else{
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content}})
+    }
+    // res.render('courseContent')
+})
+
+
+// small Mehtods
 app.get('/addCourse',async (req,res)=>{
     const data= {
         name:"CS290",
@@ -89,7 +121,23 @@ app.get('/addCourse',async (req,res)=>{
     }
 })
 
-
+// Port Listner
 app.listen(port,()=>{
     console.log('port Connected in',`http://localhost:${port}`);
 })
+
+
+
+
+function courseBuilder(name, desc,content){
+    let course=`
+    <div class="item col-2">
+        <div class="title">${name}</div>
+        <p>
+        ${desc}
+        </p>
+    </div>
+    `
+    return course
+
+}
