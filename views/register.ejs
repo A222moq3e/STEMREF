@@ -29,10 +29,10 @@
         </nav>
         <div class="box">
             <div class="container">
-                <form action="/login" method="post">
+                <form action="/register" method="post">
                     <div class="top-text">
-                        <h1>Login</h1>
-                        <p class="hi-message">Glad you are back :)</p>
+                        <h1>Register</h1>
+                        <p class="hi-message">Welcom new Member</p>
                     </div>
                     <!-- Username input field -->
                     <div class="username">
@@ -44,13 +44,12 @@
                         <input type="password" id="password" name="password" required>
                         <label for="password">Password</label>
                     </div>
-                    <div class="remember">
-                        <label for="remb">Remember me</label>
-                        <input type="checkbox" name="remb" id="remb">
+                    <div class="email password">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>
                     </div>
-                    <a href="/forget">Forget Password?</a>
-                    <a href="/register">Register</a>
-                    <button>Login</button>
+                    <!-- <a href="/pages/search.html">Login</a> -->
+                    <button>Register</button>
                     <div class="seprator">
                         <span>or</span>
                     </div>
@@ -69,8 +68,6 @@
     </main>
     <script src="/main.js"></script>
     <img class="waves" src="/waves.svg" alt="waves background">
-    <script>
-        
-    </script>
+
 </body>
 </html> 
