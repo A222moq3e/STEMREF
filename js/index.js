@@ -6,7 +6,7 @@ const http = require('http');
 const {usersCollection, coursesCollection} = require('./config')
 
 const port = 80;
-// const hostname = 'localhost'; 
+const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
 app.set("view engine","ejs")
@@ -22,17 +22,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:false}))
 
-http.createServer(app).listen(port)
-
-// https.createServer(options, app).listen(443)
 // Creating Server  
-// const server = http.createServer((req,res)=>{ 
-//     // Handling Request and Response  
-//     res.statusCode=200; 
-//     res.setHeader('Content-Type', 'text/plain') 
-//     res.end("Welcome to Geeks For Geeks") 
-// }); 
-
 app.get('/',(req,res)=>{
     res.render("home")
     // res.json({ error: err })
@@ -153,10 +143,10 @@ app.get('/addCourse',async (req,res)=>{
     }
 })
 
-// // Port Listner
-// app.listen(port,()=>{
-//     console.log('port Connected in',`http://localhost:${port}`);
-// })
+// Port Listner
+app.listen(port,()=>{
+    console.log('port Connected in',`http://localhost:${port}`);
+})
 
 
 

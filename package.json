@@ -1,4 +1,9 @@
 {
+  "name":"STEMREF",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node ./js/index.js"
+  },
   "dependencies": {
     "crypto-js": "^4.1.1",
     "ejs": "^3.1.9",
