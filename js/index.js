@@ -5,7 +5,8 @@ const crypto = require('crypto');
 const http = require('http');
 const {usersCollection, coursesCollection} = require('./config')
 
-const port = 80;
+const port = process.env.PORT || 3000;
+let accesses = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
@@ -24,7 +25,7 @@ app.use(express.urlencoded({extended:false}))
 
 // Creating Server  
 app.get('/',(req,res)=>{
-    res.render("home")
+    res.render("home",{data:{accesses:accesses}})
     // res.json({ error: err })
 
 })
@@ -63,6 +64,7 @@ app.post('/login',async (req,res)=>{
             res.send("user not found!");
         }
         if(check.password == createHash(req.body.password)){
+            accesses=true;
             res.redirect('search');
         }else{
             res.send("Password is wrong")
@@ -73,9 +75,14 @@ app.post('/login',async (req,res)=>{
     }
 })
 
+app.get('/signout',(req,res)=>{
+    accesses= false;
+    res.redirect("/")
+})
+
 // Search Page
 app.get('/search',async (req,res)=>{
-    console.log(req.query.q);
+    if(!accesses) res.redirect("/login")
     if(req.query.q){
         const data = await coursesCollection.find({name: req.query.q})
         res.render('search',{data:data})
@@ -91,6 +98,7 @@ app.get('/courseContent',async (req,res)=>{
     res.redirect('search')
 })
 app.get('/courseContent/:name',async (req,res)=>{
+    if(!accesses) res.redirect("/login")
     const data = await coursesCollection.findOne({name: req.params.name})
     if(!data)
         res.send('sorry this course not found')
@@ -100,6 +108,7 @@ app.get('/courseContent/:name',async (req,res)=>{
     // res.render('courseContent')
 })
 app.get('/courseContent/:name/:catogray',async (req,res)=>{
+    if(!accesses) res.redirect("/login")
     const data = await coursesCollection.findOne({name: req.params.name})
     // console.log(req.params.catogray);
     let catogray = req.params.catogray;
@@ -154,3 +163,18 @@ app.listen(port,()=>{
 function createHash(password) {
 return crypto.createHash('sha256').update(password).digest('hex');
 }
+
+
+// HTTPS in comment
+// const fs = require('fs');
+// const https = require('https');
+
+// const app = require('express')();
+// app.get('*', (req, res) => res.send('<h1>Hello, World</h1>'));
+
+// const server = https.createServer({
+//   key: fs.readFileSync(`${__dirname}/localhost-key.pem`, 'utf8'),
+//   cert: fs.readFileSync(`${__dirname}/localhost.pem`, 'utf8')
+// }, app);
+
+// await server.listen(443);
