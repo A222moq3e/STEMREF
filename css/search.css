@@ -2,14 +2,17 @@
 .container{
     flex-direction: column;
 }
-main {
+nav .container{
+    flex-direction: row;
+    
+}
+/* main {
     background-color: #232323;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    padding-top: 80px;
-}
+} */
 
 
 

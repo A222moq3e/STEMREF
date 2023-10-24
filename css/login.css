@@ -77,7 +77,10 @@ form button{
     cursor: pointer;
     /* background-color: red; */
 }
-
+a{
+    color: white;
+    /* text-decoration: none; */
+}
 
 .Oauth-items{
     display: flex;
@@ -89,4 +92,9 @@ form button{
 .Oauth-items img{
     width: 30px;
     height: 30px;
+}
+@media screen and (max-width:600px) {
+    /* .top-text{
+        padding-top: 90px;
+    } */
 }

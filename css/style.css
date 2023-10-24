@@ -11,11 +11,14 @@
     font-family: 'Roboto', sans-serif;
     font-family: 'Rubik', sans-serif;
 }
+body{
+    background-color: var(--dark-color);
+}
 main{
     min-height: 100vh;
     width: 100%;
     position: relative;
-    background-color: var(--dark-color);
+
     overflow: hidden;
 }
 .container{
@@ -31,18 +34,16 @@ main{
 }
 
 nav{
-    position: absolute;
-    top: 0;
-    left: 0;
+    z-index: 2;
     width: 100%;
-    background-color: var(--dark-color);
-    padding: 10px;
+    /* background-color: var(--dark-color); */
+    /* padding: 10px; */
     max-height: 30px;
     /* background-color: red; */
 
 }
 nav .container{
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 nav .logo{
     cursor: pointer;
@@ -63,22 +64,22 @@ nav .logo{
     color: white;
     margin-bottom: 20px;
 }
-h1{
+ .text h1{
     font-size: 82px;
     font-weight: bold;
 }
-h2{
+ .text h2{
     font-size: 22px;
     color: #EEEEEE  ;
     font-weight:normal;
 }
-h3{
+ .text h3{
     font-size: 18px;
     color: #EEEEEE;
     font-weight:lighter;
 }
-/* button Style */
-button{
+/* Get Started Button Style */
+.button-style{
     background-color: var(--main-color);
     color: white;
     padding: 10px 20px;
@@ -88,7 +89,7 @@ button{
     cursor: pointer;
     font-size: 25px;
 }
-button:hover{
+.button-style:hover{
     /* border: 2px solid var(--main-color); */
     background-color: #fff;
     color: var(--main-color);
@@ -100,13 +101,18 @@ img.waves{
     width: 100%;
     /* max-width: 100%; */
     height: 100px;
-    /* z-index: -1; */
+    z-index: -1;
     background-size:cover;
     /* object-fit:cover; */
     background-repeat: repeat;
     /* background-color: red; */
     display: none;
 }
+li.active a{
+    color: var(--main-color);
+    color: white;
+}
+
 /* div.waves{
     position: absolute;
     bottom: 0;
@@ -119,16 +125,16 @@ img.waves{
 } */
 
 @media screen and (max-width:600px) {
-    h1{
+     .text h1{
         font-size: 42px;
     }
-    h2{
+     .text h2{
         font-size: 16px;     
     }
-    h3{
+     .text h3{
         font-size: 12px;
     }
-    button{
+    .button-style{
         font-size: 20px;
     }
     img.waves{
