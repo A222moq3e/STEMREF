@@ -20,6 +20,7 @@ main .overlap {
   width: 90%;
   /* background-color: red; */
   padding: 10px;
+  margin-top: 40px;
 }
 
 
@@ -30,9 +31,11 @@ main .box {
   flex-direction: column;
   align-items: flex-start;
   gap: 25px;
-  padding: 30px 20px;
+  padding: 50px 30px;
+  height: fit-content;
   background-color: #394dff;
-  border-radius: 10px;
+  border-radius: 30px;
+  /* background-color: red; */
   overflow: hidden;
 }
 
@@ -107,6 +110,13 @@ main .item-title {
   top: 10px;
   left: 180px;
 } */
+
+.sub-items{
+  display: none;
+}
+.sub-items.show{
+  display: flex;
+}
 
 .waves{
   z-index: -1;

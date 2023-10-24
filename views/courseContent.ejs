@@ -12,7 +12,7 @@
     <!-- font awesome Library -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/imgs/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
     <!-- CSS  -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/courseContent.css">
@@ -36,18 +36,30 @@
                 </p>
               </div>
               <div class="items">
+                <% if(!Array.isArray(data.content)) { %>
                   <% for(const [key, value] of Object.entries(data.content)){ %>
                     <div class="item">
-                        <div class="item-title"><%= key %></div>
+                      <div class="item-title"><%= key %></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                      </div>
-                  <% } %>
+                    </div>          
+                  <% } } %>
+                <% if(Array.isArray(data.content)){ %>
+                    <% for(let {name, url} of data.content){ %>
+                        <a class="item" href="<%= url %>" target="_blank">
+                          <div class="item-title"><%= name %></div>
+                          <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
+                        </a>          
+                      <% }  %>
+                <% } %>
+                
             </div>
           </div>
         </div>
       </div>
     </main>
     <script src="/main.js"></script>
+    <script src="/courseContent.js"></script>
+
     <img class="waves" src="/waves.svg" alt="waves background">
   </body>
 </html>

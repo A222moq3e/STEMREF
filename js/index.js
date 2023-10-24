@@ -68,7 +68,7 @@ app.post('/login',async (req,res)=>{
 
 // Search Page
 app.get('/search',async (req,res)=>{
-    console.log('coursesCollection',coursesCollection);
+    // console.log('coursesCollection',coursesCollection);
     const data = await coursesCollection.find({})
     res.render('search',{data:data})
     // res.status(200).json(data)
@@ -87,11 +87,24 @@ app.get('/courseContent',async (req,res)=>{
 })
 app.get('/courseContent/:name',async (req,res)=>{
     const data = await coursesCollection.findOne({name: req.params.name})
-    console.log('data',data);
     if(!data)
         res.send('sorry this course not found')
     else{
         res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content}})
+    }
+    // res.render('courseContent')
+})
+app.get('/courseContent/:name/:catogray',async (req,res)=>{
+    const data = await coursesCollection.findOne({name: req.params.name})
+    console.log(req.params.catogray);
+    let catogray = req.params.catogray;
+    console.log(data.Content[catogray]);
+    let urls = data.Content[catogray]
+    console.log(Array.isArray(urls));
+    if(!data)
+        res.send('sorry this course not found')
+    else{
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls}})
     }
     // res.render('courseContent')
 })
