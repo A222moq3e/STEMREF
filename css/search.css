@@ -1,3 +1,11 @@
+:root{
+    --main-color:#394DFF;
+    --dark-color:#232323;
+    --second-color:#5A6BFF;
+    --third-color:#7B88FF;
+    --fourth-color:#BDC4FF;
+    --fifth-darker-color:#202d9b;
+}
 
 .container{
     flex-direction: column;
@@ -6,15 +14,6 @@ nav .container{
     flex-direction: row;
     
 }
-/* main {
-    background-color: #232323;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-} */
-
-
 
 main .courses {
     display: flex;
@@ -23,27 +22,52 @@ main .courses {
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px;
-    /* width: 100%; */
+    width: 100%;
     /* height: 396px; */
     max-height: 100vh;
     height: 100%;
-    
-    overflow: hidden;
+    /* overflow: hidden; */
     overflow-y: scroll;
-  }
-  
-  main .item {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      justify-content: center;
-      /* width: 105px; */
-      min-height: 100px;
-      gap: 6px;
-      padding: 11px 8px;
-      background-color: #394dff;
-      border-radius: 10px;
-      cursor: pointer;
+}
+
+main .search-bar {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+    gap: 4px;
+    padding: 7px 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 30px;
+}
+main .item {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    /* width: 105px; */
+    min-height: 100px;
+    gap: 6px;
+    padding: 11px 8px;
+    background-color: #394dff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+main .item:nth-child(2n) {
+  background: var(--second-color)
+}
+main .item:nth-child(3n) {
+  background: var(--third-color)
+}
+main .item:nth-child(4n) {
+  background: var(--fifth-darker-color)
+}
+main .item:hover{
+    scale: 1.05;
+    /* box-shadow: 0 20px 30px #003cff; */
+    /* box-shadow: 0 0 2px #888; */
 }
   
 main .title {
@@ -59,7 +83,7 @@ main .title {
     line-height: 15.6px;
 }
 
-  main p {
+main p {
     position: relative;
     /* align-self: stretch; */
     /* height: 58px; */
@@ -73,8 +97,10 @@ main .title {
     font-size: 6px;
     letter-spacing: 0.87px;
     line-height: 7.8px;
-  }
-  
+    word-wrap: break-word;
+    white-space: normal;
+}
+
 
 /* 
   main .overlap-group {
@@ -84,20 +110,7 @@ main .title {
   }
    */
 
-
-  
-  main .search-bar {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-    height: 50px;
-    gap: 4px;
-    padding: 7px 10px;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  main .search-bar input{
+main .search-bar input{
     background-color: #333333;
     width: 100%;
     border: none;
@@ -105,5 +118,5 @@ main .title {
     border-radius: 20px;
     color: white;
     outline: none;
-    
-  }
+
+}

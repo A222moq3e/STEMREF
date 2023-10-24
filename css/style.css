@@ -39,6 +39,7 @@ nav{
     /* background-color: var(--dark-color); */
     /* padding: 10px; */
     max-height: 30px;
+    /* padding-top:30px ; */
     /* background-color: red; */
 
 }
@@ -112,6 +113,9 @@ li.active a{
     color: var(--main-color);
     color: white;
 
+}
+a[href="/signout"]:hover{
+    color: rgb(206, 71, 71);
 }
 
 /* div.waves{

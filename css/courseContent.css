@@ -1,8 +1,8 @@
-/* *{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
+:root{
+  --main-color:#394DFF;
+  --dark-color:#232323;
+}
+
 main {
   background-color: #232323;
   display: flex;

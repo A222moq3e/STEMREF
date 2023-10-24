@@ -1,3 +1,9 @@
+:root{
+    --main-color:#394DFF;
+    --dark-color:#232323;
+}
+
+
 *{
     color: white;
     box-sizing: border-box;
@@ -67,19 +73,29 @@ form .username input:focus +label, form .password input:focus +label,
 form .username input:valid + label, form .password input:valid + label{
     display: none;
 }
+form .password .eye{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    cursor: pointer;
+}
+.fa-eye-slash{
+    display: none;
+}
 form button{
     width: 100%;
 }
+
+
 .top-text{
     width: 100%;
 }
 .remember, .remember *{
     cursor: pointer;
-    /* background-color: red; */
 }
 a{
     color: white;
-    /* text-decoration: none; */
 }
 
 .Oauth-items{
@@ -87,11 +103,12 @@ a{
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    gap: 10px;
+    gap: 30px;
 }
 .Oauth-items img{
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 @media screen and (max-width:600px) {
     /* .top-text{

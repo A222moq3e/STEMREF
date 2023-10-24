@@ -124,6 +124,11 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
 })
 
 
+// Pricing
+app.get('/pricing',(req,res)=>{
+    res.render("pricing")
+})
+
 // small Mehtods
 app.get('/addCourse',async (req,res)=>{
     const data= {
