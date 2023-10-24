@@ -110,6 +110,9 @@ main .item-title {
   top: 10px;
   left: 180px;
 } */
+a{
+  text-decoration: none;
+}
 
 .sub-items{
   display: none;

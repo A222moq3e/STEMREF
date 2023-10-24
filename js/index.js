@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 // const path = require('path');
 const crypto = require('crypto');
+const http = require('http');
 const {usersCollection, coursesCollection} = require('./config')
-const port = 3000;
+const port = 80;
+const http = require('http');
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
 app.set("view engine","ejs")
@@ -34,7 +36,8 @@ app.post('/register',async (req,res)=>{
     const data= {
         name:req.body.username,
         password: createHash(req.body.password),
-        email: req.body.email
+        email: req.body.email,
+        userType: "user"
     }
     // check if the user already exists
     const userIsExist = await usersCollection.findOne({name: data.name})
@@ -70,9 +73,16 @@ app.post('/login',async (req,res)=>{
 
 // Search Page
 app.get('/search',async (req,res)=>{
+    console.log(req.query.q);
+    if(req.query.q){
+        const data = await coursesCollection.find({name: req.query.q})
+        res.render('search',{data:data})
+    }else{
+        const data = await coursesCollection.find({})
+        res.render('search',{data:data})
+
+    }
     // console.log('coursesCollection',coursesCollection);
-    const data = await coursesCollection.find({})
-    res.render('search',{data:data})
 })
 // Course Page
 app.get('/courseContent',async (req,res)=>{
@@ -106,12 +116,15 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
 // small Mehtods
 app.get('/addCourse',async (req,res)=>{
     const data= {
-        name:"CS290",
+        name:"CS205",
         description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        paidContent: false ,
         Content: {
-            "Videos":[{name:"Countonting",url:"http://"}],
+            "Videos":[{name:"Countonting1",url:"https://www.youtube.com/watch?v=ZcSSI6VY1kM"},
+                        {name:"Countonting2",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"} ],
             "Articles":[{name:"Countonting",url:"http://"}],
-            "Quizzes":[{name:"Countonting",url:"http://"}],
+            "Quizzes":[{name:"Countonting",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"},
+                        {name:"Countonting",url:"http://"}],
             "Assignments":[{name:"Countonting",url:"http://"}],
             "Others":[{name:"Countonting5",url:"http://"}],
         }

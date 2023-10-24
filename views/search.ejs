@@ -43,10 +43,10 @@
             </div>
           </nav>
         <div class="container">
-            <div class="search-bar">
+            <form class="search-bar" action="/search" method="get">
                 <!-- <img class="vector" src="img/vector.svg" /> -->
-                <input type="text" placeholder="Search">
-            </div>
+                <input type="text" placeholder="Search" name="q">
+            </form>
           <div class="courses row">
             <% for(let course of data){ %>
             <div class="item col-md-3 col-lg-2  col-5" onclick="window.location.href=`/courseContent/<%= course.name %>`">
