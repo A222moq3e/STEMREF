@@ -26,7 +26,7 @@
             <div class="container">
                 <img class="logo" src="/imgs/logo.svg" alt="">
             </div>
-            </nav>
+        </nav>
         <div class="container">
             <div class="search-bar">
                 <!-- <img class="vector" src="img/vector.svg" /> -->
@@ -34,7 +34,7 @@
             </div>
           <div class="courses row">
             <% for(let course of data){ %>
-            <div class="item" onclick="window.location.href=`/courseContent/<%= course.name %>`">
+            <div class="item col-md-3 col-lg-2  col-5" onclick="window.location.href=`/courseContent/<%= course.name %>`">
                 <div class="title"><%= course.name %></div>
                 <p>
                     <%= course.description %>

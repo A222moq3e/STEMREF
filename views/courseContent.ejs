@@ -38,10 +38,10 @@
               <div class="items">
                 <% if(!Array.isArray(data.content)) { %>
                   <% for(const [key, value] of Object.entries(data.content)){ %>
-                    <div class="item">
+                    <a class="item" href="<%= data.name +'/'+key %>">
                       <div class="item-title"><%= key %></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                    </div>          
+                    </a>          
                   <% } } %>
                 <% if(Array.isArray(data.content)){ %>
                     <% for(let {name, url} of data.content){ %>

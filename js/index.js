@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const path = require('path');
+// const path = require('path');
+const crypto = require('crypto');
 const {usersCollection, coursesCollection} = require('./config')
 const port = 3000;
 // const htmlPath = path.join(__dirname,'../pages')
@@ -32,7 +33,7 @@ app.get('/register',(req,res)=>{
 app.post('/register',async (req,res)=>{
     const data= {
         name:req.body.username,
-        password: req.body.password,
+        password: createHash(req.body.password),
         email: req.body.email
     }
     // check if the user already exists
@@ -44,6 +45,7 @@ app.post('/register',async (req,res)=>{
         // add Data   
         const userdata = await usersCollection.insertMany(data);
         console.log(userdata);
+        res.redirect("login")
     }
 
    
@@ -55,7 +57,7 @@ app.post('/login',async (req,res)=>{
         if(!check){
             res.send("user not found!");
         }
-        if(check.password == req.body.password){
+        if(check.password == createHash(req.body.password)){
             res.redirect('search');
         }else{
             res.send("Password is wrong")
@@ -71,15 +73,6 @@ app.get('/search',async (req,res)=>{
     // console.log('coursesCollection',coursesCollection);
     const data = await coursesCollection.find({})
     res.render('search',{data:data})
-    // res.status(200).json(data)
-    // let coursesHtml = document.querySelector('courses');
-    // let courses = '';
-    // for (let index = 0; index < data.length; index++) {
-    //     const element = data[index];
-    //     courses += courseBuilder(element.name, element.desc, element.content);
-    // }
-    // coursesHtml.innerHTML = courses;
-
 })
 // Course Page
 app.get('/courseContent',async (req,res)=>{
@@ -96,11 +89,11 @@ app.get('/courseContent/:name',async (req,res)=>{
 })
 app.get('/courseContent/:name/:catogray',async (req,res)=>{
     const data = await coursesCollection.findOne({name: req.params.name})
-    console.log(req.params.catogray);
+    // console.log(req.params.catogray);
     let catogray = req.params.catogray;
-    console.log(data.Content[catogray]);
+    // console.log(data.Content[catogray]);
     let urls = data.Content[catogray]
-    console.log(Array.isArray(urls));
+    // console.log(Array.isArray(urls));
     if(!data)
         res.send('sorry this course not found')
     else{
@@ -143,15 +136,6 @@ app.listen(port,()=>{
 
 
 
-function courseBuilder(name, desc,content){
-    let course=`
-    <div class="item col-2">
-        <div class="title">${name}</div>
-        <p>
-        ${desc}
-        </p>
-    </div>
-    `
-    return course
-
+function createHash(password) {
+return crypto.createHash('sha256').update(password).digest('hex');
 }
