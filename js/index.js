@@ -56,7 +56,7 @@ app.post('/login',async (req,res)=>{
             res.send("user not found!");
         }
         if(check.password == req.body.password){
-            res.render('home');
+            res.redirect('search');
         }else{
             res.send("Password is wrong")
         }
@@ -68,16 +68,17 @@ app.post('/login',async (req,res)=>{
 
 // Search Page
 app.get('/search',async (req,res)=>{
-    res.render('search')
     console.log('coursesCollection',coursesCollection);
     const data = await coursesCollection.find({})
-    let coursesHtml = document.querySelector('courses');
-    let courses = '';
-    for (let index = 0; index < data.length; index++) {
-        const element = data[index];
-        courses += courseBuilder(element.name, element.desc, element.content);
-    }
-    coursesHtml.innerHTML = courses;
+    res.render('search',{data:data})
+    // res.status(200).json(data)
+    // let coursesHtml = document.querySelector('courses');
+    // let courses = '';
+    // for (let index = 0; index < data.length; index++) {
+    //     const element = data[index];
+    //     courses += courseBuilder(element.name, element.desc, element.content);
+    // }
+    // coursesHtml.innerHTML = courses;
 
 })
 // Course Page

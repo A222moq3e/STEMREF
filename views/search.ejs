@@ -32,7 +32,16 @@
                 <!-- <img class="vector" src="img/vector.svg" /> -->
                 <input type="text" placeholder="Search">
             </div>
-          <div class="courses row"></div>
+          <div class="courses row">
+            <% for(let course of data){ %>
+            <div class="item" onclick="window.location.href=`/courseContent/<%= course.name %>`">
+                <div class="title"><%= course.name %></div>
+                <p>
+                    <%= course.description %>
+                </p>
+              </div>
+              <% }%>
+          </div>
         </div>
    
 
