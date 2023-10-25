@@ -118,7 +118,7 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
     if(!data)
         res.send('sorry this course not found')
     else{
-        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls}})
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray}})
     }
     // res.render('courseContent')
 })

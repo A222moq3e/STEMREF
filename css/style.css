@@ -1,6 +1,10 @@
 :root{
     --main-color:#394DFF;
     --dark-color:#232323;
+    --second-color:#5A6BFF;
+    --third-color:#7B88FF;
+    --fourth-color:#BDC4FF;
+    --fifth-darker-color:#202d9b;
 }
 
 *{
@@ -15,11 +19,9 @@ body{
     background-color: var(--dark-color);
 }
 main{
-    min-height: 100vh;
-    width: 100%;
     position: relative;
-
-    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
 }
 .container{
     width: 100%;
@@ -29,33 +31,31 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* background-color: red; */
 }
-
+/* Navbar */
 nav{
     z-index: 2;
     width: 100%;
-    /* background-color: var(--dark-color); */
-    /* padding: 10px; */
     max-height: 30px;
-    /* padding-top:30px ; */
-    /* background-color: red; */
-
 }
 nav .container{
+    justify-content: space-between;
     /* justify-content: space-between; */
 }
 nav .logo{
     cursor: pointer;
 }
-.box{
+/* Header Box */
+.intro-box{
     height: 90vh;
+    /* height: 100%; */
 }
-.box .container{
+.intro-box .container{
     flex-direction: column;
 }
-.box .text{
+.intro-box .text{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,16 +65,21 @@ nav .logo{
     color: white;
     margin-bottom: 20px;
 }
- .text h1{
+.text h1{
     font-size: 82px;
     font-weight: bold;
 }
- .text h2{
+.text h2{
     font-size: 22px;
     color: #EEEEEE  ;
     font-weight:normal;
 }
- .text h3{
+.text h2 span{
+    color: var(--main-color);
+    /* -webkit-mask-image: blue;
+    mask-image: blue; */
+}
+.text h3{
     font-size: 18px;
     color: #EEEEEE;
     font-weight:lighter;
@@ -89,6 +94,7 @@ nav .logo{
     border: 2px solid var(--main-color);
     cursor: pointer;
     font-size: 25px;
+    transition: .3s;
 }
 .button-style:hover{
     /* border: 2px solid var(--main-color); */
@@ -109,10 +115,10 @@ img.waves{
     /* background-color: red; */
     display: none;
 }
+
 li.active a{
     color: var(--main-color);
     color: white;
-
 }
 a[href="/signout"]:hover{
     color: rgb(206, 71, 71);
@@ -146,7 +152,7 @@ a[href="/signout"]:hover{
         display: block;
         height: 160px;
     }
-    .box .text{
+    .intro-box .text{
         margin-bottom: 0px;
     }
 }
