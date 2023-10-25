@@ -17,8 +17,8 @@ app.set("view engine","ejs")
 
 // Session
 app.use(session({
-    secret:'some secret',
-    cookie: { maxAge : 30000 },
+    secret:process.env.SECRET_SESSION || 'some secret',
+    cookie: { maxAge : 300000 },
     saveUninitialized: false,
     store : store
 }))

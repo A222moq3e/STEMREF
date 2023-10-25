@@ -45,7 +45,7 @@
             </form>
           <div class="courses row">
             <% for(let course of data){ %>
-            <div class="item col-md-3 col-lg-2  col-5" onclick="window.location.href=`/courseContent/<%= course.name %>`">
+            <div class="item col-md-3 col-lg-2  col-5 h-100" onclick="window.location.href=`/courseContent/<%= course.name %>`">
                 <div class="title"><%= course.name %></div>
                 <p>
                     <%= course.description %>
