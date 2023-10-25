@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const store = new session.MemoryStore();
 const app = express();
 // const path = require('path');
 const crypto = require('crypto');
@@ -6,12 +8,20 @@ const http = require('http');
 const {usersCollection, coursesCollection} = require('./config')
 
 const port = process.env.PORT || 3000;
-let accesses = false;
+// let accesses  = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
 app.set("view engine","ejs")
 // app.set("views",htmlPath)
+
+// Session
+app.use(session({
+    secret:'some secret',
+    cookie: { maxAge : 30000 },
+    saveUninitialized: false,
+    store : store
+}))
 
 // static files
 app.use(express.static('css'))
@@ -25,7 +35,7 @@ app.use(express.urlencoded({extended:false}))
 
 // Creating Server  
 app.get('/',(req,res)=>{
-    res.render("home",{data:{accesses:accesses}})
+    res.render("home",{data:{accesses:req.session.authenticated }})
     // res.json({ error: err })
 
 })
@@ -58,13 +68,19 @@ app.post('/register',async (req,res)=>{
 })
 
 app.post('/login',async (req,res)=>{
+    console.log('session',req.sessionID);
+    console.log('session',req.session.authenticated);
+    console.log('session',req.session);
     try {
         const check = await usersCollection.findOne({name:req.body.username})
         if(!check){
             res.send("user not found!");
         }
         if(check.password == createHash(req.body.password)){
-            accesses=true;
+            req.session.authenticated =true
+            req.session.user = {
+                name: req.body.username
+            }
             res.redirect('search');
         }else{
             res.send("Password is wrong")
@@ -76,13 +92,13 @@ app.post('/login',async (req,res)=>{
 })
 
 app.get('/signout',(req,res)=>{
-    accesses= false;
+    req.session.authenticated = false;
     res.redirect("/")
 })
 
 // Search Page
 app.get('/search',async (req,res)=>{
-    if(!accesses) res.redirect("/login")
+    if(!req.session.authenticated ) res.redirect("/login")
     if(req.query.q){
         const data = await coursesCollection.find({name: req.query.q})
         res.render('search',{data:data})
@@ -98,7 +114,7 @@ app.get('/courseContent',async (req,res)=>{
     res.redirect('search')
 })
 app.get('/courseContent/:name',async (req,res)=>{
-    if(!accesses) res.redirect("/login")
+    if(!req.session.authenticated ) res.redirect("/login")
     const data = await coursesCollection.findOne({name: req.params.name})
     if(!data)
         res.send('sorry this course not found')
@@ -108,7 +124,7 @@ app.get('/courseContent/:name',async (req,res)=>{
     // res.render('courseContent')
 })
 app.get('/courseContent/:name/:catogray',async (req,res)=>{
-    if(!accesses) res.redirect("/login")
+    if(!req.session.authenticated ) res.redirect("/login")
     const data = await coursesCollection.findOne({name: req.params.name})
     // console.log(req.params.catogray);
     let catogray = req.params.catogray;

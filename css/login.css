@@ -84,7 +84,7 @@ form .username, form .password{
     flex-direction: column;
     border: 2px solid white;
     border-radius: 5px;
-    padding: 20px;
+    padding: 15px 20px;
     width: 100%;
     position: relative;
 }
@@ -96,6 +96,7 @@ form .username label, form .password label{
     left: 20px;
     color: #ddd;
     cursor: text;
+    transition: .3s;
 
 }
 
@@ -105,11 +106,15 @@ form .username input, form .password input{
     border: none;
     color: white;
     width: 100%;
+    /* font-size: 14px; */
+
 
 }
 form .username input:focus +label, form .password input:focus +label,
 form .username input:valid + label, form .password input:valid + label{
-    display: none;
+    /* display: none; */
+    opacity: 0;
+    left: 50px;
 }
 form .password .eye{
     position: absolute;
@@ -129,6 +134,7 @@ form button{
     position: relative;
     width: 100%;
     text-align: center;
+    margin-bottom: 20px;
 }
 .seprator::before{
     content: '';
@@ -182,6 +188,8 @@ a{
     width: 30px;
     height: 30px;
     cursor: pointer;
+    /* background-color: #fff; */
+    /* border-radius: 50%; */
 }
 @media screen and (max-width:600px) {
     /* .top-text{
