@@ -20,7 +20,13 @@
     <!-- CSS  -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/login.css">
-        <title>STEMREF | Login Page</title>
+    <link rel="stylesheet" href="/EducatorDashboard.css">
+    <title>STEMREF | Educator Page</title>
+    <style>
+        .container form input{
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -44,29 +50,61 @@
           </nav>
         <div class="box">
             <div class="container">
-                <form action="/register" method="post">
+                <form action="/EducatorDashboard" method="post">
                     <div class="top-text">
                         <h1>Add new Course</h1>
-                        <p class="hi-message">Welcom new Member</p>
+                        <!-- <p class="hi-message">Welcom new Member</p> -->
                     </div>
                     <!-- CourseName input field -->
                     <div class="CourseName">
-                        <input type="text" id="CourseName" name="CourseName"  required>
                         <label for="CourseName">Course Name</label>
+                        <input type="text" id="CourseName" name="CourseName" >
                     </div>
                     <!-- Password input field -->
                     <div class="description">
-                        <input type="text" id="description" name="description" required>
                         <label for="description">Description</label>
+                        <input type="text" id="description" name="description">
                     </div>
                     <div class="tags">
-                        <input type="text" id="tags" name="tags" required>
                         <label for="tags">tags</label>
+                        <input type="text" id="tags" name="tags">
                     </div>
-                    <div class="paid-course">
-                        <input type="checkbox" id="paidContent" name="paidContent" required>
-                        <label for="paidContent">Paid Course</label>
+                    <div class="paid-course" style="cursor:pointer">
+                        <label for="paidContent" >Paid Course</label>
+                        <input type="checkbox" id="paidContent" name="paidContent">
                     </div>
+                   <div class="content">
+                    <div class="Video">
+                        <label for="Video">Video</label>
+                        <input type="text" id="Video" name="Video" placeholder="name">
+                        <input type="text" id="Video" name="VideoUrl" placeholder="url">
+                    </div>
+                    <div class="articles">
+                        <label for="articles">Articles</label>
+                        <input type="text" id="articles" name="articles" placeholder="name">
+                        <input type="text" id="articles" name="articlesUrl" placeholder="url">
+                    </div>
+                    <div class="Video">
+                        <label for="Video">Video</label>
+                        <input type="text" id="Video" name="Video" placeholder="name">
+                        <input type="text" id="Video" name="VideoUrl" placeholder="url">
+                    </div>
+                    <div class="quizzes">
+                        <label for="quizzes">Quizzes</label>
+                        <input type="text" id="quizzes" name="quizzes" placeholder="name">
+                        <input type="text" id="quizzes" name="quizzesUrl" placeholder="url">
+                    </div>
+                    <div class="assignments">
+                        <label for="assignments">Assignments</label>
+                        <input type="text" id="assignments" name="assignments" placeholder="name">
+                        <input type="text" id="assignments" name="assignmentsUrl" placeholder="url">
+                    </div>
+                    <div class="others">
+                        <label for="others">Others</label>
+                        <input type="text" id="others" name="others" placeholder="name">
+                        <input type="text" id="others" name="othersUrl" placeholder="url">
+                    </div>
+                   </div>
                     <button class="button-style">Insert</button>
                     
                 </form>

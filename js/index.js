@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const http = require('http');
 const { usersCollection, coursesCollection } = require('./config')
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 // let accesses  = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
@@ -191,8 +191,43 @@ app.get('/addCourse',async (req,res)=>{
         console.log(Coursedata);
     }
 })
-app.get('/addCourse',async (req,res)=>{
-
+app.get('/EducatorDashboard',async (req,res)=>{
+    res.render('EducatorDashboard');
+})
+app.post('/EducatorDashboard',async (req,res)=>{
+    try{
+        let tags = req.body.tags;
+        tags = tags.split(' ')
+        console.log(tags);
+        const data= {
+            name:req.body.username,
+            description: req.body.description,
+            tags: tags,
+            Content: {
+                Videos:[{name:"Countonting1",url:"https://www.youtube.com/watch?v=ZcSSI6VY1kM"},
+                            {name:"Countonting2",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"} ],
+                Articles:[{name:"Countonting",url:"http://"}],
+                Quizzes:[{name:"Countonting",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"},
+                            {name:"Countonting",url:"http://"}],
+                Assignments:[{name:"Countonting",url:"http://"}],
+                Others:[{name:"Countonting5",url:"http://"}],
+            }
+        }
+        // // check if the user already exists
+        // const courseIsExist = await coursesCollection.findOne({name: data.name})
+        // // console.log('courseIsExist:', courseIsExist);
+        // if(courseIsExist){
+        //     res.send("User already exists. Please choos diffrent Name")
+        // }else{
+        //     // add Data   
+        //     const coursedata = await coursesCollection.insertMany(data);
+        //     console.log(coursedata);
+        //     res.redirect("login")
+        // }
+    }catch (error) {
+        console.log(error);
+        res.send("wrong Details")
+    }
 })
 // Port Listner
 app.listen(port,()=>{
