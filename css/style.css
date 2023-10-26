@@ -44,43 +44,7 @@ nav .container{
 nav .logo{
     cursor: pointer;
 }
-/* Header Box */
-.intro-box{
-    height: 90vh;
-    /* height: 100%; */
-}
-.intro-box .container{
-    flex-direction: column;
-}
-.intro-box .text{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    /* color:var(--main-color); */
-    color: white;
-    margin-bottom: 20px;
-}
-.text h1{
-    font-size: 82px;
-    font-weight: bold;
-}
-.text h2{
-    font-size: 22px;
-    color: #EEEEEE  ;
-    font-weight:normal;
-}
-.text h2 span,.text h1 span{
-    color: var(--main-color);
-    /* -webkit-mask-image: blue;
-    mask-image: blue; */
-}
-.text h3{
-    font-size: 18px;
-    color: #EEEEEE;
-    font-weight:lighter;
-}
+
 /* Get Started Button Style */
 .button-style{
     background-color: var(--main-color);

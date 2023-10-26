@@ -33,6 +33,15 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:false}))
 
+
+let iconUse = {
+    "Videos":"fa-solid fa-circle-play",
+    "Articles":"fa-regular fa-newspaper",
+    "Quizzes":"fa-solid fa-spell-check",
+    "Assignments":"fa-solid fa-pencil",
+    "Others":"fa-solid fa-arrow-up-right-from-square",
+    "share":"fa-solid fa-share"
+}
 // Creating Server  
 app.get('/',(req,res)=>{    
     if(req.session.user)
@@ -100,7 +109,8 @@ app.get('/signout',(req,res)=>{
 
 // Search Page
 app.get('/search',async (req,res)=>{
-    if(!req.session.authenticated ) res.redirect("/login")
+    // Change this
+    // if(!req.session.authenticated ) res.redirect("/login")
     if(req.query.q){
         const data = await coursesCollection.find({name: req.query.q})
         res.render('search',{data:data})
@@ -121,7 +131,7 @@ app.get('/courseContent/:name',async (req,res)=>{
     if(!data)
         res.send('sorry this course not found')
     else{
-        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content}})
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content,icons:iconUse}})
     }
     // res.render('courseContent')
 })
@@ -136,7 +146,7 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
     if(!data)
         res.send('sorry this course not found')
     else{
-        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray}})
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray,icons:iconUse}})
     }
     // res.render('courseContent')
 })
