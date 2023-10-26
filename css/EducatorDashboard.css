@@ -1,5 +1,5 @@
 .content{
-    border: 2px solid #888;
+    border: 2px dashed #888;
     border-radius: 20px;
     padding: 20px;
     display: flex;

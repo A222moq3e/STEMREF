@@ -38,9 +38,10 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" aria-current="page" href="/filteredTags">EducatorDashboard</a></li>
+                        <!-- <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li> -->
 
                   
                 </ul>
@@ -67,42 +68,49 @@
                     </div>
                     <div class="tags">
                         <label for="tags">tags</label>
-                        <input type="text" id="tags" name="tags">
+                        <% for(let i=0; i<5;i++){ %>
+                        <input type="text" id="tags" name="tags" placeholder="tag name">
+                        <% } %>
                     </div>
                     <div class="paid-course" style="cursor:pointer">
                         <label for="paidContent" >Paid Course</label>
                         <input type="checkbox" id="paidContent" name="paidContent">
                     </div>
                    <div class="content">
-                    <div class="Video">
-                        <label for="Video">Video</label>
-                        <input type="text" id="Video" name="Video" placeholder="name">
-                        <input type="text" id="Video" name="VideoUrl" placeholder="url">
+                    <div class="Video row">
+                        <label for="Video col-12">Video</label>
+                        <% for(let i=0; i<5;i++){ %>
+                        <input class="col-5" type="text" id="Video" name="Video" placeholder="name" >
+                        <input class="col-5" type="text" id="Video" name="VideoUrl" placeholder="url">
+                        <% } %>
                     </div>
-                    <div class="articles">
-                        <label for="articles">Articles</label>
-                        <input type="text" id="articles" name="articles" placeholder="name">
-                        <input type="text" id="articles" name="articlesUrl" placeholder="url">
+                    <div class="articles row">
+                        <label for="articles col-12">Articles</label>
+                        <% for(let i=0; i<5;i++){ %>
+                        <input  class="col-5"  type="text" id="articles" name="article" placeholder="name">
+                        <input  class="col-5"  type="text" id="articles" name="articlesUrl" placeholder="url">
+                        <% } %>
                     </div>
-                    <div class="Video">
-                        <label for="Video">Video</label>
-                        <input type="text" id="Video" name="Video" placeholder="name">
-                        <input type="text" id="Video" name="VideoUrl" placeholder="url">
+                    <div class="quizzes row">
+                        <label for="quizzes col-12">Quizzes</label>
+                        <% for(let i=0; i<5;i++){ %>
+                        <input  class="col-5" type="text" id="quizzes" name="quizzes" placeholder="name">
+                        <input  class="col-5" type="text" id="quizzes" name="quizzesUrl" placeholder="url">
+                        <% } %>
                     </div>
-                    <div class="quizzes">
-                        <label for="quizzes">Quizzes</label>
-                        <input type="text" id="quizzes" name="quizzes" placeholder="name">
-                        <input type="text" id="quizzes" name="quizzesUrl" placeholder="url">
+                    <div class="assignments row">
+                        <label for="assignments col-12">Assignments</label>
+                        <% for(let i=0; i<5;i++){ %>
+                        <input  class="col-5" type="text" id="assignments" name="assignments" placeholder="name">
+                        <input  class="col-5" type="text" id="assignments" name="assignmentsUrl" placeholder="url">
+                        <% } %>
                     </div>
-                    <div class="assignments">
-                        <label for="assignments">Assignments</label>
-                        <input type="text" id="assignments" name="assignments" placeholder="name">
-                        <input type="text" id="assignments" name="assignmentsUrl" placeholder="url">
-                    </div>
-                    <div class="others">
-                        <label for="others">Others</label>
-                        <input type="text" id="others" name="others" placeholder="name">
-                        <input type="text" id="others" name="othersUrl" placeholder="url">
+                    <div class="others row">
+                        <label for="others col-12">Others</label>
+                        <% for(let i=0; i<5;i++){ %>
+                        <input  class="col-5" type="text" id="others" name="others" placeholder="name">
+                        <input  class="col-5" type="text" id="others" name="othersUrl" placeholder="url">
+                        <% } %>
                     </div>
                    </div>
                     <button class="button-style">Insert</button>

@@ -67,14 +67,14 @@ app.post('/register',async (req,res)=>{
         // check if the user already exists
         const userIsExist = await usersCollection.findOne({name: data.name})
         // console.log('userIsExist:', userIsExist);
-        if(userIsExist){
-            res.send("User already exists. Please choos diffrent Name")
-        }else{
-            // add Data   
-            const userdata = await usersCollection.insertMany(data);
-            console.log(userdata);
-            res.redirect("login")
-        }
+        // if(userIsExist){
+        //     res.send("User already exists. Please choos diffrent Name")
+        // }else{
+        //     // add Data   
+        //     const userdata = await usersCollection.insertMany(data);
+        //     console.log(userdata);
+        //     res.redirect("login")
+        // }
     }catch (error) {
         console.log(error);
         res.send("wrong Details")
@@ -195,35 +195,66 @@ app.get('/EducatorDashboard',async (req,res)=>{
     res.render('EducatorDashboard');
 })
 app.post('/EducatorDashboard',async (req,res)=>{
+    // console.log(req.body);
+    let filteredTags = req.body.tags.filter(function (el) {
+        return el != null && el != '';
+      });
     try{
-        let tags = req.body.tags;
-        tags = tags.split(' ')
-        console.log(tags);
         const data= {
-            name:req.body.username,
+            name:req.body.CourseName,
             description: req.body.description,
-            tags: tags,
+            tags: filteredTags,
             Content: {
-                Videos:[{name:"Countonting1",url:"https://www.youtube.com/watch?v=ZcSSI6VY1kM"},
-                            {name:"Countonting2",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"} ],
-                Articles:[{name:"Countonting",url:"http://"}],
-                Quizzes:[{name:"Countonting",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"},
-                            {name:"Countonting",url:"http://"}],
-                Assignments:[{name:"Countonting",url:"http://"}],
-                Others:[{name:"Countonting5",url:"http://"}],
+                Videos:[],
+                Articles:[],
+                Quizzes:[],
+                Assignments:[],
+                Others:[],
             }
         }
+        //Videos
+        for(let i=0;i<req.body.Video.length;i++){
+            if(req.body.Video[i]=='') continue
+            let minData ={ name: req.body.Video[i], url:req.body.VideoUrl[i]}
+            data.Content.Videos.push(minData)
+        }
+        //Articles
+        for(let i=0;i<req.body.Video.length;i++){
+            if(req.body.Video[i]=='') continue
+            let minData ={ name: req.body.article[i], url:req.body.articlesUrl[i]}
+            data.Content.Articles.push(minData)
+        }
+        //Quizzes
+        for(let i=0;i<req.body.quizzes.length;i++){
+            if(req.body.Video[i]=='') continue
+            let minData ={ name: req.body.quizzes[i], url:req.body.quizzesUrl[i]}
+            data.Content.Quizzes.push(minData)
+        }
+        //Assignments
+        for(let i=0;i<req.body.assignments.length;i++){
+            if(req.body.Video[i]=='') continue
+            let minData ={ name: req.body.assignments[i], url:req.body.assignmentsUrl[i]}
+            data.Content.Assignments.push(minData)
+        }
+        //Others
+        for(let i=0;i<req.body.others.length;i++){
+            if(req.body.Video[i]=='') continue
+            let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
+            data.Content.Others.push(minData)
+        }
+        console.log(data);
+        
         // // check if the user already exists
-        // const courseIsExist = await coursesCollection.findOne({name: data.name})
+        const courseIsExist = await coursesCollection.findOne({name: data.name})
         // // console.log('courseIsExist:', courseIsExist);
-        // if(courseIsExist){
-        //     res.send("User already exists. Please choos diffrent Name")
-        // }else{
-        //     // add Data   
-        //     const coursedata = await coursesCollection.insertMany(data);
-        //     console.log(coursedata);
-        //     res.redirect("login")
-        // }
+        if(courseIsExist){
+            const coursedata = await coursesCollection.updateOne({name: data.name},data);
+            console.log(coursedata);
+        }else{
+            // add Data   
+            const coursedata = await coursesCollection.insertMany(data);
+            console.log(coursedata);
+        }
     }catch (error) {
         console.log(error);
         res.send("wrong Details")
