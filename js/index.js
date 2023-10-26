@@ -5,7 +5,7 @@ const app = express();
 // const path = require('path');
 const crypto = require('crypto');
 const http = require('http');
-const {usersCollection, coursesCollection} = require('./config')
+const { usersCollection, coursesCollection } = require('./config')
 
 const port = process.env.PORT || 3000;
 // let accesses  = false;
@@ -57,24 +57,28 @@ app.get('/register',(req,res)=>{
     res.render("register")
 })
 app.post('/register',async (req,res)=>{
-    const data= {
-        name:req.body.username,
-        password: createHash(req.body.password),
-        email: req.body.email,
-        userType: "user"
+    try{
+        const data= {
+            name:req.body.username,
+            password: createHash(req.body.password),
+            email: req.body.email,
+            userType: "user"
+        }
+        // check if the user already exists
+        const userIsExist = await usersCollection.findOne({name: data.name})
+        // console.log('userIsExist:', userIsExist);
+        if(userIsExist){
+            res.send("User already exists. Please choos diffrent Name")
+        }else{
+            // add Data   
+            const userdata = await usersCollection.insertMany(data);
+            console.log(userdata);
+            res.redirect("login")
+        }
+    }catch (error) {
+        console.log(error);
+        res.send("wrong Details")
     }
-    // check if the user already exists
-    const userIsExist = await usersCollection.findOne({name: data.name})
-    console.log('userIsExist:', userIsExist);
-    if(userIsExist){
-        res.send("User already exists. Please choos diffrent Name")
-    }else{
-        // add Data   
-        const userdata = await usersCollection.insertMany(data);
-        console.log(userdata);
-        res.redirect("login")
-    }
-
    
 })
 
@@ -87,15 +91,17 @@ app.post('/login',async (req,res)=>{
         if(!check){
             res.send("user not found!");
         }
-        if(check.password == createHash(req.body.password)){
-            req.session.authenticated =true
-            req.session.user = {
-                name: req.body.username
+        else{
+            if(check.password == createHash(req.body.password)){
+                req.session.authenticated =true
+                req.session.user = {
+                    name: req.body.username
+                }
+                res.redirect('search');
+            }else{
+                res.send("Password is wrong")
             }
-            res.redirect('search');
-        }else{
-            res.send("Password is wrong")
-        }
+        } 
     } catch (error) {
         console.log(error);
         res.send("wrong Details")
@@ -189,8 +195,6 @@ app.get('/addCourse',async (req,res)=>{
 app.listen(port,()=>{
     console.log('port Connected in',`http://localhost:${port}`);
 })
-
-
 
 
 function createHash(password) {
