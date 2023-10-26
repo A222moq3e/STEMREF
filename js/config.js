@@ -36,6 +36,9 @@ const Courseschema = new mongoose.Schema({
     "description": {
       "type": "String"
     },
+    "tags": {
+      "type": ["String"]
+    },
     "paidContent": {
       "type": "boolean"
     },

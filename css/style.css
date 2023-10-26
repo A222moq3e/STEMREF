@@ -103,14 +103,35 @@ img.waves{
     bottom: -5px;
     left: 0;
     width: 100%;
-    /* max-width: 100%; */
     height: 100px;
-    z-index: -1;
+    z-index: -10;
+    background-size:cover;
+    background-repeat: repeat;
+    display: none;
+}
+div.waves{
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    /* max-width: 100%; */
+    height: 120px;
+    
+    z-index: -10;
     background-size:cover;
     /* object-fit:cover; */
+
     background-repeat: repeat;
-    /* background-color: red; */
-    display: none;
+    background-color: #0000001e;
+    /* display: none; */
+    -webkit-mask-image: url('/waves.svg');
+    mask-image: url('/imgs/waves.svg');
+    -webkit-mask-repeat: no-repeat  ;
+    mask-repeat: no-repeat  ;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    /* -webkit-mask-mode: alpha;
+    mask-mode: alpha; */
 }
 
 li.active a{
@@ -146,8 +167,8 @@ a[href="/signout"]:hover{
         font-size: 20px;
     }
     img.waves{
-        display: block;
-        height: 160px;
+        display: none;
+        /* height: 160px; */
     }
     .intro-box .text{
         margin-bottom: 0px;
