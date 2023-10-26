@@ -110,7 +110,7 @@ app.get('/signout',(req,res)=>{
 // Search Page
 app.get('/search',async (req,res)=>{
     // Change this
-    // if(!req.session.authenticated ) res.redirect("/login")
+    if(!req.session.authenticated ) res.redirect("/login")
     if(req.query.q){
         const data = await coursesCollection.find({name: req.query.q})
         res.render('search',{data:data})
