@@ -34,8 +34,10 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 // Creating Server  
-app.get('/',(req,res)=>{
-    res.render("home",{data:{accesses:req.session.authenticated }})
+app.get('/',(req,res)=>{    
+    if(req.session.user)
+    console.log('username',req.session.user.name);
+    res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
     // res.json({ error: err })
 
 })

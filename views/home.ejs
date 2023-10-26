@@ -53,12 +53,22 @@
           </nav>
         <div class="intro-box">
             <div class="container">
+                <% if(!data.accesses){ %>
                 <div class="text">
                     <h1>DISCOVER</h1>
                     <h2>The Worlds <span>Greatest</span> library</h2>
                     <h3>is at your fingertips!</h3>
                 </div>
-                <button class="get-started button-style">Get Started</button>
+                <button class="get-started button-style" onclick="window.location.href='/login'">Get Started</button>
+                <% } %>
+                <% if(data.accesses){ %>
+                <div class="text">
+                    <h1>WELCOME <span><%= data.user.name %></span></h1>
+                    <h2>The Worlds <span>Greatest</span> library</h2>
+                    <h3>is at your fingertips!</h3>
+                </div>
+                <button class="get-started button-style" onclick="window.location.href='/search'">Let's Learn</button>
+                <% } %>
             </div>
         </div>
     </main>
@@ -68,7 +78,7 @@
     <!-- <div class="waves"></div> -->
     <script>
         document.querySelector('.get-started').addEventListener('click',()=>{
-            window.location.href='/login'
+           
         })
     </script>
     <script src="/main.js"></script>

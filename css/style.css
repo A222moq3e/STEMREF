@@ -71,7 +71,7 @@ nav .logo{
     color: #EEEEEE  ;
     font-weight:normal;
 }
-.text h2 span{
+.text h2 span,.text h1 span{
     color: var(--main-color);
     /* -webkit-mask-image: blue;
     mask-image: blue; */
