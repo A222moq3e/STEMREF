@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const http = require('http');
 const { usersCollection, coursesCollection } = require('./config')
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 // let accesses  = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
