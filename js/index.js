@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const http = require('http');
 const { usersCollection, coursesCollection } = require('./config')
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 // let accesses  = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
@@ -166,9 +166,10 @@ app.get('/pricing',(req,res)=>{
 // small Mehtods
 app.get('/addCourse',async (req,res)=>{
     const data= {
-        name:"CS205",
+        name:"CS505",
         description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         paidContent: false ,
+        tags:["Computing", "CS502"],
         Content: {
             "Videos":[{name:"Countonting1",url:"https://www.youtube.com/watch?v=ZcSSI6VY1kM"},
                         {name:"Countonting2",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"} ],
@@ -190,7 +191,9 @@ app.get('/addCourse',async (req,res)=>{
         console.log(Coursedata);
     }
 })
+app.get('/addCourse',async (req,res)=>{
 
+})
 // Port Listner
 app.listen(port,()=>{
     console.log('port Connected in',`http://localhost:${port}`);
