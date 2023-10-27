@@ -33,16 +33,16 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"  style="background-color: #232323;">
-                        <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100">
                         <% if(!data.accesses){ %>
-                        <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <% } %>
-                        <% if(data.accesses){ %>
+                            <li class="nav-item loginLink  ms-auto"><a class="nav-link" href="/login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <% } %>
+                            <% if(data.accesses){ %>
+                                <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
                             <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+                            <li class="nav-item  ms-auto"><a class="nav-link" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                             <!-- <li class="nav-item d-flex justify-content-center align-items-center text-light bg-dark rounded-circle" style="width:40px;height:40px;"><div class="avatar"><i class="fa-solid fa-user"></i></div>
                             </li>
                             <span class="text-light">Hi User!</span> -->

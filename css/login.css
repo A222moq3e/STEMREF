@@ -188,8 +188,10 @@ a{
     width: 30px;
     height: 30px;
     cursor: pointer;
-    /* background-color: #fff; */
-    /* border-radius: 50%; */
+    transition: .3s;
+}
+.Oauth-items img:hover{
+    scale: 1.05;
 }
 @media screen and (max-width:600px) {
     /* .top-text{

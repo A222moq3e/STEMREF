@@ -6,7 +6,8 @@
     --fourth-color:#BDC4FF;
     --fifth-darker-color:#202d9b;
 }
-
+::-webkit-scrollbar{width:6px;border-left:none;}
+::-webkit-scrollbar-thumb{background-color:var(--main-color);}
 *{
     padding: 0;
     margin: 0;
@@ -22,6 +23,7 @@ main{
     position: relative;
     width: 100%;
     min-height: 100vh;
+    
 }
 .container{
     width: 100%;
@@ -31,6 +33,12 @@ main{
     justify-content: center;
     align-items: center;
 }
+.navbar-collapse {
+    display: flex;
+    /* justify-content: end; */
+    /* */
+
+}
 /* Navbar */
 nav{
     z-index: 2;
@@ -39,7 +47,7 @@ nav{
 }
 nav .container{
     align-items: center;
-    /* justify-content: space-between; */
+    display: none;
 }
 nav .logo{
     cursor: pointer;
