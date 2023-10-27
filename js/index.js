@@ -87,9 +87,9 @@ app.post('/register',async (req,res)=>{
 })
 
 app.post('/login',async (req,res)=>{
-    console.log('session',req.sessionID);
-    console.log('session',req.session.authenticated);
-    console.log('session',req.session);
+    // console.log('session',req.sessionID);
+    // console.log('session',req.session.authenticated);
+    // console.log('session',req.session);
     try {
         const check = await usersCollection.findOne({name:req.body.username})
         if(!check){
@@ -185,7 +185,7 @@ app.get('/addCourse',async (req,res)=>{
         }
     }
     const CourseIsExist = await coursesCollection.findOne({name: data.name})
-    console.log('CourseIsExist:', CourseIsExist);
+    // console.log('CourseIsExist:', CourseIsExist);
     if(CourseIsExist){
         res.send("Course already exists. Please choos diffrent Name")
     }else{
@@ -246,18 +246,18 @@ app.post('/EducatorDashboard',async (req,res)=>{
             let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
             data.Content.Others.push(minData)
         }
-        console.log(data);
         
         // // check if the user already exists
         const courseIsExist = await coursesCollection.findOne({name: data.name})
         // // console.log('courseIsExist:', courseIsExist);
         if(courseIsExist){
             const coursedata = await coursesCollection.updateOne({name: data.name},data);
-            console.log(coursedata);
+            console.log('course Updated:',coursedata);
+            // console.log(coursedata);
         }else{
             // add Data   
             const coursedata = await coursesCollection.insertMany(data);
-            console.log(coursedata);
+            console.log('course Added:',coursedata);
         }
     }catch (error) {
         console.log(error);
