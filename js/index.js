@@ -42,11 +42,15 @@ let iconUse = {
     "Others":"fa-solid fa-arrow-up-right-from-square",
     "share":"fa-solid fa-share"
 }
+
+
 // Creating Server  
 app.get('/',(req,res)=>{    
     if(req.session.user)
-    console.log('username',req.session.user.name);
     res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
+    else
+    res.render("home",{data:{accesses:req.session.authenticated}})
+
     // res.json({ error: err })
 
 })
@@ -260,6 +264,10 @@ app.post('/EducatorDashboard',async (req,res)=>{
         res.send("wrong Details")
     }
 })
+
+
+
+
 // Port Listner
 app.listen(port,()=>{
     console.log('port Connected in',`http://localhost:${port}`);

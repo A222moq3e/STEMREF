@@ -49,7 +49,7 @@
             </div>
           <div class="courses row pb-5">
             <% for(let course of data){ %>
-            <div class="item col-md-3 col-lg-2  col-5 h-100" onclick="window.location.href=`/courseContent/<%= course.name %>`">
+            <div class="item col-md-3 col-lg-2  col-5 h-100" onclick="window.location.href=`/courseContent/<%= course.name %>`" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
                 <p>
                     <%= course.description %>

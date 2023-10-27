@@ -42,10 +42,19 @@
                                 <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
                             <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
-                            <li class="nav-item  ms-auto"><a class="nav-link" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                            <!-- <li class="nav-item d-flex justify-content-center align-items-center text-light bg-dark rounded-circle" style="width:40px;height:40px;"><div class="avatar"><i class="fa-solid fa-user"></i></div>
-                            </li>
-                            <span class="text-light">Hi User!</span> -->
+                            
+                            <div class="dropstart ms-auto">
+                                <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <img src="/github.svg" class="rounded-circle navbar-user-avatar " style="width: 30px;">
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
+                                <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a>
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/referrals">Refer a friend</a>
+                                <a class="dropdown-item" href="/feedback">Give Feedback</a>
+                                <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                            </div>
+                            
                         <% } %>
                     </ul>
               </div>

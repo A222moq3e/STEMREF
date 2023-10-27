@@ -51,7 +51,7 @@ main h1 {
   position: relative;
   width: fit-content;
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
   font-size: 18px;
   text-align: center;
   letter-spacing: 2.61px;
@@ -62,7 +62,7 @@ main h1 {
 main p {
   position: relative;
   font-weight: 700;
-  color: #eeeeee;
+  color: #ddd;
   font-size: 10px;
   letter-spacing: 1.45px;
   line-height: 13px;
