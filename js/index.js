@@ -121,19 +121,20 @@ app.get('/signout',(req,res)=>{
 app.get('/search',async (req,res)=>{
     // Change this
     if(!req.session.authenticated ) res.redirect("/login")
+    console.log(req.session.user);
     if(req.query.q){
         const data = await coursesCollection.find({name: req.query.q})
-        res.render('search',{data:data})
+        res.render('search',{data:data, user:req.session.user})
     }else{
         const data = await coursesCollection.find({})
-        res.render('search',{data:data})
+        res.render('search',{data:data, user:req.session.user})
 
     }
     // console.log('coursesCollection',coursesCollection);
 })
 // Course Page
 app.get('/courseContent',async (req,res)=>{
-    res.redirect('search')
+    res.redirect('search',{data:{user:req.session.user}})
 })
 app.get('/courseContent/:name',async (req,res)=>{
     if(!req.session.authenticated ) res.redirect("/login")
@@ -141,7 +142,7 @@ app.get('/courseContent/:name',async (req,res)=>{
     if(!data)
         res.send('sorry this course not found')
     else{
-        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content,icons:iconUse}})
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content,icons:iconUse,user:req.session.user}})
     }
     // res.render('courseContent')
 })
@@ -156,7 +157,7 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
     if(!data)
         res.send('sorry this course not found')
     else{
-        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray,icons:iconUse}})
+        res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray,icons:iconUse,user:req.session.user}})
     }
     // res.render('courseContent')
 })
@@ -164,7 +165,7 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
 
 // Pricing
 app.get('/pricing',(req,res)=>{
-    res.render("pricing")
+    res.render("pricing",{data:{user:req.session.user}})
 })
 
 // small Mehtods
