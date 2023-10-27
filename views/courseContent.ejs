@@ -45,6 +45,9 @@
         <div class="overlap">
           <div class="container">
             <div class="box">
+                <% if(Array.isArray(data.content)){ %>
+                    <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.name%>"></a>
+                    <% } %>
               <div class="top-text">
                   <h1><%= data.name %><span><%= data.catogray %></span></h1>
                 <p>
@@ -55,7 +58,7 @@
                 <% if(!Array.isArray(data.content)) { %>
                   <% for(const [key, value] of Object.entries(data.content)){ %>
                     <a class="item" href="<%= data.name +'/'+key %>">
-                      <div class="item-title"><%= key %></div>
+                      <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
                     </a>          
                   <% } } %>

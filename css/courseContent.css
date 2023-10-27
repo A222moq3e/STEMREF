@@ -20,6 +20,7 @@ main .overlap {
 
 
 main .box {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -31,6 +32,7 @@ main .box {
   border-radius: 30px;
   /* background-color: red; */
   overflow: hidden;
+  min-width: 500px;
 }
 
 main .top-text {
@@ -80,13 +82,14 @@ main .item {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 18px;
   position: relative;
   flex: 0 0 auto;
   background-color: #ffffff;
   border-radius: 5px;
   overflow: hidden;
   transition: .3s;
+  font-size: 16px;
 }
 main .item:hover{
   transform: translateY(-5%);
@@ -97,7 +100,6 @@ main .item-title {
   margin-top: -1px;
   font-weight: 700;
   color: #394dff;
-  font-size: 10px;
   letter-spacing: 1.45px;
   line-height: 13px;
   white-space: nowrap;
@@ -107,7 +109,22 @@ a{
   text-decoration: none;
 }
 
+.fa-arrow-left{
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  cursor: pointer;
 
-.waves{
-  z-index: -1;
 }
+
+@media screen and (max-width:600px) {
+  main .box {
+    min-width: 200px;
+  }
+  main .item {
+    padding: 10px;
+  }
+  main .item-title {
+    font-size: 10px;
+  }
+} 
