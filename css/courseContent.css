@@ -2,7 +2,7 @@
   --main-color:#394DFF;
   --dark-color:#232323;
 }
-
+/* TODO: add linear graiant in backgorund */
 main {
   display: flex;
   flex-direction: column;

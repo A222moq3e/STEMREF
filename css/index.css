@@ -40,3 +40,22 @@ button{
     color: #EEEEEE;
     font-weight:lighter;
 }
+@media screen and (max-width:600px) {
+    .text h1{
+       font-size: 42px;
+   }
+    .text h2{
+       font-size: 16px;     
+   }
+    .text h3{
+       font-size: 12px;
+   }
+   .button-style{
+       font-size: 20px;
+   }
+
+
+   .intro-box .text{
+       margin-bottom: 0px;
+   }
+}

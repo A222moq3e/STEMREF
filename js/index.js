@@ -55,9 +55,13 @@ app.get('/',(req,res)=>{
 
 })
 app.get('/login',(req,res)=>{
+    if(req.session.authenticated) res.redirect("/search")
+    else
     res.render("login")
 })
 app.get('/register',(req,res)=>{
+    if(req.session.authenticated) res.redirect("/search")
+    else
     res.render("register")
 })
 app.post('/register',async (req,res)=>{
@@ -87,6 +91,7 @@ app.post('/register',async (req,res)=>{
 })
 
 app.post('/login',async (req,res)=>{
+
     // console.log('session',req.sessionID);
     // console.log('session',req.session.authenticated);
     // console.log('session',req.session);
@@ -165,6 +170,7 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
 
 // Pricing
 app.get('/pricing',(req,res)=>{
+    if(!req.session.authenticated ) res.redirect("/login")
     res.render("pricing",{data:{user:req.session.user}})
 })
 
