@@ -1,60 +1,209 @@
-<!DOCTYPE html> <html> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google Fonts --> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" 
-  href="https://fonts.gstatic.com" crossorigin> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link 
-  href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> <!-- Bootstrap CSS --> <link 
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> <!-- font awesome Library --> <link 
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> <!-- Icon --> <link rel="icon" type="image/x-icon" href="/logo-min.svg"> <!-- CSS --> <link rel="stylesheet" href="/style.css"> <link 
-  rel="stylesheet" href="/courseContent.css"> <style>
-    /* Add custom styles for pricing page here */ /* Background and font colors */ body { background-color: #232323; color: #fff; font-family: 'Inter', sans-serif;
-    }
-    /* Header and navigation styles */ .navbar { background-color: #232323;
-    }
-    .navbar-brand img { max-width: 100px;
-    }
-    .navbar-toggler { background-color: #fff;
-    }
-    .navbar-nav .nav-link { color: #fff;
-    }
-    .navbar-user-avatar { max-width: 50px;
-    }
-    /* Pricing page styles */ .pricing-container { padding: 40px 0;
-    }
-    .pricing-title { font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 2rem;
-    }
-    .pricing-tier { background-color: #232323; border-radius: 8px; padding: 20px; margin: 10px;
-    }
-    .pricing-tier h2 { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 1.5rem;
-    }
-    .pricing-tier p { color: #666;
-    }
-    .pricing-perks ul { list-style: none; padding: 0;
-    }
-    .pricing-perks li { margin: 10px 0; display: flex; align-items: center;
-    }
-    .pricing-perks i { margin-right: 10px; color: #007BFF;
-    }
-  </style> <title>STEMREF | Pricing</title> </head> <body> <main> <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4" style="background-color: #232323;"> <div class="container"> <a class="navbar-brand" href="/"><img class="logo" 
-        src="/logo.svg" alt="logo"></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navbarSupportedContent"> <ul class="navbar-nav mb-2 mb-lg-0 w-100 align-items-center"> <li class="nav-item"><a class="nav-link" 
-            href="/">Home</a></li> <li class="nav-item"><a class="nav-link" href="/search">Search</a></li> <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li> <div class="dropstart ms-auto">
-              <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " 
-                style="width: 50px;">
-              </button> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown"> <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a> <a class="dropdown-item" href="/profile">Profile</a> <a 
-                class="dropdown-item" href="/referrals">Refer a friend</a> <a class="dropdown-item" href="/feedback">Give Feedback</a>
-				<a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-sign-out"></i></a> </div> </div> </ul> </div> </div> </nav> <div class="overlap"> <div class="container pricing-container"> <h1 
-        class="pricing-title">Choose Your Plan</h1> <div class="row">
-          <!-- Free Tier --> <div class="col-md-6"> <div class="pricing-tier"> <h2>Free Tier</h2> <p></p> <div class="pricing-perks"> <ul> <li><i class="fas fa-check-circle"></i>Limited access to premium courses.</li> <li><i class="fas 
-                  fa-check-circle"></i>Basic customer support.</li> <li><i class="fas fa-check-circle"></i>Access to the peer community.</li>
-                </ul> </div> </div> </div> <!-- Paid Tier --> <div class="col-md-6"> <div class="pricing-tier" style="background-color: #4c3efc; border-radius: 8px; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 0 16px rgba(0, 0, 0, 0.4); padding: 
-            20px; margin: 10px;">
-              <h2>Paid Tier</h2> <p></p> <div class="pricing-perks"> <ul> <li><i class="fas fa-check-circle"></i>Access to Premium Courses: Subscribers get unlimited access to a library of premium courses not available to free users.</li> <li><i 
-                  class="fas fa-check-circle"></i>No Ads: Ad-free learning experience for uninterrupted focus on course content.</li> <li><i class="fas fa-check-circle"></i>Offline Access: Download course materials and watch videos offline 
-                  through a mobile app.</li> <li><i class="fas fa-check-circle"></i>Certification: Offer certificates of completion for each course, enhancing the learner's resume.</li> <li><i class="fas fa-check-circle"></i>Priority Support: 
-                  Priority customer support for quicker issue resolution and assistance.</li> <li><i class="fas fa-check-circle"></i>Exclusive Content: Access exclusive courses and learning materials created by top instructors.</li> <li><i 
-                  class="fas fa-check-circle"></i>Early Access: Get early access to new courses and updates before they're available to free users.</li> <li><i class="fas fa-check-circle"></i>Interactive Quizzes and Assignments: Premium 
-                  subscribers can access interactive quizzes and assignments for better comprehension and engagement.</li> <li><i class="fas fa-check-circle"></i>Peer Community: Join a private community of fellow premium subscribers for 
-                  networking and collaboration.</li> <li><i class="fas fa-check-circle"></i>Progress Tracking: Track your learning progress, set goals, and receive personalized recommendations.</li> <li><i class="fas fa-check-circle"></i>Expert 
-                  Q&A: Participate in live Q&A sessions with course instructors or experts in the field.</li> <li><i class="fas fa-check-circle"></i>Adaptive Learning: Personalized learning paths and recommendations based on your interests and 
-                  progress.</li>
-                </ul> </div> </div> </div> </div> </div> </div> </main> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> <script src="/main.js" type="module"></script> <script src="/courseContent.js"></script> <div class="waves"></div>
-</body> </html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap"
+        rel="stylesheet"> <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- font awesome Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="/logo-min.svg"> <!-- CSS -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/courseContent.css">
+    <style>
+        :root{
+            --main-color:#394DFF;
+            --dark-color:#232323;
+            --second-color:#5A6BFF;
+            --third-color:#7B88FF;
+            --fourth-color:#BDC4FF;
+            --fifth-darker-color:#202d9b;
+        }
+        /* Background and font colors */
+        body {
+            background-color: #232323;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Header and navigation styles */
+        
+
+        /* Pricing page styles */
+        .overlap .container{
+            flex-direction: column;
+        }
+        .pricing-container {
+            padding: 40px 0;
+        }
+
+        .pricing-title {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            position: relative;
+        }
+        .pricing-title::after{
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(270deg, var(--main-color) 50%,transparent 100%);
+        }
+
+        .pricing-tier {
+            background-color: #232323;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .pricing-tier h2 {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .pricing-tier p {
+            color: #666;
+        }
+
+        .pricing-perks ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pricing-perks li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-perks i {
+            margin-right: 10px;
+            color: var(--main-color);
+        }
+        .paid-tier i{
+            color: white;
+        }
+    </style>
+    <title>STEMREF | Pricing</title>
+</head>
+
+<body>
+    <main>
+        <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4" style="background-color: #232323;">
+            <div class="container">
+                 <a class="navbar-brand" href="/"><img class="logo" src="/logo.svg" alt="logo"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100 align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/pricing">Pricing</a></li>
+                        <div class="dropstart ms-auto">
+                            <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false"> <img
+                                    src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar "
+                                    style="width: 50px;">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown"> 
+                                <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a>
+                                <a class="dropdown-item" href="/profile">Profile</a> 
+                                <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://129.151.139.163/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank">Refer to friends</a> 
+                                <a class="dropdown-item" href="/feedback">Give Feedback</a>
+                                <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-sign-out"></i></a>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="overlap">
+            <div class="container pricing-container">
+                <h1 class="pricing-title me-auto">Choose Your Plan</h1>
+                <div class="row">
+                    <!-- Free Tier -->
+                    <div class="col-md-6">
+                        <div class="pricing-tier">
+                            <h2>Free Tier</h2>
+                            <p></p>
+                            <div class="pricing-perks">
+                                <ul>
+                                    <!-- <li><i class="fas fa-check-circle"></i>Limited access to premium courses.</li> -->
+                                    <li><i class="fas fa-check-circle"></i>Access All Free Courses!</li>
+                                    <li><i class="fas  fa-check-circle"></i>Basic customer support.</li>
+                                    <li><i class="fas fa-check-circle"></i>Access to the peer community.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- Paid Tier -->
+                    <div class="col-md-6">
+                        <div class="pricing-tier paid-tier" style="background-color: #4c3efc; border-radius: 8px; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 0 16px rgba(0, 0, 0, 0.4); padding:20px; margin: 10px;">
+                            <h2>Paid Tier</h2>
+                            <p></p>
+                            <div class="pricing-perks">
+                                <ul>
+                                    <li><i class="fas fa-check-circle"></i>Access to Premium Courses: Subscribers get
+                                        unlimited access to a library of premium courses not available to free users.
+                                    </li>
+                                    <li><i class="fas fa-check-circle"></i>No Ads: Ad-free learning experience for
+                                        uninterrupted focus on course content.</li>
+                                    <li><i class="fas fa-check-circle"></i>Offline Access: Download course materials and
+                                        watch videos offline
+                                        through a mobile app.</li>
+                                    <li><i class="fas fa-check-circle"></i>Certification: Offer certificates of
+                                        completion for each course, enhancing the learner's resume.</li>
+                                    <li><i class="fas fa-check-circle"></i>Priority Support:
+                                        Priority customer support for quicker issue resolution and assistance.</li>
+                                    <li><i class="fas fa-check-circle"></i>Exclusive Content: Access exclusive courses
+                                        and learning materials created by top instructors.</li>
+                                    <li><i class="fas fa-check-circle"></i>Early Access: Get early access to new courses
+                                        and updates before they're available to free users.</li>
+                                    <li><i class="fas fa-check-circle"></i>Interactive Quizzes and Assignments: Premium
+                                        subscribers can access interactive quizzes and assignments for better
+                                        comprehension and engagement.</li>
+                                    <li><i class="fas fa-check-circle"></i>Peer Community: Join a private community of
+                                        fellow premium subscribers for
+                                        networking and collaboration.</li>
+                                    <li><i class="fas fa-check-circle"></i>Progress Tracking: Track your learning
+                                        progress, set goals, and receive personalized recommendations.</li>
+                                    <li><i class="fas fa-check-circle"></i>Expert
+                                        Q&A: Participate in live Q&A sessions with course instructors or experts in the
+                                        field.</li>
+                                    <li><i class="fas fa-check-circle"></i>Adaptive Learning: Personalized learning
+                                        paths and recommendations based on your interests and
+                                        progress.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="/main.js" type="module"></script>
+    <script src="/courseContent.js"></script>
+    <div class="waves"></div>
+</body>
+
+</html>

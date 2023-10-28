@@ -18,6 +18,7 @@
 }
 body{
     background-color: var(--dark-color);
+    color: #fff;
 }
 main{
     position: relative;
