@@ -75,14 +75,14 @@ app.post('/register',async (req,res)=>{
         // check if the user already exists
         const userIsExist = await usersCollection.findOne({name: data.name})
         // console.log('userIsExist:', userIsExist);
-        // if(userIsExist){
-        //     res.send("User already exists. Please choos diffrent Name")
-        // }else{
-        //     // add Data   
-        //     const userdata = await usersCollection.insertMany(data);
-        //     console.log(userdata);
-        //     res.redirect("login")
-        // }
+        if(userIsExist){
+            res.send("User already exists. Please choos diffrent Name")
+        }else{
+            // add Data   
+            const userdata = await usersCollection.insertMany(data);
+            console.log(userdata);
+            res.redirect("login")
+        }
     }catch (error) {
         console.log(error);
         res.send("wrong Details")
@@ -94,9 +94,9 @@ app.post('/login',async (req,res)=>{
 
     // console.log('session',req.sessionID);
     // console.log('session',req.session.authenticated);
-    // console.log('session',req.session);
     try {
         const check = await usersCollection.findOne({name:req.body.username})
+        console.log('data',check);
         if(!check){
             res.send("user not found!");
         }
@@ -104,9 +104,16 @@ app.post('/login',async (req,res)=>{
             if(check.password == createHash(req.body.password)){
                 req.session.authenticated =true
                 req.session.user = {
-                    name: req.body.username
+                    name: req.body.username,
                 }
-                res.redirect('search');
+                if(check.userType)req.session.user.userType=check.userType
+                // console.log();
+
+                    if(req.session && req.session.user.userType=="educator" ){
+                        res.redirect('EducatorDashboard');
+                    } else{
+                        res.redirect('search')
+                    }
             }else{
                 res.send("Password is wrong")
             }
@@ -203,8 +210,13 @@ app.get('/addCourse',async (req,res)=>{
     }
 })
 app.get('/EducatorDashboard',async (req,res)=>{
-    res.render('EducatorDashboard');
-})
+    console.log(req.session.user);
+    if(req.session && req.session.user.userType=="educator" ){
+        res.render('EducatorDashboard',{ user:req.session.user});
+    } else{
+        res.redirect('login')
+    }
+})  
 app.post('/EducatorDashboard',async (req,res)=>{
     // console.log(req.body);
     let filteredTags = req.body.tags.filter(function (el) {

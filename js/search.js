@@ -15,11 +15,11 @@ if(window.screen.width< 600){
     let boxl = document.createElement('div');
     let boxr = document.createElement('div');
     let boxAll = document.createElement('div');
-    boxl.classList.add('col-5','row');
-    boxr.classList.add('col-5','row');
+    boxl.classList.add('col-6','row');
+    boxr.classList.add('col-6','row');
     for(let i of item){
         i.classList.remove('col-5')
-        i.classList.add('mb-2')
+        i.classList.add('mb-2', 'col-12')
         // console.log(i);
         if(boxl.innerHTML.length > boxr.innerHTML.length){
             boxr.append(i)

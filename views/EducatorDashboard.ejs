@@ -37,12 +37,22 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <ul class="navbar-nav mb-2 mb-lg-0 w-100  align-items-center">
+                    <!-- <li class="nav-item"><a class="nav-link" href="/">Home</a></li> -->
                     <li class="nav-item active"><a class="nav-link" aria-current="page" href="/filteredTags">EducatorDashboard</a></li>
                         <!-- <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register">Register</a></li> -->
-
+                        <div class="dropstart ms-md-auto">
+                            <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <img src="/avatars/avatar8.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
+                            <a class="dropdown-item disabled" href="/">Hi <%= user.name %></a>
+                            <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://129.151.139.163/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank">Refer to friends</a>
+                            <a class="dropdown-item" href="/feedback">Give Feedback</a>
+                            <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                        </div>
                   
                 </ul>
             
