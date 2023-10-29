@@ -109,7 +109,7 @@ app.post('/login',async (req,res)=>{
                 if(check.userType)req.session.user.userType=check.userType
                 // console.log();
 
-                    if(req.session && req.session.user.userType=="educator" ){
+                    if(req.session && req.session.user && req.session.user.userType=="educator" ){
                         res.redirect('EducatorDashboard');
                     } else{
                         res.redirect('search')
@@ -211,7 +211,7 @@ app.get('/addCourse',async (req,res)=>{
 })
 app.get('/EducatorDashboard',async (req,res)=>{
     console.log(req.session.user);
-    if(req.session && req.session.user.userType=="educator" ){
+    if(req.session && req.session.user && req.session.user.userType=="educator" ){
         res.render('EducatorDashboard',{ user:req.session.user});
     } else{
         res.redirect('login')
