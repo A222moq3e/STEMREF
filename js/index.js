@@ -5,6 +5,8 @@ const app = express();
 // const path = require('path');
 const crypto = require('crypto');
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const { usersCollection, coursesCollection } = require('./config')
 
 const port = process.env.PORT || 3000;
@@ -293,9 +295,9 @@ app.post('/EducatorDashboard',async (req,res)=>{
 
 
 // Port Listner
-app.listen(port,()=>{
-    console.log('port Connected in',`http://localhost:${port}`);
-})
+//app.listen(port,()=>{
+  //  console.log('port Connected in',`http://localhost:${port}`);
+//})
 
 
 function createHash(password) {
@@ -303,16 +305,28 @@ return crypto.createHash('sha256').update(password).digest('hex');
 }
 
 
-// HTTPS in comment
-// const fs = require('fs');
-// const https = require('https');
+const httpsOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/stemref/privkey.pem', 'utf8'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/stemref/fullchain.pem', 'utf8')
+};
 
-// const app = require('express')();
-// app.get('*', (req, res) => res.send('<h1>Hello, World</h1>'));
+const httpsServer = https.createServer(httpsOptions, app);
 
-// const server = https.createServer({
-//   key: fs.readFileSync(`${__dirname}/localhost-key.pem`, 'utf8'),
-//   cert: fs.readFileSync(`${__dirname}/localhost.pem`, 'utf8')
-// }, app);
+// Redirect HTTP to HTTPS
+const httpServer = http.createServer((req, res) => {
+  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+  res.end();
+});
 
-// await server.listen(443);
+// Start HTTPS and HTTP servers
+const HTTPS_PORT = 443;
+const HTTP_PORT = 80;
+
+httpsServer.listen(HTTPS_PORT, () => {
+  console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
+});
+
+httpServer.listen(HTTP_PORT, () => {
+  console.log(`HTTP server listening on port ${HTTP_PORT}`);
+});
+
