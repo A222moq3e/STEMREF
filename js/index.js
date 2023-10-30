@@ -165,6 +165,11 @@ app.get('/courseContent/:name/:catogray',async (req,res)=>{
     let catogray = req.params.catogray;
     // console.log(data.Content[catogray]);
     let urls = data.Content[catogray]
+    let urls_filterd = urls.filter((url)=>{
+        return url.name != "" ;
+    })
+    urls = urls_filterd
+    console.log('urls:',urls_filterd);
     // console.log(Array.isArray(urls));
     if(!data)
         res.send('sorry this course not found')
