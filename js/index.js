@@ -11,7 +11,6 @@ const { usersCollection, coursesCollection } = require('./config')
 
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
-const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
 app.set("view engine","ejs")
@@ -47,7 +46,8 @@ let iconUse = {
 
 
 // Creating Server  
-app.get('/',(req,res)=>{    
+app.get('/',(req,res)=>{  
+    console.log('log in home');  
     if(req.session.user)
     res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
     else
@@ -216,6 +216,19 @@ app.get('/addCourse',async (req,res)=>{
         console.log(Coursedata);
     }
 })
+
+// User Data
+app.get('/profile',(req,res)=>{
+    // res.send('hi in profile')
+    
+    if(req.session && req.session.user){
+        res.render('profile',{data:{accesses:req.session.authenticated, user:req.session.user}})
+    } else{
+        res.redirect('login')
+    }
+})
+
+
 app.get('/EducatorDashboard',async (req,res)=>{
     console.log(req.session.user);
     if(req.session && req.session.user && req.session.user.userType=="educator" ){
@@ -290,45 +303,40 @@ app.post('/EducatorDashboard',async (req,res)=>{
         res.send("wrong Details")
     }
 })
-// User Data
-app.get('profile',(req,res)=>{
-    res.render('profile',{data:{accesses:req.session.authenticated, user:req.session.user}})
-})
 
 
 // Port Listner
-//app.listen(port,()=>{
-  //  console.log('port Connected in',`http://localhost:${port}`);
-//})
+app.listen(3005,()=>{
+   console.log('port Connected in',`http://localhost:3005`);
+})
 
 
 function createHash(password) {
-return crypto.createHash('sha256').update(password).digest('hex');
+    return crypto.createHash('sha256').update(password).digest('hex');
 }
 
+// const httpsOptions = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/stemref/privkey.pem', 'utf8'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/stemref/fullchain.pem', 'utf8')
+// };
 
-const httpsOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/stemref/privkey.pem', 'utf8'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/stemref/fullchain.pem', 'utf8')
-};
-
-const httpsServer = https.createServer(httpsOptions, app);
+// const httpsServer = https.createServer(httpsOptions, app);
 
 // Redirect HTTP to HTTPS
-const httpServer = http.createServer((req, res) => {
-  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-  res.end();
-});
+// const httpServer = http.createServer((req, res) => {
+//   res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+//   res.end();
+// });
 
 // Start HTTPS and HTTP servers
-const HTTPS_PORT = 443;
-const HTTP_PORT = 80;
+// const HTTPS_PORT = 443;
+// const HTTP_PORT = process.env.PORT || 3000;
 
-httpsServer.listen(HTTPS_PORT, () => {
-  console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
-});
+// httpsServer.listen(HTTPS_PORT, () => {
+//   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
+// });
 
-httpServer.listen(HTTP_PORT, () => {
-  console.log(`HTTP server listening on port ${HTTP_PORT}`);
-});
+// httpServer.listen(HTTP_PORT, () => {
+//   console.log(`HTTP server listening on port ${HTTP_PORT}`);
+// });
 
