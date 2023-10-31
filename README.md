@@ -17,10 +17,9 @@ Using the Package File use the Command
 npm i
 ```
 
-### Don't Forget to Set your ENV variables 
+### Don't Forget to Set your ENV variable 
 ```env
 SECRET_SESSION = 'Session Secret'
-PORT = "Port"
 ```
 ### Lastly Run the Code Using this Command
 ```bash
