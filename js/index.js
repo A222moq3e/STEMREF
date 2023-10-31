@@ -290,8 +290,10 @@ app.post('/EducatorDashboard',async (req,res)=>{
         res.send("wrong Details")
     }
 })
-
-
+// User Data
+app.get('profile',(req,res)=>{
+    res.render('profile',{data:{accesses:req.session.authenticated, user:req.session.user}})
+})
 
 
 // Port Listner
