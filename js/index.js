@@ -9,7 +9,7 @@ const https = require('https');
 const fs = require('fs');
 const { usersCollection, coursesCollection } = require('./config')
 
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
 const hostname = 'localhost';
 // const htmlPath = path.join(__dirname,'../pages')
