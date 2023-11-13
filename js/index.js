@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
-const { usersCollection, coursesCollection } = require('./config')
+const { usersCollection, coursesCollection } = require('../models/config')
 
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
@@ -98,13 +98,13 @@ app.post('/login',async (req,res)=>{
     // console.log('session',req.session.authenticated);
     try {
         const check = await usersCollection.findOne({name:req.body.username})
-        console.log('data',check);
+        console.log(check,'is logging');
         if(!check){
             res.send("user not found!");
         }
         else{
             if(check.password == createHash(req.body.password)){
-                req.session.authenticated =true
+                req.session.authenticated = true
                 req.session.user = {
                     name: req.body.username,
                 }
@@ -305,15 +305,18 @@ app.post('/EducatorDashboard',async (req,res)=>{
 })
 
 
-// // Port Listner, [Do not remove this]
+function createHash(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+
+
+// Port Listner, [Do not remove this]
 // app.listen(3005,()=>{
 //    console.log('port Connected in',`http://localhost:3005`);
 // })
 
 
-function createHash(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
 
 const httpsOptions = {
   key: fs.readFileSync('/etc/letsencrypt/live/stemref/privkey.pem', 'utf8'),
