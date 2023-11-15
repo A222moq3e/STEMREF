@@ -7,7 +7,13 @@ const crypto = require('crypto');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const ruoter = require('../routes/routes')
 const { usersCollection, coursesCollection } = require('../models/config')
+require("dotenv").config();
+const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
+const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
+// const keyPath = "S:/privkey.pem"
+// const certPath =  "S:/fullchain.pem"
 
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
@@ -46,16 +52,16 @@ let iconUse = {
 
 
 // Creating Server  
-app.get('/',(req,res)=>{  
-    console.log('log in home');  
-    if(req.session.user)
-    res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
-    else
-    res.render("home",{data:{accesses:req.session.authenticated}})
+// app.get('/',(req,res)=>{  
+//     console.log('log in home');  
+//     if(req.session.user)
+//     res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
+//     else
+//     res.render("home",{data:{accesses:req.session.authenticated}})
 
-    // res.json({ error: err })
+//     // res.json({ error: err })
 
-})
+// })
 app.get('/login',(req,res)=>{
     if(req.session.authenticated) res.redirect("/search")
     else
@@ -319,8 +325,8 @@ function createHash(password) {
 
 
 const httpsOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/stemref/privkey.pem', 'utf8'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/stemref/fullchain.pem', 'utf8')
+  key: fs.readFileSync(keyPath, 'utf8'),
+  cert: fs.readFileSync(certPath, 'utf8')
 };
 
 const httpsServer = https.createServer(httpsOptions, app);
@@ -343,3 +349,4 @@ httpServer.listen(HTTP_PORT, () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
 });
 
+// console.log(process.env.PORT);

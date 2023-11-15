@@ -2,7 +2,8 @@
   "name": "STEMREF",
   "version": "2.0.0",
   "scripts": {
-    "start": "nodemon ./js/index.js"
+    "start": "nodemon ./js/index.js",
+    "dev": "node --env-file .env ./js/index.js"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
