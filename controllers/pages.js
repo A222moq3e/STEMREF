@@ -1,5 +1,5 @@
 const Pages = require('../models/config');
-
+console.log('in pages.js');
 
 module.exports = {
     index:(req,res)=>{  

@@ -8,12 +8,13 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const ruoter = require('../routes/routes')
-const { usersCollection, coursesCollection } = require('../models/config')
-require("dotenv").config();
-const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
-const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
-// const keyPath = "S:/privkey.pem"
-// const certPath =  "S:/fullchain.pem"
+const { usersCollection, coursesCollection } = require('../models/config');
+const router = require('../routes/routes');
+// require("dotenv").config();
+// const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
+// const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
+const keyPath = "S:/privkey.pem"
+const certPath =  "S:/fullchain.pem"
 
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
@@ -50,18 +51,17 @@ let iconUse = {
     "share":"fa-solid fa-share"
 }
 
-
 // Creating Server  
-// app.get('/',(req,res)=>{  
-//     console.log('log in home');  
-//     if(req.session.user)
-//     res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
-//     else
-//     res.render("home",{data:{accesses:req.session.authenticated}})
+app.use('/',router)
+app.use('/login',router)
+app.use('/register',router)
+app.use('/signout',router)
+app.use('/search',router)
+app.use('/courseContent',router)
+app.use('/pricing',router)
+app.use('/profile',router)
+app.use('/EducatorDashboard',router)
 
-//     // res.json({ error: err })
-
-// })
 app.get('/login',(req,res)=>{
     if(req.session.authenticated) res.redirect("/search")
     else
@@ -338,8 +338,10 @@ const httpServer = http.createServer((req, res) => {
 });
 
 // Start HTTPS and HTTP servers
-const HTTPS_PORT = 443;
-const HTTP_PORT = 80;
+// const HTTPS_PORT = 443;
+// const HTTP_PORT = 80;
+const HTTPS_PORT = 3443;
+const HTTP_PORT = 3005;
 
 httpsServer.listen(HTTPS_PORT, () => {
   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
@@ -347,6 +349,7 @@ httpsServer.listen(HTTPS_PORT, () => {
 
 httpServer.listen(HTTP_PORT, () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
+  console.log(`http://localhost:${HTTP_PORT}`);
 });
 
 // console.log(process.env.PORT);
