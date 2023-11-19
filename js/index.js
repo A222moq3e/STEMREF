@@ -3,12 +3,11 @@ const session = require('express-session');
 const store = new session.MemoryStore();
 const app = express();
 // const path = require('path');
-const crypto = require('crypto');
+
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const ruoter = require('../routes/routes')
-const { usersCollection, coursesCollection } = require('../models/config');
 const router = require('../routes/routes');
 // require("dotenv").config();
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'

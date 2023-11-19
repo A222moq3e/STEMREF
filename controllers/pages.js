@@ -1,5 +1,7 @@
-const Pages = require('../models/config');
-console.log('in pages.js');
+// const Pages = require('../models/config');
+const crypto = require('crypto');
+// console.log('in pages.js');
+const { usersCollection, coursesCollection } = require('../models/config');
 
 module.exports = {
     index:(req,res)=>{  
@@ -18,7 +20,7 @@ module.exports = {
     registerGet:(req,res)=>{
         if(req.session.authenticated) res.redirect("/search")
         else
-        re.render("register")
+        res.render("register")
     },
     registerPost: async (req,res)=>{
         try{
@@ -46,9 +48,6 @@ module.exports = {
     
     },
     loginPost:async  (req,res)=>{
-
-        // console.log('session',req.sessionID);
-        // console.log('session',req.session.authenticated);
         try {
             const check = await usersCollection.findOne({name:req.body.username})
             console.log(check,'is logging');
@@ -84,7 +83,7 @@ module.exports = {
     res.redirect("/")
     },
 
-// Search Page
+    // Search Page
     search:async (req,res)=>{
     // Change this
     if(!req.session.authenticated ) res.redirect("/login")
@@ -95,81 +94,14 @@ module.exports = {
     }else{
         const data = await coursesCollection.find({})
         res.render('search',{data:data, user:req.session.user})
-
     }
     // console.log('coursesCollection',coursesCollection);
     },
-// // Course Page
-//     courseContent:(req,res)=>{
-//     res.redirect('search',{data:{user:req.session.user}})
-//     }
-// app.get('/courseContent/:name',async (req,res)=>{
-//     if(!req.session.authenticated ) res.redirect("/login")
-//     const data = await coursesCollection.findOne({name: req.params.name})
-//     if(!data)
-//         res.send('sorry this course not found')
-//     else{
-//         res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content,icons:iconUse,user:req.session.user}})
-//     }
-//     // res.render('courseContent')
-// })
-// app.get('/courseContent/:name/:catogray',async (req,res)=>{
-//     if(!req.session.authenticated ) res.redirect("/login")
-//     const data = await coursesCollection.findOne({name: req.params.name})
-//     // console.log(req.params.catogray);
-//     let catogray = req.params.catogray;
-//     // console.log(data.Content[catogray]);
-//     let urls = data.Content[catogray]
-//     let urls_filterd = urls.filter((url)=>{
-//         return url.name != "" ;
-//     })
-//     urls = urls_filterd
-//     console.log('urls:',urls_filterd);
-//     // console.log(Array.isArray(urls));
-//     if(!data)
-//         res.send('sorry this course not found')
-//     else{
-//         res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:urls, catogray:catogray,icons:iconUse,user:req.session.user}})
-//     }
-//     // res.render('courseContent')
-// })
-
-
 // Pricing
     pricing:(req,res)=>{
     if(!req.session.authenticated ) res.redirect("/login")
     res.render("pricing",{data:{user:req.session.user}})
     },
-
-// small Mehtods
-    addCourse:async (req,res)=>{
-    const data= {
-        name:"CS505",
-        description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        paidContent: false ,
-        tags:["Computing", "CS502"],
-        Content: {
-            "Videos":[{name:"Countonting1",url:"https://www.youtube.com/watch?v=ZcSSI6VY1kM"},
-                        {name:"Countonting2",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"} ],
-            "Articles":[{name:"Countonting",url:"http://"}],
-            "Quizzes":[{name:"Countonting",url:"https://www.youtube.com/watch?v=RaDpMKRc3og"},
-                        {name:"Countonting",url:"http://"}],
-            "Assignments":[{name:"Countonting",url:"http://"}],
-            "Others":[{name:"Countonting5",url:"http://"}],
-        }
-    }
-    const CourseIsExist = await coursesCollection.findOne({name: data.name})
-    // console.log('CourseIsExist:', CourseIsExist);
-    if(CourseIsExist){
-        res.send("Course already exists. Please choos diffrent Name")
-    }else{
-        // add Data   
-        const Coursedata = await coursesCollection.insertMany(data);
-        res.send("Course Added!")
-        console.log(Coursedata);
-    }
-    },
-
     // User Data
     profile:(req,res)=>{
     // res.send('hi in profile')
@@ -255,6 +187,12 @@ module.exports = {
         console.log(error);
         res.send("wrong Details")
     }
+},
+
+
 }
 
+
+function createHash(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
 }

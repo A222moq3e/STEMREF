@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const { boolean } = require('webidl-conversions');
-// const connect = mongoose.connect("mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/STEMREF?retryWrites=true&w=majority")
-const connect = mongoose.connect("mongodb://localhost:27017/STEMREF")
+const connect = mongoose.connect("mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/STEMREF?retryWrites=true&w=majority")
+// const connect = mongoose.connect("mongodb://localhost:27017/STEMREF")
 // mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/?retryWrites=true&w=majority
 
 console.log('in config.js');
@@ -36,6 +36,9 @@ const Courseschema = new mongoose.Schema({
     },
     "description": {
       "type": "String"
+    },
+    "Author": {
+      "name": "String"
     },
     "tags": {
       "type": ["String"]

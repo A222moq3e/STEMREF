@@ -12,8 +12,8 @@ router.post('/login',controller.loginPost)
 router.get('/register',controller.registerGet)
 router.post('/register',controller.registerPost)
 router.get('/search',controller.search)
-router.get('/addCourse',controller.addCourse)
 router.get('/profile',controller.profile)
+router.get('/pricing',controller.pricing)
 
 // router.get('/',()=>{
 //     console.log('in home');
