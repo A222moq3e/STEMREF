@@ -7,8 +7,8 @@ const app = express();
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
-const ruoter = require('../routes/routes')
-const router = require('../routes/routes');
+const router = require('../routes/routes')
+const courseContentRoute = require('../routes/courseContentRoute');
 // require("dotenv").config();
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
 // const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
@@ -61,6 +61,7 @@ let iconUse = {
 // app.use('/profile',router)
 // app.use('/EducatorDashboard',router)
 app.use(router)
+app.use(courseContentRoute)
 
 // app.get('/login',(req,res)=>{
 //     if(req.session.authenticated) res.redirect("/search")
@@ -311,12 +312,6 @@ app.use(router)
 // })
 
 
-function createHash(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
-
-
-
 // Port Listner, [Do not remove this]
 // app.listen(3005,()=>{
 //    console.log('port Connected in',`http://localhost:3005`);
@@ -351,5 +346,3 @@ httpServer.listen(HTTP_PORT, () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
   console.log(`http://localhost:${HTTP_PORT}`);
 });
-
-// console.log(process.env.PORT);
