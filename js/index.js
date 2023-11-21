@@ -337,7 +337,7 @@ const httpServer = http.createServer((req, res) => {
 // Start HTTPS and HTTP servers
 // const HTTPS_PORT = 443;
 // const HTTP_PORT = 80;
-const HTTPS_PORT = process.env.PORT || 3443;
+const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 const HTTP_PORT = process.env.HTTP_PORT || 3005;
 const HOST =process.env.HOST || "127.0.0.1"
 httpsServer.listen(HTTPS_PORT,HOST,() => {
