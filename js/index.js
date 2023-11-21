@@ -12,8 +12,8 @@ const courseContentRoute = require('../routes/courseContentRoute');
 // require("dotenv").config();
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
 // const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
-const keyPath = "S:/privkey.pem"
-const certPath =  "S:/fullchain.pem"
+const keyPath = "./assets/secretsKeys/privkey.pem"
+const certPath =  "./assets/secretsKeys/fullchain.pem"
 
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
@@ -335,8 +335,8 @@ const httpServer = http.createServer((req, res) => {
 // Start HTTPS and HTTP servers
 // const HTTPS_PORT = 443;
 // const HTTP_PORT = 80;
-const HTTPS_PORT = 3443;
-const HTTP_PORT = 3005;
+const HTTPS_PORT = process.env.HTTPS_PORTS || 3443;
+const HTTP_PORT = process.env.HTTPS_PORT || 3005;
 
 httpsServer.listen(HTTPS_PORT, () => {
   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
