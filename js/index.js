@@ -337,7 +337,7 @@ const httpServer = http.createServer((req, res) => {
 // Start HTTPS and HTTP servers
 // const HTTPS_PORT = 443;
 // const HTTP_PORT = 80;
-const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
+const HTTPS_PORT = process.env.PORT || 3443;
 const HTTP_PORT = process.env.HTTP_PORT || 3005;
 
 httpsServer.listen(HTTPS_PORT, "0.0.0.0", () => {
@@ -345,7 +345,7 @@ httpsServer.listen(HTTPS_PORT, "0.0.0.0", () => {
   console.log(`http://localhost:${HTTPS_PORT}`);
 });
 
-httpServer.listen(HTTP_PORT,"0.0.0.0",  () => {
+httpServer.listen(PORT,"0.0.0.0",  () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
 
 });
