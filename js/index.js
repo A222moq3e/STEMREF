@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cookieSession  = require('cookie-session')
 const store = new session.MemoryStore();
 const app = express();
 // const path = require('path');
@@ -23,9 +24,10 @@ app.set("view engine","ejs")
 // app.set("views",htmlPath)
 
 // Session
-app.use(session({
+app.set('trust proxy', 1);
+app.use(cookieSession({
     secret:process.env.SECRET_SESSION || 'some secret',
-    cookie: { maxAge : 3000000 },
+    cookie: { maxAge : 24 * 60 * 60 * 1000 },//24 hour
     saveUninitialized: false,
     store : store
 }))
@@ -340,9 +342,10 @@ const HTTP_PORT = process.env.HTTP_PORT || 3005;
 
 httpsServer.listen(HTTPS_PORT, () => {
   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
+  console.log(`http://localhost:${HTTP_PORT}`);
 });
 
 httpServer.listen(HTTP_PORT, () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
-  console.log(`http://localhost:${HTTP_PORT}`);
+
 });
