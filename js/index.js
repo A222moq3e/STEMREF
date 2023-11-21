@@ -340,12 +340,12 @@ const httpServer = http.createServer((req, res) => {
 const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 const HTTP_PORT = process.env.HTTP_PORT || 3005;
 
-httpsServer.listen(HTTPS_PORT, () => {
+httpsServer.listen(HTTPS_PORT, "0.0.0.0", () => {
   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
-  console.log(`http://localhost:${HTTP_PORT}`);
+  console.log(`http://localhost:${HTTPS_PORT}`);
 });
 
-httpServer.listen(HTTP_PORT, () => {
+httpServer.listen(HTTP_PORT,"0.0.0.0",  () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
 
 });
