@@ -345,7 +345,7 @@ httpsServer.listen(HTTPS_PORT, "0.0.0.0", () => {
   console.log(`http://localhost:${HTTPS_PORT}`);
 });
 
-httpServer.listen(PORT,"0.0.0.0",  () => {
+httpServer.listen(HTTPS_PORT,"0.0.0.0",  () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
 
 });
