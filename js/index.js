@@ -4,7 +4,7 @@ const cookieSession  = require('cookie-session')
 const store = new session.MemoryStore();
 const app = express();
 // const path = require('path');
-
+console.log('start index');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -342,10 +342,11 @@ const HTTP_PORT = process.env.HTTP_PORT || 3005;
 const HOST =process.env.HOST || "127.0.0.1"
 httpsServer.listen(HTTPS_PORT,HOST,() => {
   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
-  console.log(`http://localhost:${HTTPS_PORT}`);
+  console.log(`https://${HOST}:${HTTPS_PORT}`);
 });
 
 httpServer.listen(HTTP_PORT,HOST, () => {
   console.log(`HTTP server listening on port ${HTTP_PORT}`);
+  console.log(`http://${HOST}:${HTTP_PORT}`);
 
 });
