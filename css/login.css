@@ -124,7 +124,7 @@ form .password .eye{
     cursor: pointer;
 }
 .fa-eye-slash{
-    display: none;
+    /* display: none; */
 }
 form button{
     width: 100%;

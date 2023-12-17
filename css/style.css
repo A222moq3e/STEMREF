@@ -25,6 +25,9 @@ body {
   background-color: var(--dark-color);
   color: #fff;
 }
+.hide {
+  display: none;
+}
 main {
   position: relative;
   width: 100%;
