@@ -18,8 +18,5 @@ router.get('/pricing',controller.pricing)
 router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
 
-// router.get('/',()=>{
-//     console.log('in home');
-// })
 
 module.exports = router ;

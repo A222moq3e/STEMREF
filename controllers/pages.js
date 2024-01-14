@@ -25,24 +25,24 @@ module.exports = {
                 res.send("user not found!");
                 return;//new
             }
-            else{
-                if(check.password == createHash(req.body.password)){
-                    req.session.authenticated = true
-                    req.session.user = {
-                        name: req.body.username,
-                    }
-                    if(check.userType)req.session.user.userType=check.userType
-                    // console.log();
-
-                        if(req.session && req.session.user && req.session.user.userType=="educator" ){
-                            res.redirect('EducatorDashboard');
-                        } else{
-                            res.redirect('search')
-                        }
-                }else{
-                    res.send("Password is wrong")
+           
+            if(check.password == createHash(req.body.password)){
+                req.session.authenticated = true
+                req.session.user = {
+                    name: req.body.username,
                 }
-            } 
+                if(check.userType)req.session.user.userType=check.userType
+                // console.log();
+
+                    if(req.session && req.session.user && req.session.user.userType=="educator" ){
+                        res.redirect('EducatorDashboard');
+                    } else{
+                        res.redirect('search')
+                    }
+            }else{
+                res.send("Password is wrong")
+            }
+            
         } catch (error) {
             console.log(error);
             res.send("wrong Details")
@@ -66,12 +66,13 @@ module.exports = {
             // console.log('userIsExist:', userIsExist);
             if(userIsExist){
                 res.send("User already exists. Please choos diffrent Name")
-            }else{
-                // add Data   
-                const userdata = await usersCollection.insertMany(data);
-                console.log(userdata);
-                res.redirect("login")
+                return;
             }
+            // add Data   
+            const userdata = await usersCollection.insertMany(data);
+            console.log(userdata);
+            res.redirect("login")
+            
         }catch (error) {
             console.log(error);
             res.send("wrong Details")
@@ -86,7 +87,8 @@ module.exports = {
     // Search Page
     search:async (req,res)=>{
         // Change this
-        if(!req.session.authenticated ) res.redirect("/login")
+        if(!req.session.authenticated) return res.redirect("/login")
+        if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
         console.log(req.session.user);
         if(req.query.q){
             const data = await coursesCollection.find({name: req.query.q})

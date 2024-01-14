@@ -7,7 +7,8 @@
 //     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
 //     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
 // ]
-console.log('in item');
+
+// Screen reader
 let item = document.querySelectorAll('.item');
 let cousesContainer = document.querySelector('.courses');
 if(window.screen.width< 600){
@@ -34,8 +35,4 @@ if(window.screen.width< 600){
     boxAll.appendChild(boxl)
     boxAll.appendChild(boxr)
     cousesContainer.innerHTML = boxAll.innerHTML
-
-    // console.log('boxl + boxr',boxl.innerHTML + boxr.innerHTML);
-    // console.log('cousesContainer',cousesContainer);
-
 }

@@ -46,6 +46,7 @@ app.use(express.urlencoded({extended:false}))
 app.use((req,res,next)=>{
   let nd = new Date();
   console.log(`[${nd}]:request`);
+  if(req.session) console.log('req session:',req.session);
   next()
 })
 
