@@ -42,6 +42,12 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:false}))
 
+// logs
+app.use((req,res,next)=>{
+  let nd = new Date();
+  console.log(`[${nd}]:request`);
+  next()
+})
 
 let iconUse = {
     "Videos":"fa-solid fa-circle-play",
