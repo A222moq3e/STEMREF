@@ -13,12 +13,16 @@ router.post('/login',controller.loginPost)
 router.get('/register',controller.registerGet)
 router.post('/register',controller.registerPost)
 router.get('/forget',controllerForget.forgetGet)
+router.post('/forget',controllerForget.forgetPost)
+router.get('/reset-password/:token',controllerForget.resetPasswordGet)
+router.post('/reset-password/:token',controllerForget.resetPasswordPost)
 router.get('/signout',controller.signout)
 router.get('/search',controller.search)
 router.get('/profile',controller.profile)
 router.get('/pricing',controller.pricing)
 router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
+
 
 
 module.exports = router ;
