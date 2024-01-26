@@ -10,3 +10,4 @@ class Student extends User{
         // some functions
     }
 }
+module.exports = Student;

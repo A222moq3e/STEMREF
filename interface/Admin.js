@@ -10,3 +10,4 @@ class Admin extends User{
     }
 
 }
+module.exports =  Admin;

@@ -1,4 +1,5 @@
 class Course{
+
     constructor(name, description, Author, tags, paidContent,review, content){
             this.name=name;
             this.description=description;
@@ -49,3 +50,5 @@ class Course{
         }
     }
 }
+
+module.exports = Course;

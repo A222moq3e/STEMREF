@@ -1,5 +1,7 @@
 // const Pages = require('../models/config');
 const { usersCollection, coursesCollection } = require('../models/config');
+const  Course  = require('../interface/course.js');// course not Course, Strange
+// import {Course} from '../interface/course.js'; // course not Course, Strange
 
 module.exports = {
     courseContent:async (req,res)=>{
@@ -8,11 +10,12 @@ module.exports = {
     courseContentByName:async (req,res)=>{
         if(!req.session.authenticated ) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
+        let iconUse = ''
+        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.content);
         if(!data)
-            res.send('sorry this course not found')
-        else{
-            res.render('courseContent',{data:{name:req.params.name, desc:data.description, content:data.Content,icons:iconUse,user:req.session.user}})
-        }
+            return res.send('sorry this course not found')
+        res.render('courseContent',{data:course})
+        
         // res.render('courseContent')
     },
     courseContentByNameAndCatogray:async (req,res)=>{

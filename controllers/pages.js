@@ -113,12 +113,12 @@ module.exports = {
     },
 
     EducatorDashboardGet: (req,res)=>{
-    console.log(req.session.user);
-    if(req.session && req.session.user && req.session.user.userType=="educator" ){
-        res.render('EducatorDashboard',{ user:req.session.user});
-    } else{
-        res.redirect('login')
-    }
+        console.log(req.session.user);
+        if(req.session && req.session.user && req.session.user.userType=="educator" ){
+            res.render('EducatorDashboard',{ user:req.session.user});
+        } else{
+            res.redirect('login')
+        }
     },
 
     EducatorDashboardPost:async (req,res)=>{
@@ -174,10 +174,14 @@ module.exports = {
             if(courseIsExist){
                 const coursedata = await coursesCollection.updateOne({name: data.name},data);
                 console.log('course Updated:',coursedata);
+                res.status(200).send('course update!');
             }else{
                 // add Data   
                 const coursedata = await coursesCollection.insertMany(data);
                 console.log('course Added:',coursedata);
+                res.status(200).send('course add!');
+                
+              
             }
     }catch (error) {
         console.log(error);

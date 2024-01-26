@@ -9,3 +9,4 @@ class Educator extends User{
         // some function
     }
 }
+module.exports = Educator;
