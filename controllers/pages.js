@@ -140,32 +140,37 @@ module.exports = {
                 }
             }
             //Videos
-            for(let i=0;i<req.body.Video.length;i++){
+            let videoLength = Array.isArray(req.body.Video) ? req.body.Video.length : 0;
+            for(let i=0;i<videoLength;i++)
+            {
                 if(req.body.Video[i]=='') continue
                 let minData ={ name: req.body.Video[i], url:req.body.VideoUrl[i]}
                 data.Content.Videos.push(minData)
             }
             //Articles
-            for(let i=0;i<req.body.Video.length;i++){
-                if(req.body.Video[i]=='') continue
+            let articleLength = Array.isArray(req.body.article) ? req.body.article.length : 0;
+            for(let i=0;i<articleLength;i++){
+                if(req.body.article[i]=='') continue
                 let minData ={ name: req.body.article[i], url:req.body.articlesUrl[i]}
                 data.Content.Articles.push(minData)
             }
             //Quizzes
             for(let i=0;i<req.body.quizzes.length;i++){
-                if(req.body.Video[i]=='') continue
+                if(req.body.quizzes[i]=='') continue
                 let minData ={ name: req.body.quizzes[i], url:req.body.quizzesUrl[i]}
                 data.Content.Quizzes.push(minData)
             }
             //Assignments
-            for(let i=0;i<req.body.assignments.length;i++){
-                if(req.body.Video[i]=='') continue
+            let assignmentsLength = Array.isArray(req.body.assignments) ? req.body.assignments.length : 0;
+            for(let i=0;i<assignmentsLength;i++){
+                if(req.body.assignments[i]=='') continue
                 let minData ={ name: req.body.assignments[i], url:req.body.assignmentsUrl[i]}
                 data.Content.Assignments.push(minData)
             }
             //Others
-            for(let i=0;i<req.body.others.length;i++){
-                if(req.body.Video[i]=='') continue
+            let othersLength = Array.isArray(req.body.others) ? req.body.others.length : 0;
+            for(let i=0;i<othersLength;i++){
+                if(req.body.others[i]=='') continue
                 let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
                 data.Content.Others.push(minData)
             }
