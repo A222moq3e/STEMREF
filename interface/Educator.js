@@ -8,5 +8,6 @@ class Educator extends User{
     updateCourse(){
         // some function
     }
+    
 }
 module.exports = Educator;
