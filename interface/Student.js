@@ -3,9 +3,7 @@ class Student extends User{
         super(name,email,true,'student')
         this.paidUser = paidUser;
     }
-    resetPassword(){
-        // some functions
-    }
+
     searchCourse(){
         // some functions
     }

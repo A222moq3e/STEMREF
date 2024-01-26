@@ -7,6 +7,9 @@ export class User{
     verfiyLogin(){
         //some function
     }
+    resetPassword(){
+        // some functions
+    }
     getName() {
         return this.name;
     }
