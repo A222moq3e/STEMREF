@@ -27,7 +27,11 @@ app.set("view engine","ejs")
 app.set('trust proxy', 1);
 app.use(cookieSession({
     secret:process.env.SECRET_SESSION || 'some secret',
-    cookie: { maxAge : 24 * 60 * 60 * 1000 },//24 hour
+    cookie: { 
+      maxAge : 24 * 60 * 60 * 1000, // 24 hours
+      secure: true, // added 'Secure' attribute
+      httpOnly: true, // added 'HttpOnly' attribute to prevent access through client-side script
+  },//24 hour
     saveUninitialized: false,
     store : store
 }))
