@@ -1,7 +1,7 @@
 // const Pages = require('../models/config');
 const { usersCollection, coursesCollection } = require('../models/config');
-const  Course  = require('../interface/course.js');// course not Course, Strange
-// import {Course} from '../interface/course.js'; // course not Course, Strange
+const  Course  = require('../interface/Course.js');// course not Course, Strange
+const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
 module.exports = {
@@ -9,12 +9,19 @@ module.exports = {
         res.redirect('search',{data:{user:req.session.user}})
     },
     courseContentByName:async (req,res)=>{
-        if(!req.session.authenticated ) res.redirect("/login")
-        const data = await coursesCollection.findOne({name: req.params.name})
-        let iconUse = ''
-        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.content);
-        if(!data) return res.send('sorry this course not found')
-        res.render('courseContent',{data:course})
+       try{
+            if(!req.session.authenticated ) res.redirect("/login")
+            const data = await coursesCollection.findOne({name: req.params.name})
+            let iconUse = ''
+            const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
+            const user = new Student(req.session.user.name,req.session.user.email);
+            // const user = new 
+            if(!data) return res.send('sorry this course not found')
+            console.log(course.content.Videos);
+            res.render('courseContent',{data:{course:course,user:{name:user},icons:[]}})
+       }catch(e){
+            console.log(e);
+       }
         
         // res.render('courseContent')
     },
