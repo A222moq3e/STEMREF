@@ -9,18 +9,20 @@ module.exports = {
     forgetPost: async(req,res)=>{
         const { email } = req.body;
         const myEmail  ='stemref@gmail.com'
+        const myEmailPassword =  process.env.MY_EMAIL_PASSWORD
         const url = 'https://127.0.0.1:3443/'
         const resetToken = 'some token'
         const googleClientid = process.env.GOOGLE_CLIENT_ID
         const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
         const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
 
+
         // Create a Nodemailer transporter
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
             user: myEmail,
-            pass: 'stemref123321',
+            pass: myEmailPassword,
             },
         });
         console.log('transporter',transporter);
