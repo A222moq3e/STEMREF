@@ -11,9 +11,9 @@ module.exports = {
         const myEmail  ='stemref@gmail.com'
         const url = 'https://127.0.0.1:3443/'
         const resetToken = 'some token'
-        const googleClientid = '709324957118-eqsmsh3ikriqjh25ge77ba0fgf48e53n.apps.googleusercontent.com'
-        const googleClientSecret = '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'
-        const googleOauthRedirectUrl = 'https://127.0.0.1:3443/forget'
+        const googleClientid = process.env.GOOGLE_CLIENT_ID
+        const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
+        const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
 
         // Create a Nodemailer transporter
         const transporter = nodemailer.createTransport({

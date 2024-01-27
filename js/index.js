@@ -16,7 +16,7 @@ const courseContentRoute = require('../routes/courseContentRoute');
 // const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
 const keyPath = "./assets/secretsKeys/privkey.pem"
 const certPath =  "./assets/secretsKeys/fullchain.pem"
-
+const secretSessionString = process.env.SECRET_SESSION
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
 // const htmlPath = path.join(__dirname,'../pages')
@@ -28,7 +28,7 @@ console.log(process.env.TEST);
 // Session
 app.set('trust proxy', 1);
 app.use(cookieSession({
-    secret:process.env.SECRET_SESSION || 'some secret',
+    secret:secretSessionString,
     cookie: { 
       maxAge : 24 * 60 * 60 * 1000, // 24 hours
       secure: true, // added 'Secure' attribute
