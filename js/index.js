@@ -8,6 +8,7 @@ console.log('start index');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+require('dotenv').config();
 const router = require('../routes/routes')
 const courseContentRoute = require('../routes/courseContentRoute');
 // require("dotenv").config();
@@ -22,7 +23,8 @@ const certPath =  "./assets/secretsKeys/fullchain.pem"
 // app.use(express.json())
 app.set("view engine","ejs")
 // app.set("views",htmlPath)
-
+console.log('process.env.TEST');
+console.log(process.env.TEST);
 // Session
 app.set('trust proxy', 1);
 app.use(cookieSession({
