@@ -20,10 +20,9 @@ module.exports = {
     loginPost:async  (req,res)=>{
         try {
             const check = await usersCollection.findOne({name:req.body.username})
-            console.log(check,'is logging');
             if(!check){
                 res.send("user not found!");
-                return;//new
+                return;
             }
            
             if(check.password == createHash(req.body.password)){
@@ -98,7 +97,7 @@ module.exports = {
             res.render('search',{data:data, user:req.session.user})
         }
     },
-// Pricing
+    // Pricing
     pricing:(req,res)=>{
     if(!req.session.authenticated ) res.redirect("/login")
         res.render("pricing",{data:{user:req.session.user}})
