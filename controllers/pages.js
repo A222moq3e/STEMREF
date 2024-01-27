@@ -14,10 +14,11 @@ module.exports = {
     
     loginGet:(req,res)=>{
         if(req.session.authenticated) res.redirect("/search")
-        else
-        res.render("login")
+        else res.render("login")
     },
     loginPost:async  (req,res)=>{
+        const MaxAttemps = 5;
+        if(req.session.failedAttempts &&req.session.failedAttempts>=MaxAttemps) return res.status(403).send('forbbiden, to many faileded attmeps')
         try {
             const check = await usersCollection.findOne({name:req.body.username})
             if(!check){
@@ -26,19 +27,25 @@ module.exports = {
             }
            
             if(check.password == createHash(req.body.password)){
+                // Build secction data
                 req.session.authenticated = true
                 req.session.user = {
                     name: req.body.username,
                 }
+                req.session.failedAttempts = 0
                 if(check.userType)req.session.user.userType=check.userType
-                // console.log();
 
-                    if(req.session && req.session.user && req.session.user.userType=="educator" ){
-                        res.redirect('EducatorDashboard');
-                    } else{
-                        res.redirect('search')
-                    }
+                if(req.session && req.session.user && req.session.user.userType=="educator" )
+                    return res.redirect('EducatorDashboard');
+                   
+                    return res.redirect('search')
+                    
             }else{
+                if (!req.session.failedAttempts) {
+                    req.session.failedAttempts = 1;
+                  } else {
+                    req.session.failedAttempts++;
+                  }
                 res.send("Password is wrong")
             }
             
