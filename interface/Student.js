@@ -1,3 +1,4 @@
+const User = require('./user');
 class Student extends User{
     constructor(name,email,paidUser){
         super(name,email,true,'student')

@@ -57,32 +57,36 @@
         <div class="overlap">
           <div class="container">
             <div class="box">
-                <% if(Array.isArray(data.content)){ %>
-                    <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.name%>"></a>
-                    <% } %>
-              <div class="top-text">
-                  <h1><%= data.name %><span><%= data.catogray %></span></h1>
-                <p>
-                    <%= data.desc %>
-                </p>
-              </div>
-              <div class="items">
-                <% if(!Array.isArray(data.content)) { %>
-                  <% for(const [key, value] of Object.entries(data.content)){ %>
-                    <a class="item" href="<%= data.name +'/'+key %>"  title="<%= key %>">
-                      <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i></div>
+              <% if(Array.isArray(data.course.content)){ %>
+                <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.course.name%>"></a>
+                <% } %>
+          <div class="top-text">
+              <h1><%= data.course.name %><span><%= data.course.catogray %></span></h1>
+            <p>
+                <%= data.course.desc %>
+            </p>
+          </div>
+          <div class="items">
+            <% if(!Array.isArray(data.course.content)) { %>
+              <% for(const [key, value] of Object.entries(data.course.content)){ %>
+                <a class="item" href="<%= data.course.name +'/'+key %>"  title="<%= key %>">
+                  <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i></div>
+                  <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
+                </a>          
+              <% } } %>
+            <% if(Array.isArray(data.course.content)){ %>
+                <% for(let {name, url} of data.course.content){ %>
+                    <a class="item" href="<%= url %>" target="_blank"  title="<%= name %>">
+                      <div class="item-title"><%= name %></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
                     </a>          
-                  <% } } %>
-                <% if(Array.isArray(data.content)){ %>
-                    <% for(let {name, url} of data.content){ %>
-                        <a class="item" href="<%= url %>" target="_blank"  title="<%= name %>">
-                          <div class="item-title"><%= name %></div>
-                          <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                        </a>          
-                      <% }  %>
-                <% } %>
-                
+                  <% }  %>
+            <% } %>
+
+            </div>
+            <div class="tools">
+              <button>Review</button>
+              <button>Discussion</button>
             </div>
           </div>
         </div>
