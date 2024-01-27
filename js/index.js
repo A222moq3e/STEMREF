@@ -43,17 +43,13 @@ app.use(cookieSession({
 
 // Rate Limit
 var limiter  = RateLimit({
-
   windowMs: 10*60*1000, // 1 hour window
-
   delayAfter: 10, // begin slowing down responses after the first 10 requests
-
   delayMs: 100, // slow down subsequent responses by 100 milliseconds per request
-
   max: 50, // start blocking after 50 requests
-
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: "Too many requests made from this IP, please try again in a few minutes"
-
 });
 app.use(limiter);
 // Use Helmet!
@@ -74,6 +70,7 @@ app.use((req,res,next)=>{
   let nd = new Date();
   console.log(`[${nd}]:request`);
   if(req.session) console.log('req session:',req.session);
+  // if (config.RATE_LIMITING_ENABLED === 'true') return res.status(403).send('Forbidden')
   next()
 })
 
@@ -142,3 +139,5 @@ httpsServer.listen(HTTPS_PORT,() => {
 //   console.log(`http://${HOST}:${HTTP_PORT}`);
 
 // });
+
+

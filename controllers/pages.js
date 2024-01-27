@@ -122,6 +122,7 @@ module.exports = {
 
     EducatorDashboardPost:async (req,res)=>{
     // console.log(req.body);
+        if( !Array.isArray(req.body.tags)) return res.send('wrong tags type')
         let filteredTags = req.body.tags.filter((el)=> {
             return el != null && el != '';
         });
