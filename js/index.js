@@ -13,6 +13,7 @@ const router = require('../routes/routes')
 const courseContentRoute = require('../routes/courseContentRoute');
 const RateLimit = require('express-rate-limit');
 const helmet = require('helmet')
+var csurf = require('csurf')
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
 // const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
 const keyPath = "./assets/secretsKeys/privkey.pem"
