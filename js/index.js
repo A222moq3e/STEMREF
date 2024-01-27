@@ -11,7 +11,7 @@ const fs = require('fs');
 require('dotenv').config();
 const router = require('../routes/routes')
 const courseContentRoute = require('../routes/courseContentRoute');
-const RateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet')
 var csurf = require('csurf')
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
@@ -41,17 +41,7 @@ app.use(cookieSession({
     store : store
 }))
 
-// Rate Limit
-var limiter  = RateLimit({
-  windowMs: 10*60*1000, // 1 hour window
-  delayAfter: 10, // begin slowing down responses after the first 10 requests
-  delayMs: 100, // slow down subsequent responses by 100 milliseconds per request
-  max: 50, // start blocking after 50 requests
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  message: "Too many requests made from this IP, please try again in a few minutes"
-});
-app.use(limiter);
+
 // Use Helmet!
 app.use(helmet());
 
@@ -82,8 +72,19 @@ let iconUse = {
     "Others":"fa-solid fa-arrow-up-right-from-square",
     "share":"fa-solid fa-share"
 }
+// Rate Limit
+var limiter  = rateLimit({
+  windowMs: 10*60*1000, // 1 hour window
+  delayAfter: 10, // begin slowing down responses after the first 10 requests
+  delayMs: 100, // slow down subsequent responses by 100 milliseconds per request
+  max: 50, // start blocking after 50 requests
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message: "Too many requests made from this IP, please try again in a few minutes"
+});
+app.use(limiter);
 
-// Creating Server  
+// Routing
 // app.use('/',router)
 // app.use('/login',router)
 // app.use('/register',router)
