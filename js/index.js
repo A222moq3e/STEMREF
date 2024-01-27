@@ -12,6 +12,7 @@ require('dotenv').config();
 const router = require('../routes/routes')
 const courseContentRoute = require('../routes/courseContentRoute');
 const RateLimit = require('express-rate-limit');
+const helmet = require('helmet')
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
 // const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
 const keyPath = "./assets/secretsKeys/privkey.pem"
@@ -54,6 +55,8 @@ var limiter  = RateLimit({
 
 });
 app.use(limiter);
+// Use Helmet!
+app.use(helmet());
 
 // static files
 app.use(express.static('css'))
