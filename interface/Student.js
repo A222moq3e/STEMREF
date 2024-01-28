@@ -1,4 +1,4 @@
-const User = require('./user');
+const User = require('./User');
 class Student extends User{
     constructor(name,email,subscribe,img){
         super(name,email,true,'student',img)
