@@ -1,3 +1,5 @@
 node_modules
-.env
 deploy.sh   
+assets/secretsKeys/privkey.pem
+assets/secretsKeys/fullchain.pem
+.env
