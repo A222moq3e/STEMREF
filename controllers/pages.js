@@ -59,7 +59,7 @@ module.exports = {
         }
     },
     registerGet:(req,res)=>{
-        if(req.session.user.authenticated) res.redirect("/search")
+        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
         else  res.render("register")
     },
     registerPost: async (req,res)=>{
