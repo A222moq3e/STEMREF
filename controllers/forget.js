@@ -12,17 +12,20 @@ module.exports = {
         const myEmailPassword =  process.env.MY_EMAIL_PASSWORD
         const url = 'https://127.0.0.1:3443/'
         const resetToken = 'some token'
-        const googleClientid = process.env.GOOGLE_CLIENT_ID
-        const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
-        const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
+        // const googleClientid = process.env.GOOGLE_CLIENT_ID
+        // const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
+        // const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
 
 
         // Create a Nodemailer transporter
         const transporter = nodemailer.createTransport({
             service: 'gmail',
+            host:'smtp.gmail.com',
+            port:587,
+            secure:false,
             auth: {
-            user: myEmail,
-            pass: myEmailPassword,
+                user: myEmail,
+                pass: myEmailPassword,
             },
         });
         console.log('transporter',transporter);
