@@ -1,4 +1,4 @@
-const User = require('./user');
+const User = require('./User');
 class Educator extends User{
     constructor(name,email){
         super(name,email,true,'educator','avatar8.svg')

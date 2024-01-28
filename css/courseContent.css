@@ -105,7 +105,10 @@ main .item-title {
   white-space: nowrap;
 }
 .tools {
-  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   z-index: 20;
 }
 .tools button {
@@ -141,7 +144,29 @@ main .item-title {
 .message-tools {
   height: 10%;
 }
-
+.stars {
+  padding: 5px;
+  background-color: var(--dark-color);
+  border-radius: 20px;
+}
+.stars input {
+  display: none;
+}
+.stars label {
+  cursor: pointer;
+}
+.stars label i {
+  font-size: 20px;
+  color: #aaa;
+  padding: 5px;
+  cursor: pointer;
+}
+/* .stars input[type="radio"] + label:hover, */
+.stars input[type="radio"]:checked + label {
+  color: var(--main-color);
+  color: white;
+  background-color: red;
+}
 a {
   text-decoration: none;
 }
