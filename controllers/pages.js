@@ -16,7 +16,7 @@ module.exports = {
     },
     
     loginGet:(req,res)=>{
-        if(req.session.user.authenticated) res.redirect("/search")
+        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
         else
         res.render("login")
     },
@@ -96,9 +96,7 @@ module.exports = {
     // Search Page
     search:async (req,res)=>{
         // Change this
-        console.log('req.session.user.authenticated');
-        console.log(req.session.user.authenticated);
-        if(!req.session.user.authenticated) return res.redirect("/login")
+        if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
         if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
         if(req.query.q){
@@ -111,7 +109,7 @@ module.exports = {
     },
     // Pricing
     pricing:(req,res)=>{
-    if(!req.session.user.authenticated ) return res.redirect("/login")
+    if(req.session.user && !req.session.user.authenticated ) return res.redirect("/login")
         res.render("pricing",{data:{user:req.session.user}})
     },
     // User Data

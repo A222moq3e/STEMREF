@@ -10,7 +10,7 @@ module.exports = {
     },
     courseContentByName:async (req,res)=>{
        try{
-            if(!req.session.authenticated ) res.redirect("/login")
+            if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
             const data = await coursesCollection.findOne({name: req.params.name})
             let iconUse = ''
             const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
@@ -26,7 +26,7 @@ module.exports = {
         // res.render('courseContent')
     },
     courseContentByNameAndCatogray:async (req,res)=>{
-        if(!req.session.authenticated ) res.redirect("/login")
+        if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
         // console.log(req.params.catogray);
         let catogray = req.params.catogray;
