@@ -46,6 +46,12 @@ const Courseschema = new mongoose.Schema({
     "paidContent": {
       "type": "boolean"
     },
+    "reviews": {
+      "type": ["int"]
+    },
+    "discussions": {
+      "type": "Mixed"
+    },
     "Content": {
       "Videos": {
         "type": [

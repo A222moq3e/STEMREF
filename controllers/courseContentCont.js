@@ -1,7 +1,7 @@
 // const Pages = require('../models/config');
 const { usersCollection, coursesCollection } = require('../models/config');
 const  Course  = require('../interface/Course.js');// course not Course, Strange
-const  Student  = require('../interface/Student.js');
+// const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
 module.exports = {
@@ -14,11 +14,11 @@ module.exports = {
             const data = await coursesCollection.findOne({name: req.params.name})
             let iconUse = ''
             const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
-            const user = new Student(req.session.user.name,req.session.user.email);
+            // const user = new Student(req.session.user.name,req.session.user.email);
             // const user = new 
             if(!data) return res.send('sorry this course not found')
             console.log(course.content.Videos);
-            res.render('courseContent',{data:{course:course,user:{name:user},icons:[]}})
+            res.render('courseContent',{data:{course:course,user:req.session.user,icons:[]}})
        }catch(e){
             console.log(e);
        }
