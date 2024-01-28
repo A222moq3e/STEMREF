@@ -28,6 +28,10 @@ class User{
         if(img)this.img = img
         else this.img = 'avatar3.svg'
     }
+    // setUserType(userType){
+    //     if(userType)this.userType = userType
+    //     else this.userType = userType
+    // }
     getUserData(){
         return {
             name:  getName(),

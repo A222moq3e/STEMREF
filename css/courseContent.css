@@ -155,17 +155,22 @@ main .item-title {
 .stars label {
   cursor: pointer;
 }
-.stars label i {
+i {
   font-size: 20px;
   color: #aaa;
   padding: 5px;
   cursor: pointer;
 }
-.stars input[type="radio"] ~ label:hover,
-.stars input[type="radio"]:checked ~ label {
-  color: var(--main-color);
+.stars label:hover i,
+.stars label:hover ~ label i,
+.stars input[type="radio"] ~ label:hover i,
+.stars input[type="radio"]:checked ~ label i {
+  /* color: var(--main-color); */
   color: white;
-  background-color: red;
+}
+.stars label:hover i {
+  /* background-color: red; */
+  color: white;
 }
 a {
   text-decoration: none;
