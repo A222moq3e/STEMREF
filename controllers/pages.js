@@ -1,5 +1,8 @@
 // const Pages = require('../models/config');
 const crypto = require('crypto');
+const  Course  = require('../interface/Course.js');// course not Course, Strange
+const  Student  = require('../interface/Student.js');
+const  Educator  = require('../interface/Educator.js');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -7,14 +10,15 @@ module.exports = {
     index:(req,res)=>{  
         console.log('log in home');  
         if(req.session.user)
-        res.render("home",{data:{accesses:req.session.authenticated, user:req.session.user}})
+        res.render("home",{data:{accesses:req.session.user.authenticated, user:req.session.user}})
         else
-        res.render("home",{data:{accesses:req.session.authenticated}})
+        res.render("home",{data:{accesses:req.session.user.authenticated}})
     },
     
     loginGet:(req,res)=>{
-        if(req.session.authenticated) res.redirect("/search")
-        else res.render("login")
+        if(req.session.user.authenticated) res.redirect("/search")
+        else
+        res.render("login")
     },
     loginPost:async  (req,res)=>{
         const MaxAttemps = 5;
@@ -26,27 +30,27 @@ module.exports = {
                 return;
             }
            
-            if(check.password == createHash(req.body.password)){
-                // Build secction data
-                req.session.authenticated = true
-                req.session.user = {
-                    name: req.body.username,
-                }
-                req.session.failedAttempts = 0
-                if(check.userType)req.session.user.userType=check.userType
-
-                if(req.session && req.session.user && req.session.user.userType=="educator" )
-                    return res.redirect('EducatorDashboard');
-                   
-                    return res.redirect('search')
-                    
-            }else{
-                if (!req.session.failedAttempts) {
-                    req.session.failedAttempts = 1;
-                  } else {
-                    req.session.failedAttempts++;
-                  }
-                res.send("Password is wrong")
+            if(check.password != createHash(req.body.password)) return res.send("Password is wrong")
+            console.log(check.userType);
+            switch(check.userType){
+                case 'student':
+                    req.session.user = new Student(check.name,check.email,check.subscribe); 
+                    res.redirect('search');
+                    break;
+                case 'user':
+                    req.session.user = new Student(check.name,check.email,check.subscribe); 
+                    res.redirect('search');
+                    break;
+                case 'educator':
+                    req.session.user = new Educator(check.name,check.email);
+                    res.redirect('EducatorDashboard');
+                    break;
+                case 'admin':
+                    req.session.user = new Student(check.name,check.email); 
+                    res.redirect('home');
+                    break;
+                default:
+                    res.status(404).send('wrong data, contact with Support')
             }
             
         } catch (error) {
@@ -55,9 +59,8 @@ module.exports = {
         }
     },
     registerGet:(req,res)=>{
-        if(req.session.authenticated) res.redirect("/search")
-        else
-        res.render("register")
+        if(req.session.user.authenticated) res.redirect("/search")
+        else  res.render("register")
     },
     registerPost: async (req,res)=>{
         try{
@@ -86,49 +89,51 @@ module.exports = {
     
     },
     signout:(req,res)=>{
-        req.session.authenticated = false;
+        req.session.user.authenticated = false;
         res.redirect("/");
     },
 
     // Search Page
     search:async (req,res)=>{
         // Change this
-        if(!req.session.authenticated) return res.redirect("/login")
+        console.log('req.session.user.authenticated');
+        console.log(req.session.user.authenticated);
+        if(!req.session.user.authenticated) return res.redirect("/login")
         if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
-        console.log(req.session.user);
+
         if(req.query.q){
             const data = await coursesCollection.find({name: req.query.q})
-            res.render('search',{data:data, user:req.session.user})
+            return res.render('search',{data:data, user:req.session.user})
         }else{
             const data = await coursesCollection.find({})
-            res.render('search',{data:data, user:req.session.user})
+            return res.render('search',{data:data, user:req.session.user})
         }
     },
     // Pricing
     pricing:(req,res)=>{
-    if(!req.session.authenticated ) res.redirect("/login")
+    if(!req.session.user.authenticated ) return res.redirect("/login")
         res.render("pricing",{data:{user:req.session.user}})
     },
     // User Data
     profile:(req,res)=>{
         if(req.session && req.session.user){
-            res.render('profile',{data:{accesses:req.session.authenticated, user:req.session.user}})
+            res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user}})
         } else{
             res.redirect('login')
         }
     },
 
     EducatorDashboardGet: (req,res)=>{
-        console.log(req.session.user);
+        // const educator = new Educator(req.session.user.name,req.session.email);
         if(req.session && req.session.user && req.session.user.userType=="educator" ){
-            res.render('EducatorDashboard',{ user:req.session.user});
+            res.render('EducatorDashboard',{ data:{user:req.session.user}});
         } else{
             res.redirect('login')
         }
     },
 
     EducatorDashboardPost:async (req,res)=>{
-    // console.log(req.body);
+        // const educator = new Educator(req.session.user,req.session.email);
         if( !Array.isArray(req.body.tags)) return res.send('wrong tags type')
         let filteredTags = req.body.tags.filter((el)=> {
             return el != null && el != '';
@@ -138,6 +143,8 @@ module.exports = {
                 name:req.body.CourseName,
                 description: req.body.description,
                 tags: filteredTags,
+                review:[],
+                discussions:{},
                 Content: {
                     Videos:[],
                     Articles:[],

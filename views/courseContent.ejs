@@ -60,6 +60,7 @@
               <% if(Array.isArray(data.course.content)){ %>
                 <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.course.name%>"></a>
                 <% } %>
+                
           <div class="top-text">
               <h1><%= data.course.name %><span><%= data.course.catogray %></span></h1>
             <p>
@@ -82,12 +83,26 @@
                     </a>          
                   <% }  %>
             <% } %>
-
+            <div class="discussionBox row hide">
+              <div class="discussions col-12">
+                <div class="message"></div>
+              </div>
+                <div class="message-tools input-group mb-3">
+                  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-paper-plane"></i></button>
+                  </div>
+                </div>
+            </div>
             </div>
             <div class="tools">
-              <button>Review</button>
-              <button>Discussion</button>
+              <button title="Review"><i class="fa-solid fa-star btn"></i></button>
+              <button title="Discussion"><i class="fa-solid fa-message btn"></i></button>
             </div>
+      
+            <!-- <div class="reviewBox">
+
+            </div> -->
           </div>
         </div>
       </div>

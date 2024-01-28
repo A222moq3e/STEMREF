@@ -1,8 +1,11 @@
 const User = require('./user');
 class Student extends User{
-    constructor(name,email,paidUser){
-        super(name,email,true,'student')
-        this.paidUser = paidUser;
+    constructor(name,email,subscribe,img){
+        super(name,email,true,'student',img)
+        if(subscribe)
+        this.subscribe = subscribe;
+        else
+        this.subscribe = false
     }
 
     searchCourse(){

@@ -27,7 +27,13 @@ const LoginSchema = new mongoose.Schema({
     ,userType:{
         type:String,
         required:true
-    }
+    },subscribe:{
+      type:String,
+      required:false
+    },token:{
+      type:String,
+      required:false
+  }
 })
 // Create Courses Schema
 const Courseschema = new mongoose.Schema({
@@ -45,6 +51,12 @@ const Courseschema = new mongoose.Schema({
     },
     "paidContent": {
       "type": "boolean"
+    },
+    "reviews": {
+      "type": ["int"]
+    },
+    "discussions": {
+      "type": "Mixed"
     },
     "Content": {
       "Videos": {

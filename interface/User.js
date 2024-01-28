@@ -1,8 +1,11 @@
 class User{
-    constructor(name,email,authentication,userType){
+    constructor(name,email,authenticated,userType,img){
         this.name= name;
-        this.authentication = authentication;
+        if(email) this.email = email;
+        else this.email = 'no email'
+        this.authenticated = authenticated;
         this.userType = userType;
+        this.setImage(img)
     }
     verfiyLogin(){
         //some function
@@ -21,7 +24,10 @@ class User{
     getUserType() {
         return this.userType;
     }
-
+    setImage(img){
+        if(img)this.img = img
+        else this.img = 'avatar3.svg'
+    }
     getUserData(){
         return {
             name:  getName(),
