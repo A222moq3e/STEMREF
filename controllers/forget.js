@@ -1,6 +1,8 @@
 // const Pages = require('../models/config');
-// const { usersCollection, coursesCollection } = require('../models/config');
+const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+// const cryptoRandomString = require('crypto-random-string');
+const { usersCollection, coursesCollection } = require('../models/config');
 
 module.exports = {
     forgetGet: (req,res)=>{
@@ -10,13 +12,18 @@ module.exports = {
         const { email } = req.body;
         const myEmail  ='stemref@gmail.com'
         const myEmailPassword =  process.env.MY_EMAIL_PASSWORD
-        const url = 'https://127.0.0.1:3443/'
-        const resetToken = 'some token'
+        const url = 'https://127.0.0.1:3443'
+        const resetToken = crypto.randomBytes(20).toString('hex');
         // const googleClientid = process.env.GOOGLE_CLIENT_ID
         // const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
         // const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
-
-
+        const user = await usersCollection.findOne({name:'test'});
+        // console.log(user.name);
+        console.log({token:resetToken});
+        console.log(resetToken);
+        // console.log(user.name);
+        if(!user) return res.send('wrong email');
+        const userAU = await usersCollection.findOneAndUpdate({email:user.email},{token:resetToken});
         // Create a Nodemailer transporter
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -28,7 +35,6 @@ module.exports = {
                 pass: myEmailPassword,
             },
         });
-        console.log('transporter',transporter);
         try {
             const mailOptions = {
               from: myEmail,
@@ -45,23 +51,39 @@ module.exports = {
             return res.render('forget',{data:{ok:false}})
           }
       
-    },
-    resetPasswordGet:(req, res) => {
+    },  
+    resetPasswordGet:async(req, res) => {
         const { token } = req.params;
-      
-        // Validate the token and check if it's still valid
-      
-        res.render('reset-password-form', { token }); // Render the password reset form template
+        console.log('token');
+        // console.log( req);
+        console.log( req.params);
+        console.log(token);
+        const user = await usersCollection.findOne({token:token});
+        console.log('user is');
+        console.log(user);
+        if(!user) return res.send('wrong token');
+        
+        res.render('reset-password-form', { token }); 
     },
-    resetPasswordPost:(req, res) => {
+    resetPasswordPost:async(req, res) => {
         const { token } = req.params;
-        const { newPassword } = req.body;
-      
+        const { newPassword, newPasswordRepeat  } = req.body;
+        const user = await usersCollection.find({token:token});
+        if(!user) return res.send('wrong token');
         // Validate the new password
-      
+        if(newPassword!=newPasswordRepeat )res.send('password not matched')
+        user.password = createHash(newPassword)
         // Update the user's password in MongoDB using the token
+        
+        const userAU =  await usersCollection.findOneAndUpdate({token:token},{password: user.password, token:''});
       
-        res.redirect('/reset-password-success'); // Redirect to a success page
+      
+        res.send('change password success'); 
     }
       
+}
+
+
+function createHash(password) {
+    return crypto.createHash('sha256').update(password).digest('hex');
 }
