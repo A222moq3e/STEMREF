@@ -161,8 +161,8 @@ main .item-title {
   padding: 5px;
   cursor: pointer;
 }
-/* .stars input[type="radio"] + label:hover, */
-.stars input[type="radio"]:checked + label {
+.stars input[type="radio"] ~ label:hover,
+.stars input[type="radio"]:checked ~ label {
   color: var(--main-color);
   color: white;
   background-color: red;

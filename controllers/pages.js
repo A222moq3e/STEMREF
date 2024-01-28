@@ -12,7 +12,7 @@ module.exports = {
         if(req.session.user)
         res.render("home",{data:{accesses:req.session.user.authenticated, user:req.session.user}})
         else
-        res.render("home",{data:{accesses:req.session.user.authenticated}})
+        res.render("home",{data:{accesses:false}})
     },
     
     loginGet:(req,res)=>{
