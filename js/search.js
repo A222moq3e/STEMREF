@@ -50,7 +50,8 @@ if(window.screen.width< 600){
         const random_number = (Math.floor(Math.random() * 10)) % numOfBoxes;
         i.classList.remove('col-5', "col-md-3","col-lg-2")
         i.classList.add('mb-2', 'col-12', `color-${random_number}`, 'p-3')
-        
+        if(i.querySelector('p').innerText.length > 220)
+        i.querySelector('p').innerText =  i.querySelector('p').innerText.slice(0,230)+' ...';
         // console.log(i);
         boxs[numOfBoxesCounter].append(i);
         console.log(numOfBoxesCounter);
