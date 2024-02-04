@@ -18,6 +18,7 @@
     "http": "^0.0.1-security",
     "mongoose": "^7.6.4",
     "nodemailer": "^6.9.8",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "sweetalert2": "^11.10.4"
   }
 }

@@ -4,6 +4,7 @@ const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
 const  Admin  = require('../interface/Admin.js');
+const Swal = require('sweetalert2')
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -31,7 +32,11 @@ module.exports = {
                 return;
             }
            
-            if(check.password != createHash(req.body.password)) return res.send("Password is wrong")
+            if(check.password != createHash(req.body.password)){
+                console.log('wrong password');
+                return res.render('login',{data:{err:'wrong password'}})
+
+            } 
             console.log(check.userType);
             switch(check.userType){
                 case 'student':
@@ -51,7 +56,8 @@ module.exports = {
                     res.redirect('home');
                     break;
                 default:
-                    res.status(404).send('wrong data, contact with Support')
+                    // res.status(404).send('wrong data, contact with Support')
+                    res.render('login',{data:{Swal:Swal,err:'wrong data, contact with Support'}})
             }
             
         } catch (error) {
@@ -225,3 +231,4 @@ function createHash(password) {
 // function checkIsLogin(){
 //     if(!req.session && !req.session.user) return res.render('login')
 // }
+
