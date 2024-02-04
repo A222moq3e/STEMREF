@@ -1,0 +1,19 @@
+section .container {
+  width: fit-content;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(50, 50, 50, 0.9);
+  backdrop-filter: blur(20px);
+}
+
+h3 {
+  color: #e7e7e7;
+}
+h3 span {
+  color: white;
+}

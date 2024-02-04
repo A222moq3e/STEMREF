@@ -17,7 +17,7 @@
     <link rel="icon" type="image/x-icon" href="/logo-min.svg">
     <!-- CSS  -->
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/search.css">
+    <link rel="stylesheet" href="/profile.css">
         <title>STEMREF | Search Page</title>
   </head>
   <body>
@@ -52,8 +52,12 @@
             <div class="container">
                 <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 100px;">
                 <!-- <input class="disable" value="<%= data.user.name %>"> -->
-                <h1 class="disable" >username:<span>@<%= data.user.name %></span></h1>
-                <button>update</button>
+                <div class="textContent">
+                  <h3 class="disable" >Username:<span> @<%= data.user.name %></span></h3>
+                <h3 class="disable" >Email:<span> <%= data.user.email %></span></h3>
+                <h3 class="disable" >Subscribe:<span> <%= data.user.paidUser==true?data.user.paidUser:false %></span></h3>
+                </div>
+                <!-- <button class="button-style">update</button> -->
                 
             </div>
           </section>

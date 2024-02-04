@@ -44,7 +44,7 @@ module.exports = {
             return url.name != "" ;
         })
         urls = urls_filterd
-        console.log('urls:',urls_filterd);
+        // console.log('urls:',urls_filterd);
         // console.log(Array.isArray(urls));
         // console.log(course.content);
         if(!data)
