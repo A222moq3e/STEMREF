@@ -101,18 +101,12 @@ app.get('/test',(req,res)=>{
   res.send('Welcom in STEMREF')
 })
 // Port Listner, [Do not remove this]
-// app.listen(3005,()=>{
-//    console.log('port Connected in',`http://localhost:3005`);
-// })
+app.listen(3005,()=>{
+   console.log('port Connected in',`http://localhost:3005`);
+})
 
 
 
-const httpsOptions = {
-  key: fs.readFileSync(keyPath, 'utf8'),
-  cert: fs.readFileSync(certPath, 'utf8')
-};
-
-const httpsServer = https.createServer(httpsOptions, app);
 
 // Redirect HTTP to HTTPS
 // const httpServer = http.createServer((req, res) => {
@@ -126,14 +120,19 @@ const httpsServer = https.createServer(httpsOptions, app);
 const HTTPS_PORT = 3443;
 
 
-// const HTTP_PORT = 3005;
-// const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
-// const HTTP_PORT = process.env.HTTP_PORT || 3005;
-const HOST =process.env.HOST || "127.0.0.1"
-httpsServer.listen(HTTPS_PORT,() => {
-  console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
-  console.log(`https://${HOST}:${HTTPS_PORT}`);
-});
+// // server code 
+// const httpsOptions = {
+//   key: fs.readFileSync(keyPath, 'utf8'),
+//   cert: fs.readFileSync(certPath, 'utf8')
+// };
+
+// const httpsServer = https.createServer(httpsOptions, app);
+// const HOST =process.env.HOST || "127.0.0.1"
+// httpsServer.listen(HTTPS_PORT,() => {
+//   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
+//   console.log(`https://${HOST}:${HTTPS_PORT}`);
+// });
+// // end
 
 // httpServer.listen(HTTP_PORT, () => {
 //   console.log(`HTTP server listening on port ${HTTP_PORT}`);
