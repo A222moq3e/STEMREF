@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
+const  Admin  = require('../interface/Admin.js');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -205,7 +206,14 @@ module.exports = {
         console.log(error);
         res.send("wrong Details")
     }
-},
+    },
+    adminGet:(req,res)=>{
+        const admin = new Admin(req.session.user.name,req.session.user.email)
+        res.render('admin',{data:{user:admin}})
+    },
+    adminPost:(req,res)=>{
+        res.send('admin',{data:{user:admin}})
+    }
 
 
 }
@@ -214,3 +222,6 @@ module.exports = {
 function createHash(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
+// function checkIsLogin(){
+//     if(!req.session && !req.session.user) return res.render('login')
+// }

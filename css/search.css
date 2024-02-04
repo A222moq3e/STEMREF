@@ -135,3 +135,21 @@ main p {
   word-wrap: break-word;
   white-space: normal;
 }
+
+/* tags in item */
+.tags {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tags .tag {
+  font-size: 12px;
+  background-color: #f7f7f7;
+  color: var(--dark-color);
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 10px;
+}

@@ -81,8 +81,9 @@
                     </div>
                     <div class="tags">
                         <label for="tags">tags</label>
+                        <input type="text" id="tags0" name="tags" placeholder="tag name" value="course" disabled>
                         <% for(let i=0; i<5;i++){ %>
-                        <input type="text" id="tags" name="tags" placeholder="tag name">
+                        <input type="text" id="tags<%i%>" name="tags" placeholder="tag name">
                         <% } %>
                     </div>
                     <div class="paid-course" style="cursor:pointer">

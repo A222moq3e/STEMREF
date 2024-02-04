@@ -34,6 +34,8 @@ router.get('/profile',controller.profile)
 router.get('/pricing',controller.pricing)
 router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
+router.get('/admin',controller.adminGet);
+router.post('/admin',controller.adminPost);
 
 
 

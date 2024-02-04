@@ -61,6 +61,13 @@
             <% for(let course of data){ %>
             <div class="item col-md-3 col-lg-2  col-5 h-100" onclick="window.location.href=`/courseContent/<%= course.name %>`" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
+                <div class="tags">
+                  <div class="tag">course</div>
+                  <div class="tag">CS205</div>
+                  <% for(let tag of course.tags){ %>
+                    <div class="tag"><%= tag %></div>
+                  <% } %>
+                </div>
                 <p>
                     <%= course.description %>
                 </p>
