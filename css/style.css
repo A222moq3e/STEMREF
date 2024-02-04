@@ -121,6 +121,10 @@ li.active a {
 a[href="/signout"]:hover {
   color: rgb(206, 71, 71);
 }
+/* Sweet Alert */
+.swal2-confirm {
+  background-color: var(--main-color) !important;
+}
 
 /* div.waves{
     position: absolute;

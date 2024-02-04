@@ -28,8 +28,7 @@ module.exports = {
         try {
             const check = await usersCollection.findOne({name:req.body.username})
             if(!check){
-                res.send("user not found!");
-                return;
+                return res.render('login',{data:{err:"user not found!"}});
             }
            
             if(check.password != createHash(req.body.password)){
@@ -79,14 +78,14 @@ module.exports = {
             }
             // check if the user already exists
             const userIsExist = await usersCollection.findOne({name: data.name})
-            // console.log('userIsExist:', userIsExist);
+            console.log('userIsExist:', userIsExist);
+            console.log('userIsExist:', data.name);
             if(userIsExist){
-                res.send("User already exists. Please choos diffrent Name")
+                res.render('register',{data:{Swal:Swal,err:"User already exists. Please choose diffrent Name"}})
                 return;
             }
             // add Data   
             const userdata = await usersCollection.insertMany(data);
-            console.log(userdata);
             res.redirect("login")
             
         }catch (error) {
