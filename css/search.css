@@ -1,115 +1,137 @@
-:root{
-    --main-color:#394DFF;
-    --dark-color:#232323;
-    --second-color:#5A6BFF;
-    --third-color:#7B88FF;
-    --fourth-color:#BDC4FF;
-    --fifth-darker-color:#202d9b;
+:root {
+  --main-color: #394dff;
+  --dark-color: #232323;
+  --second-color: #5a6bff;
+  --third-color: #1a1e46;
+  --fourth-color: #888db9;
+  --fifth-darker-color: #202d9b;
 }
 
-.container{
-    flex-direction: column;
+.container {
+  flex-direction: column;
 }
-nav .container{
-    flex-direction: row;
-    
+nav .container {
+  flex-direction: row;
 }
 
 main .courses {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0px 10px; 
-    width: 100%;
-    max-height: 80vh;
-    height: 100%;
-    overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  max-height: 80vh;
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
 }
 
 main .search-bar {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    width: 85%;
-    height: 50px;
-    gap: 4px;
-    /* padding: 7px 10px; */
-    /* border-radius: 20px; */
-    /* margin-top: 30px; */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 85%;
+  height: 50px;
+  gap: 4px;
+  /* padding: 7px 10px; */
+  /* border-radius: 20px; */
+  /* margin-top: 30px; */
 }
-main .search-bar input{
-    background-color: #333333;
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    color: white;
-    /* outline: none; */
-
+main .search-bar input {
+  background-color: #333333;
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+  /* outline: none; */
 }
 /* Text text-about-courses */
-.text-about-courses{
-    margin-top: 10px;
-    width: 85%;
+.text-about-courses {
+  margin-top: 10px;
+  width: 85%;
 }
-.text-about-courses h1{
-    font-size: 26px;
-    color: #aaa;
+.text-about-courses h1 {
+  font-size: 26px;
+  color: #aaa;
 }
-.text-about-courses .found{
-    font-size: 16px;
-    color: #aaa;
+.text-about-courses .found {
+  font-size: 16px;
+  color: #aaa;
 }
 /* Item */
 main .item {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    min-height: 100px;
-    gap: 6px;
-    padding: 11px 8px;
-    background-color: #394dff;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: .3s;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  min-height: 100px;
+  gap: 6px;
+  padding: 11px 8px;
+  background-color: #394dff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-main .item:nth-child(2n) {
-  background: var(--second-color)
+/* main .item:nth-child(2n) {
+  background: var(--second-color);
 }
 main .item:nth-child(3n) {
-  background: var(--third-color)
+  background: var(--third-color);
 }
 main .item:nth-child(4n) {
-  background: var(--fifth-darker-color)
+  background: var(--fifth-darker-color);
+} */
+/* for random colors */
+main .item.color-1 {
+  background: var(--main-color);
 }
-main .item:hover{
-    scale: 1.05;
+main .item.color-2 {
+  background: var(--main-color);
 }
-  
+main .item.color-3 {
+  background: var(--second-color);
+}
+main .item.color-4 {
+  background: var(--third-color);
+}
+main .item.color-5 {
+  background: var(--fifth-darker-color);
+}
+main .item:hover {
+  scale: 1.05;
+}
+main .item .title {
+  font-size: 12px;
+}
+main .item p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #eee;
+  font-weight: normal;
+}
 main .title {
-    position: relative;
-    width: fit-content;
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 12px;
-    text-align: center;
-    letter-spacing: 1.74px;
-    line-height: 15.6px;
+  position: relative;
+  width: fit-content;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 1.74px;
+  line-height: 15.6px;
 }
 
 main p {
-    position: relative;
-    font-weight: 700;
-    max-width: 100%;
-    height: 100%;
-    color: #eeeeee;
-    font-size: 6px;
-    letter-spacing: 0.87px;
-    line-height: 7.8px;
-    word-wrap: break-word;
-    white-space: normal;
+  position: relative;
+  font-weight: 700;
+  max-width: 100%;
+  height: 100%;
+  color: #eeeeee;
+  font-size: 6px;
+  letter-spacing: 0.87px;
+  line-height: 7.8px;
+  word-wrap: break-word;
+  white-space: normal;
 }
-
