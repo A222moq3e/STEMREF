@@ -104,6 +104,7 @@ module.exports = {
             return res.render('search',{data:data, user:req.session.user})
         }else{
             const data = await coursesCollection.find({})
+            console.log(coursesCollection)
             return res.render('search',{data:data, user:req.session.user})
         }
     },
