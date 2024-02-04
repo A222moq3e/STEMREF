@@ -64,14 +64,14 @@ app.use((req,res,next)=>{
   next()
 })
 
-let iconUse = {
-    "Videos":"fa-solid fa-circle-play",
-    "Articles":"fa-regular fa-newspaper",
-    "Quizzes":"fa-solid fa-spell-check",
-    "Assignments":"fa-solid fa-pencil",
-    "Others":"fa-solid fa-arrow-up-right-from-square",
-    "share":"fa-solid fa-share"
-}
+// let iconUse = {
+//     "Videos":"fa-solid fa-circle-play",
+//     "Articles":"fa-regular fa-newspaper",
+//     "Quizzes":"fa-solid fa-spell-check",
+//     "Assignments":"fa-solid fa-pencil",
+//     "Others":"fa-solid fa-arrow-up-right-from-square",
+//     "share":"fa-solid fa-share"
+// }
 // Rate Limit
 var limiter  = rateLimit({
   windowMs: 10*60*1000, // 1 hour window

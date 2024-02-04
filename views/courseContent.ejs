@@ -69,15 +69,15 @@
             </p>
           </div>
           <div class="items">
-            <% if(!Array.isArray(data.course.content)) { %>
+            <% if(!data.catograySearch) { %>
               <% for(const [key, value] of Object.entries(data.course.content)){ %>
                 <a class="item" href="<%= data.course.name +'/'+key %>"  title="<%= key %>">
-                  <div class="item-title"><%= key %></div>
+                  <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i></div>
                   <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
                 </a>          
               <% } } %>
-            <% if(Array.isArray(data.course.content)){ %>
-                <% for(let {name, url} of data.course.content){ %>
+            <% if(data.catograySearch){ %>
+                <% for(let {name, url} of data.course.content[data.catograySearch]){ %>
                     <a class="item" href="<%= url %>" target="_blank"  title="<%= name %>">
                       <div class="item-title"><%= name %></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
