@@ -158,41 +158,62 @@ module.exports = {
                     Others:[],
                 }
             }
-            //Videos
-            // let videoLength = Array.isArray(req.body.Video) ? req.body.Video.length : 0;
-            for(let i=0;i<5;i++)
-            {
-                if(req.body.Video[i]=='') continue
-                let minData ={ name: req.body.Video[i], url:req.body.VideoUrl[i]}
-                data.Content.Videos.push(minData)
+            for(let catograyOfContent of Object.keys(data.Content)){
+                console.log(catograyOfContent);
+                console.log(req.body[catograyOfContent]);
+            
+                if(req.body[catograyOfContent]){
+                    let arrCatagory= req.body[catograyOfContent];
+                    let arrCatagoryUrl= req.body[catograyOfContent+'Url'];
+                    if(!Array.isArray(arrCatagory) && arrCatagory!='' && arrCatagoryUrl!='' ){
+                        let minData ={ name: arrCatagory, url:arrCatagoryUrl}
+                        data.Content[catograyOfContent].push(minData)
+                    }
+                    else
+                    for(let i=0;i<arrCatagory.length;i++)
+                    {
+                        if(arrCatagory[i]=='') continue
+                        let minData ={ name: arrCatagory[i], url:arrCatagoryUrl[i]}
+                        data.Content[catograyOfContent].push(minData)
+                    }
+                }
+                console.log(data);
             }
-            //Articles
-            // let articleLength = Array.isArray(req.body.article) ? req.body.article.length : 0;
-            for(let i=0;i<5;i++){
-                if(req.body.article[i]=='') continue
-                let minData ={ name: req.body.article[i], url:req.body.articlesUrl[i]}
-                data.Content.Articles.push(minData)
-            }
-            //Quizzes
-            for(let i=0;i<5;i++){
-                if(req.body.quizzes[i]=='') continue
-                let minData ={ name: req.body.quizzes[i], url:req.body.quizzesUrl[i]}
-                data.Content.Quizzes.push(minData)
-            }
-            //Assignments
-            // let assignmentsLength = Array.isArray(req.body.assignments) ? req.body.assignments.length : 0;
-            for(let i=0;i<5;i++){
-                if(req.body.assignments[i]=='') continue
-                let minData ={ name: req.body.assignments[i], url:req.body.assignmentsUrl[i]}
-                data.Content.Assignments.push(minData)
-            }
-            //Others
-            // let othersLength = Array.isArray(req.body.others) ? req.body.others.length : 0;
-            for(let i=0;i<5;i++){
-                if(req.body.others[i]=='') continue
-                let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
-                data.Content.Others.push(minData)
-            }
+            // //Videos
+            // // let videoLength = Array.isArray(req.body.Video) ? req.body.Video.length : 0;
+            // for(let i=0;i<5;i++)
+            // {
+            //     if(req.body.Video[i]=='') continue
+            //     let minData ={ name: req.body.Video[i], url:req.body.VideoUrl[i]}
+            //     data.Content.Videos.push(minData)
+            // }
+            // //Articles
+            // // let articleLength = Array.isArray(req.body.article) ? req.body.article.length : 0;
+            // for(let i=0;i<5;i++){
+            //     if(req.body.article[i]=='') continue
+            //     let minData ={ name: req.body.article[i], url:req.body.articlesUrl[i]}
+            //     data.Content.Articles.push(minData)
+            // }
+            // //Quizzes
+            // for(let i=0;i<5;i++){
+            //     if(req.body.quizzes[i]=='') continue
+            //     let minData ={ name: req.body.quizzes[i], url:req.body.quizzesUrl[i]}
+            //     data.Content.Quizzes.push(minData)
+            // }
+            // //Assignments
+            // // let assignmentsLength = Array.isArray(req.body.assignments) ? req.body.assignments.length : 0;
+            // for(let i=0;i<5;i++){
+            //     if(req.body.assignments[i]=='') continue
+            //     let minData ={ name: req.body.assignments[i], url:req.body.assignmentsUrl[i]}
+            //     data.Content.Assignments.push(minData)
+            // }
+            // //Others
+            // // let othersLength = Array.isArray(req.body.others) ? req.body.others.length : 0;
+            // for(let i=0;i<5;i++){
+            //     if(req.body.others[i]=='') continue
+            //     let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
+            //     data.Content.Others.push(minData)
+            // }
         
             const courseIsExist = await coursesCollection.findOne({name: data.name})
             if(courseIsExist){
