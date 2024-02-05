@@ -2,6 +2,7 @@ const express= require('express')
 const router = express.Router();
 const controller = require('../controllers/pages')
 const controllerForget = require('../controllers/forget')
+const controllerAdmin = require('../controllers/adminControllers')
 const rateLimit = require('express-rate-limit');
 console.log('in routes.js');
 // Rate Limit
@@ -34,8 +35,8 @@ router.get('/profile',controller.profile)
 router.get('/pricing',controller.pricing)
 router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
-router.get('/admin',controller.adminGet);
-router.post('/admin',controller.adminPost);
+router.get('/admin',controllerAdmin.adminGet);
+router.post('/admin',controllerAdmin.adminPost);
 
 
 

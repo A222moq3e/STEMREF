@@ -14,7 +14,7 @@ let iconUse = {
 }
 module.exports = {
     courseContent:async (req,res)=>{
-        res.redirect('search',{data:{user:req.session.user}})
+        return res.redirect('search',{data:{user:req.session.user}})
     },
     courseContentByName:async (req,res)=>{
        try{
@@ -32,7 +32,8 @@ module.exports = {
         // res.render('courseContent')
     },
     courseContentByNameAndCatogray:async (req,res)=>{
-        if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
+        try{
+            if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
         const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
         // course.removeContent();
@@ -54,6 +55,9 @@ module.exports = {
             // res.render('courseContent',{data:{course:course,user:req.session.user}})
         }
         // res.render('courseContent')
+        }catch(e){
+            console.log(e);
+        }
     }
 
 }
