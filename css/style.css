@@ -121,6 +121,26 @@ li.active a {
 a[href="/signout"]:hover {
   color: rgb(206, 71, 71);
 }
+/* tags */
+
+/* tags in item */
+.tags {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tags .tag {
+  font-size: 12px;
+  background-color: #f7f7f7;
+  color: var(--dark-color);
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 10px;
+}
+
 /* Sweet Alert */
 .swal2-confirm {
   background-color: var(--main-color) !important;

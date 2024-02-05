@@ -17,3 +17,12 @@ h3 {
 h3 span {
   color: white;
 }
+.reviewes {
+  background-color: rgba(30, 30, 30, 0.9);
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+i.active {
+  color: yellow;
+}

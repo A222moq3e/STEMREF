@@ -58,6 +58,41 @@ module.exports = {
         }catch(e){
             console.log(e);
         }
+    },
+    courseContentRate:async (req,res)=>{
+        try{
+            if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
+            let stars = req.body.starsNum;
+            let courseName = req.params.name;
+            let username = req.session.user.name;
+            let courseData = await coursesCollection.findOne({name:courseName})
+            let userData = await usersCollection.findOne({name:username})
+            courseData.reviews = courseData.reviews?courseData.reviews:{};
+            
+            userData.reviewed = userData.reviewed?userData.reviewed:{};
+            
+
+            courseData.reviews[username]=stars;
+            userData.reviewed[courseName] =stars
+                
+            
+            let courseDelete = await coursesCollection.findOneAndRemove({name:courseName})
+            let courseInserted = await coursesCollection.insertMany(courseData)
+            let userDelete = await usersCollection.findOneAndRemove({name:username})
+            let userInserted = await usersCollection.insertMany(userData)
+            // let updateByReview = await  usersCollection.findOneAndUpdate({name:username},userData.reviewed)
+
+            // console.log({review:previousReviews});
+
+
+ 
+            // let updateByReview = await  coursesCollection.updateOne({name:courseName},{review:previousReviews})
+
+            // console.log(updateByReview);
+            return true
+        }catch(e){
+            console.log(e);
+        }
     }
 
 }

@@ -20,6 +20,8 @@ router.use((req,res,next)=>{
 
 router.get('/courseContent',controller.courseContent)
 router.get('/courseContent/:name',controller.courseContentByName)
+router.post('/courseContent/:name/stars',controller.courseContentRate)
 router.get('/courseContent/:name/:catogray',controller.courseContentByNameAndCatogray)
+
 
 module.exports = router ;

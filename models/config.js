@@ -35,6 +35,9 @@ const LoginSchema = new mongoose.Schema({
     },token:{
       type:String,
       required:false
+    },reviewed:{
+      type: "Mixed",
+      required:false
   }
 })
 // Create Courses Schema
@@ -54,8 +57,8 @@ const Courseschema = new mongoose.Schema({
     "paidContent": {
       "type": "boolean"
     },
-    "reviews": {
-      "type": ["int"]
+    "reviews":{
+      "type": "Mixed"
     },
     "discussions": {
       "type": "Mixed"

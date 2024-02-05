@@ -79,8 +79,20 @@ main .item {
   animation-name: show-item;
   /* animation-duration: attr(data-time-animation); */
   animation-fill-mode: forwards;
+  overflow: hidden;
 }
-main .item.show-animation {
+main .item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: red; */
+  border-right: 100px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 100px solid rgba(255, 255, 255, 0.1);
+  border-left: 100px solid transparent;
+  border-top: 100px solid transparent;
 }
 /* main .item:nth-child(2n) {
   background: var(--second-color);
@@ -146,24 +158,9 @@ main p {
   white-space: normal;
 }
 
-/* tags in item */
 .tags {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 10px;
+  z-index: 5;
 }
-.tags .tag {
-  font-size: 12px;
-  background-color: #f7f7f7;
-  color: var(--dark-color);
-  border-radius: 5px;
-  padding: 2px;
-  font-size: 10px;
-}
-
 @keyframes show-item {
   0% {
     opacity: 0;

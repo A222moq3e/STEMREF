@@ -59,7 +59,24 @@
                   <h3 class="disable" >Username:<span> @<%= data.user.name %></span></h3>
                 <h3 class="disable" >Email:<span> <%= data.user.email %></span></h3>
                 <h3 class="disable" >Subscribe:<span> <%= data.user.paidUser==true?data.user.paidUser:false %></span></h3>
-                </div>
+                <% if(data.user.reviewed){ %>
+                  <h3>Your Course Reviews:</h3>
+                  <div class="reviewes">
+
+                    <% for(let review of Object.keys(data.user.reviewed)){ %>
+                      <div class="review"><%= review %>
+                        <%for(let i=0;i<data.user.reviewed[review];i++){%>
+                          <i class="fa-solid fa-star active"></i>
+                        <% } %>
+                        <%for(let i=data.user.reviewed[review];i<5;i++){%>
+                          <i class="fa-solid fa-star"></i>
+                        <% } %>
+                        
+                        <%= data.user.reviewed[review] %></div>
+                    <% } %>
+                  </div>
+              <% } %>
+              </div>
                 <!-- <button class="button-style">update</button> -->
                 
             </div>

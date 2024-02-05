@@ -39,11 +39,11 @@ module.exports = {
             console.log(check.userType);
             switch(check.userType){
                 case 'student':
-                    req.session.user = new Student(check.name,check.email,check.subscribe); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
                     res.redirect('search');
                     break;
                 case 'user':
-                    req.session.user = new Student(check.name,check.email,check.subscribe); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
                     res.redirect('search');
                     break;
                 case 'educator':
