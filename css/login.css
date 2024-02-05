@@ -1,216 +1,217 @@
-:root{
-    --main-color:#394DFF;
-    --dark-color:#232323;
-    --second-color:#5A6BFF;
-    --third-color:#7B88FF;
-    --fourth-color:#BDC4FF;
-    --fifth-darker-color:#202d9b;
+:root {
+  --main-color: #394dff;
+  --dark-color: #232323;
+  --second-color: #5a6bff;
+  --third-color: #7b88ff;
+  --fourth-color: #bdc4ff;
+  --fifth-darker-color: #202d9b;
 }
 
-
-*{
-    color: white;
+* {
+  color: white;
 }
 /* .box .container{
     justify-content: right;
 } */
-.box{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    min-height: 90vh;
-    position: relative;
+.box {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  min-height: 90vh;
+  position: relative;
 }
-.box::before{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 20%;
-    height: 20%;
-    background-color:var(--main-color);
-    border-radius: 50%;
-    filter: blur(200px);
-    z-index: -1;
+.box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 20%;
+  height: 20%;
+  background-color: var(--main-color);
+  border-radius: 50%;
+  filter: blur(200px);
+  z-index: -1;
 }
-.box::after{
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20%;
-    height: 20%;
-    background-color:var(--fourth-color);
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
+.box::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 20%;
+  background-color: var(--fourth-color);
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
 }
-form{
-    padding-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* flex-wrap: wrap; */
-    gap: 10px;
-    overflow: hidden;
-    min-width: 300px;
+form {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  gap: 10px;
+  overflow: hidden;
+  min-width: 300px;
 }
 /* Top Text */
 .top-text h1 {
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 16px;
-    text-align: left;
-    letter-spacing: 2.32px;
-    line-height: 20.8px;
-    white-space: nowrap;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 20px;
+  text-align: left;
+  letter-spacing: 2.32px;
+  line-height: 20.8px;
+  white-space: nowrap;
 }
-  
+
 .top-text .hi-message {
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 8px;
-    text-align: left;
-    letter-spacing: 1.16px;
-    line-height: 10.4px;
-    white-space: nowrap;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: left;
+  letter-spacing: 1.16px;
+  line-height: 10.4px;
+  white-space: nowrap;
 }
 /* Inputs */
-form .username, form .password{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 15px 20px;
-    width: 100%;
-    position: relative;
+form .username,
+form .password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 15px 20px;
+  width: 100%;
+  position: relative;
 }
 
-form .username label, form .password label{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 20px;
-    color: #ddd;
-    cursor: text;
-    transition: .3s;
-
+form .username label,
+form .password label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  color: #ddd;
+  cursor: text;
+  transition: 0.3s;
 }
 
-form .username input, form .password input{
-    background-color: transparent;
-    outline: none;
-    border: none;
-    color: white;
-    width: 100%;
-    /* font-size: 14px; */
-
-
+form .username input,
+form .password input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  width: 100%;
+  /* font-size: 14px; */
 }
-form .username input:focus +label, form .password input:focus +label,
-form .username input:valid + label, form .password input:valid + label{
-    /* display: none; */
-    opacity: 0;
-    left: 50px;
+form .username input:focus + label,
+form .password input:focus + label,
+form .username input:valid + label,
+form .password input:valid + label {
+  /* display: none; */
+  opacity: 0;
+  left: 50px;
 }
-form .password .eye{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-    cursor: pointer;
+form .password .eye {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  cursor: pointer;
 }
-.fa-eye-slash{
-    /* display: none; */
+.fa-eye-slash {
+  /* display: none; */
 }
-form button{
-    width: 100%;
-}
-
-.seprator{
-    position: relative;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.seprator::before{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -20px;
-    transform: translateY(-50%);
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(45deg, transparent 20%, #888 100%);
-    /* background-color: #888; */
-    z-index: -1;
-
-}
-.seprator::after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    right:-20px;
-    transform: translateY(-50%);
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent 20%, #888 100%);
-    z-index: -1;
-
-}
-.seprator span{
-    padding: 10px;
-    color: #888;
-    /* background-color: #232323; */
+form button {
+  width: 100%;
 }
 
-.top-text{
-    width: 100%;
+.seprator {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
 }
-.remember, .remember *{
-    cursor: pointer;
+.seprator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(45deg, transparent 20%, #888 100%);
+  /* background-color: #888; */
+  z-index: -1;
 }
-a{
-    color: white;
+.seprator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent 20%, #888 100%);
+  z-index: -1;
+}
+.seprator span {
+  padding: 10px;
+  color: #888;
+  /* background-color: #232323; */
 }
 
-.Oauth-items{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 30px;
+.top-text {
+  width: 100%;
 }
-.Oauth-items img{
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    transition: .3s;
+.remember,
+.remember * {
+  cursor: pointer;
 }
-.Oauth-items img:hover{
-    scale: 1.05;
+a {
+  color: white;
 }
-@media screen and (max-width:600px) {
-    /* .top-text{
+
+.Oauth-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+}
+.Oauth-items img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.Oauth-items img:hover {
+  scale: 1.05;
+}
+@media screen and (max-width: 600px) {
+  /* .top-text{
         padding-top: 90px;
     } */
-    .box{
-        align-items: start;
-    }
-    form{
-        padding-right: 20px;
-        padding-left: 20px;
-    }
-    .seprator{
-        margin: 0;
-    }
-    form button.button-style{
-        margin: 0;
-    }
-    .box::before,.box::after{
-        display: none;
-    }
+  .box {
+    align-items: start;
+  }
+  form {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .seprator {
+    margin: 0;
+  }
+  form button.button-style {
+    margin: 0;
+  }
+  .box::before,
+  .box::after {
+    display: none;
+  }
 }

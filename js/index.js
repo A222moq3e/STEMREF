@@ -23,6 +23,8 @@ const secretSessionString = process.env.SECRET_SESSION
 // let accesses  = false;
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
+// const bootstrap = require('bootstrap');
+// const popper = require('popper');
 app.set("view engine","ejs")
 // app.set("views",htmlPath)
 console.log('process.env.TEST');
@@ -43,7 +45,26 @@ app.use(cookieSession({
 
 
 // Use Helmet!
-app.use(helmet());
+// app.use(helmet());
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+//       'script-src': [
+//         "'self'",
+//         "'unsafe-inline'", 
+//         "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+//         "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js",
+//       ],
+//       'style-src': [
+//         "'self'",
+//         "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
+//         "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css",
+//         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+//       ]
+//     },
+//   })
+// );
 
 // static files
 app.use(express.static('css'))
@@ -83,6 +104,14 @@ var limiter  = rateLimit({
   message: "Too many requests made from this IP, please try again in a few minutes"
 });
 app.use(limiter);
+
+// // for cdns
+// app.use((req, res, next) => {
+//   res.setHeader('Content-Security-Policy', "script-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js");
+//   next();
+// });
+
+
 
 // Routing
 // app.use('/',router)

@@ -142,3 +142,12 @@ a[href="/signout"]:hover {
     height: 30%;
   }
 }
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/Roboto,Rubik/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/Roboto,Rubik/Rubik/static/Roboto-Black.ttf") format("truetype");
+}
