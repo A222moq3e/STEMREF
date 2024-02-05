@@ -57,7 +57,12 @@
                 <input type="text" placeholder="Search" name="q">
             </form>
             <div class="text-about-courses">
+                <% if(q){ %>
+                <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
+                <%}%>
+                <% if(!q) {%>
                 <h1 class="m-0 d-none d-md-block">Courses</h1>
+                <%}%>
                 <div class="found mb-2">Found: <%= data.length %></div>
             </div>
           <div class="courses row pb-5">

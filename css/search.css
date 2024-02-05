@@ -109,6 +109,7 @@ main .item.color-5 {
 }
 main .item:hover {
   scale: 1.05;
+  box-shadow: 0 0 10px #1a1a1a;
   /* scale: 1.1; */
 }
 

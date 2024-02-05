@@ -106,12 +106,12 @@ module.exports = {
         if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
         if(req.query.q){
-            const data = await coursesCollection.find({name: req.query.q})
-            return res.render('search',{data:data, user:req.session.user})
+            const data = await coursesCollection.find({name: {$regex :new RegExp(req.query.q, 'ig')}});
+            return res.render('search',{data:data, user:req.session.user,q:req.query.q})
         }else{
             const data = await coursesCollection.find({})
             console.log(coursesCollection)
-            return res.render('search',{data:data, user:req.session.user})
+            return res.render('search',{data:data, user:req.session.user,q:''})
         }
     },
     // Pricing
