@@ -35,7 +35,7 @@ if(window.screen.width< 600){
     boxAll.appendChild(boxl)
     boxAll.appendChild(boxr)
     cousesContainer.innerHTML = boxAll.innerHTML
-}else if(window.screen.width> 1080){
+}else if(window.screen.width > 1080){
     console.log('in two');
     console.log('cousesContainer',cousesContainer);
     let boxs = []
@@ -46,10 +46,19 @@ if(window.screen.width< 600){
     let boxAll = document.createElement('div');
     let numOfBoxes = boxs.length;
     let numOfBoxesCounter = 0;
+    let time = 0;
     for(let i of item){
         const random_number = (Math.floor(Math.random() * 10)) % numOfBoxes;
         i.classList.remove('col-5', "col-md-3","col-lg-2")
         i.classList.add('mb-2', 'col-12', `color-${random_number}`, 'p-3')
+        // i.setAttribute('data-time-animation',time++)
+        if(time < 2)
+        time += 0.2*2
+        i.style.animationDuration = time +'s'
+        // i.style.animationName = "show-item"
+        // i.style.animationDuration = 5+'s'
+        // i.style.animationFillMode = ""
+        
         if(i.querySelector('p').innerText.length > 220)
         i.querySelector('p').innerText =  i.querySelector('p').innerText.slice(0,230)+' ...';
         // console.log(i);

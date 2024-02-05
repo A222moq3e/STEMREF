@@ -74,6 +74,13 @@ main .item {
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
+  opacity: 0;
+  transform: translateY(-10%);
+  animation-name: show-item;
+  /* animation-duration: attr(data-time-animation); */
+  animation-fill-mode: forwards;
+}
+main .item.show-animation {
 }
 /* main .item:nth-child(2n) {
   background: var(--second-color);
@@ -154,4 +161,15 @@ main p {
   border-radius: 5px;
   padding: 2px;
   font-size: 10px;
+}
+
+@keyframes show-item {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
