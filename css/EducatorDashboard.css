@@ -1,10 +1,13 @@
-.content{
-    border: 2px dashed #888;
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-direction: column;
+.box::after {
+  display: none;
+}
+.content {
+  border: 2px dashed #888;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
 }

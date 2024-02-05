@@ -3,6 +3,8 @@ const crypto = require('crypto');
 const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
+
+const Swal = require('sweetalert2')
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -26,11 +28,14 @@ module.exports = {
         try {
             const check = await usersCollection.findOne({name:req.body.username})
             if(!check){
-                res.send("user not found!");
-                return;
+                return res.render('login',{data:{err:"user not found!"}});
             }
            
-            if(check.password != createHash(req.body.password)) return res.send("Password is wrong")
+            if(check.password != createHash(req.body.password)){
+                console.log('wrong password');
+                return res.render('login',{data:{err:'wrong password'}})
+
+            } 
             console.log(check.userType);
             switch(check.userType){
                 case 'student':
@@ -50,7 +55,8 @@ module.exports = {
                     res.redirect('home');
                     break;
                 default:
-                    res.status(404).send('wrong data, contact with Support')
+                    // res.status(404).send('wrong data, contact with Support')
+                    res.render('login',{data:{Swal:Swal,err:'wrong data, contact with Support'}})
             }
             
         } catch (error) {
@@ -72,14 +78,14 @@ module.exports = {
             }
             // check if the user already exists
             const userIsExist = await usersCollection.findOne({name: data.name})
-            // console.log('userIsExist:', userIsExist);
+            console.log('userIsExist:', userIsExist);
+            console.log('userIsExist:', data.name);
             if(userIsExist){
-                res.send("User already exists. Please choos diffrent Name")
+                res.render('register',{data:{Swal:Swal,err:"User already exists. Please choose diffrent Name"}})
                 return;
             }
             // add Data   
             const userdata = await usersCollection.insertMany(data);
-            console.log(userdata);
             res.redirect("login")
             
         }catch (error) {
@@ -104,6 +110,7 @@ module.exports = {
             return res.render('search',{data:data, user:req.session.user})
         }else{
             const data = await coursesCollection.find({})
+            console.log(coursesCollection)
             return res.render('search',{data:data, user:req.session.user})
         }
     },
@@ -204,7 +211,7 @@ module.exports = {
         console.log(error);
         res.send("wrong Details")
     }
-},
+    }
 
 
 }
@@ -213,3 +220,7 @@ module.exports = {
 function createHash(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
+// function checkIsLogin(){
+//     if(!req.session && !req.session.user) return res.render('login')
+// }
+

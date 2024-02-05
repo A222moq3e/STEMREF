@@ -8,6 +8,7 @@ class Course{
             this.paidContent=paidContent;
             this.review = review
             this.content=content;
+            this.filterEmptyUrls()
     }
     getName() {
         return this.name;
@@ -37,6 +38,18 @@ class Course{
     }
     getReview(){
         return this.review;
+    }
+    removeContent(){
+        this.content = '';
+    }
+    filterEmptyUrls(){
+        let keys = Object.keys(this.content)
+        for(let catogray of keys){
+            this.content[catogray] = this.content[catogray].filter((url)=>{
+                return url.name != "" ;
+            })
+        }
+        
     }
 
     getCourseContent(){
