@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/bootstrap.min.css"> 
     <!-- font awesome Library -->
@@ -62,7 +62,7 @@
             </div>
           <div class="courses row pb-5">
             <% for(let course of data){ %>
-            <div class="item col-md-3 col-lg-2  col-5 h-100" onclick="window.location.href=`/courseContent/<%= course.name %>`" title="<%= course.name %>">
+            <div class="item col-md-3 col-lg-2  col-5 h-100" data-course-name="<%= course.name %>" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
                 <div class="tags">
                   <div class="tag">course</div>
@@ -85,7 +85,7 @@
     <!-- Bootstrap JS -->
    <script src="/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-<script src="/sweetalert2.all.min.js"></script>
+    <script src="/sweetalert2.all.min.js"></script>
     <script src="/main.js"></script>
     <script src="/search.js"></script>
     <div class="waves" ></div>

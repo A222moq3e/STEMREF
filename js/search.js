@@ -54,10 +54,8 @@ if(window.screen.width< 600){
         i.querySelector('p').innerText =  i.querySelector('p').innerText.slice(0,230)+' ...';
         // console.log(i);
         boxs[numOfBoxesCounter].append(i);
-        console.log(numOfBoxesCounter);
         numOfBoxesCounter += 1
         numOfBoxesCounter = numOfBoxesCounter % numOfBoxes;
-        console.log(numOfBoxes);
 
     }
     for (let i =0;i<5;i++){
@@ -65,3 +63,14 @@ if(window.screen.width< 600){
     }
     cousesContainer.innerHTML = boxAll.innerHTML
 }
+
+
+function pageNavigator(navTo){
+    window.location.href='/courseContent/'+navTo
+}
+document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('click', () => {
+      const courseName = item.getAttribute('data-course-name');
+      pageNavigator(courseName);
+    });
+  });

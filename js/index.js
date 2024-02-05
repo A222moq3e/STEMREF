@@ -45,27 +45,26 @@ app.use(cookieSession({
 
 
 // Use Helmet!
-app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      'script-src': [
-        "'self'",
-        "'unsafe-inline'", 
-        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
-        "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js",
-        "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"
-      ],
-      'style-src': [
-        "'self'",
-        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
-        "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css",
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      ]
-    },
-  })
-);
+// app.use(helmet());
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+//       'script-src': [
+//         "'self'",
+//         "'unsafe-inline'", 
+//         "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+//         "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js",
+//       ],
+//       'style-src': [
+//         "'self'",
+//         "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
+//         "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css",
+//         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+//       ]
+//     },
+//   })
+// );
 
 // static files
 app.use(express.static('css'))
