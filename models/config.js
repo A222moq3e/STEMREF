@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const mongoUrl = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@monorail.proxy.rlwy.net:14370`
 // const mongoUrl = "mongodb://localhost:27017/STEMREF"
-const mongoUrl = "mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/STEMREF?retryWrites=true&w=majority"
+const mongoUrl = process.env.MONGODB_CLUSTER
 // const mongoUrl = process.env.MONGODB_CLUSTER
 const connect = mongoose.connect(mongoUrl)
 // mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/?retryWrites=true&w=majority
