@@ -87,47 +87,59 @@
                         <% for(let i=0; i<5;i++){ %>
                         <input type="text" id="tags<%i%>" name="tags" placeholder="tag name">
                         <% } %>
+
                     </div>
                     <div class="paid-course" style="cursor:pointer">
-                        <label for="paidContent" >Paid Course</label>
-                        <input type="checkbox" id="paidContent" name="paidContent">
+                        <label class="form-check-label" for="paidContent" >Paid Course</label>
+                        <input class="form-check-input" type="checkbox" id="paidContent" name="paidContent">
                     </div>
                    <div class="content">
-                    <div class="Video row">
+                    <%for(let i of ['Videos','Articles','Quizzes','Assignments','Others']){ %>
+                        <div class="<%= i %> row" id="<%= i %>">
+                            <label for="<%= i %>  col-12"><%= i %> </label>
+                            <input class="col-6" type="text" name="<%= i %>" placeholder="name" >
+                            <input class="col-6" type="text" name="<%= i %>Url" placeholder="url">
+                            <div class="btn add-field"><i class="fa-solid fa-plus"></i>Add Field</div>
+                        </div>
+                    <%}%>
+
+<!-- 
+                    <div class="Video row" id="Video">
                         <label for="Video col-12">Video</label>
-                        <% for(let i=0; i<5;i++){ %>
-                        <input class="col-5" type="text" id="Video" name="Video" placeholder="name" >
-                        <input class="col-5" type="text" id="Video" name="VideoUrl" placeholder="url">
+                        <% for(let i=0; i<1;i++){ %>
+                        <input class="col-6" type="text" name="Video" placeholder="name" >
+                        <input class="col-6" type="text" name="VideoUrl" placeholder="url">
                         <% } %>
+                        <button class="btn"><i class="fa-solid fa-plus"></i>Add Field</button>
                     </div>
                     <div class="articles row">
                         <label for="articles col-12">Articles</label>
                         <% for(let i=0; i<5;i++){ %>
-                        <input  class="col-5"  type="text" id="articles" name="article" placeholder="name">
-                        <input  class="col-5"  type="text" id="articles" name="articlesUrl" placeholder="url">
+                        <input  class="col-5"  type="text" name="article" placeholder="name">
+                        <input  class="col-5"  type="text" name="articlesUrl" placeholder="url">
                         <% } %>
                     </div>
                     <div class="quizzes row">
                         <label for="quizzes col-12">Quizzes</label>
                         <% for(let i=0; i<5;i++){ %>
-                        <input  class="col-5" type="text" id="quizzes" name="quizzes" placeholder="name">
-                        <input  class="col-5" type="text" id="quizzes" name="quizzesUrl" placeholder="url">
+                        <input  class="col-5" type="text" name="quizzes" placeholder="name">
+                        <input  class="col-5" type="text" name="quizzesUrl" placeholder="url">
                         <% } %>
                     </div>
                     <div class="assignments row">
                         <label for="assignments col-12">Assignments</label>
                         <% for(let i=0; i<5;i++){ %>
-                        <input  class="col-5" type="text" id="assignments" name="assignments" placeholder="name">
-                        <input  class="col-5" type="text" id="assignments" name="assignmentsUrl" placeholder="url">
+                        <input  class="col-5" type="text" name="assignments" placeholder="name">
+                        <input  class="col-5" type="text" name="assignmentsUrl" placeholder="url">
                         <% } %>
                     </div>
                     <div class="others row">
                         <label for="others col-12">Others</label>
                         <% for(let i=0; i<5;i++){ %>
-                        <input  class="col-5" type="text" id="others" name="others" placeholder="name">
-                        <input  class="col-5" type="text" id="others" name="othersUrl" placeholder="url">
+                        <input  class="col-5" type="text" name="others" placeholder="name">
+                        <input  class="col-5" type="text"name="othersUrl" placeholder="url">
                         <% } %>
-                    </div>
+                    </div> -->
                    </div>
                     <button class="button-style">Insert</button>
                     
@@ -135,11 +147,15 @@
             </div>
         </div>
     </main>
+    <footer class="text-center w-100">
+        <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
+     </footer>
     <!-- Bootstrap JS -->
    <script src="/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
     <script src="/sweetalert2.all.min.js"></script>
     <script src="/main.js"></script>
+    <script src="/EducatorDashboard.js"></script>
     <div class="waves" ></div>
 
 </body>

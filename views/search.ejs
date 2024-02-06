@@ -57,7 +57,12 @@
                 <input type="text" placeholder="Search" name="q">
             </form>
             <div class="text-about-courses">
+                <% if(q){ %>
+                <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
+                <%}%>
+                <% if(!q) {%>
                 <h1 class="m-0 d-none d-md-block">Courses</h1>
+                <%}%>
                 <div class="found mb-2">Found: <%= data.length %></div>
             </div>
           <div class="courses row pb-5">
@@ -82,6 +87,9 @@
 
 
     </main>
+    <footer class="text-center w-100">
+      <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
+   </footer>
     <!-- Bootstrap JS -->
    <script src="/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->

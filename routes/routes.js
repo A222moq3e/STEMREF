@@ -20,6 +20,22 @@ router.use((req,res,next)=>{
     console.log('Time:', Date.now());
     next()
 })
+// Check if he is not sign in
+router.use(['/signout','/search','/profile','/pricing','/EducatorDashboard','/admin','/courseContent'],(req,res,next)=>{
+    if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
+    next()
+})
+// Check Educator
+router.use((req,res,next)=>{
+  console.log(req.path);
+    if(req.session.user&& req.session.user.authenticated && req.session.user.userType == "educator" && req.path!='/EducatorDashboard'&& req.path!='/'&& req.path!='/signout') return res.redirect("/EducatorDashboard")
+    next()
+})
+router.use('/EducatorDashboard',(req,res,next)=>{
+  console.log(req.path);
+    if(req.session.user.userType != "educator") return res.redirect("/")
+    next()
+})
 router.get('/',controller.index)
 router.get('/login',controller.loginGet)
 router.post('/login',controller.loginPost)

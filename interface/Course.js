@@ -1,12 +1,12 @@
 class Course{
 
-    constructor(name, description, Author, tags, paidContent,review, content){
+    constructor(name, description, Author, tags, paidContent,reviews, content){
             this.name=name;
             this.description=description;
             this.Author=Author;
             this.tags=tags;
             this.paidContent=paidContent;
-            this.review = review
+            this.reviews = reviews
             this.content=content;
             this.filterEmptyUrls()
     }

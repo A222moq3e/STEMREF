@@ -60,17 +60,54 @@
           </nav>
           
         <div class="overlap">
+
           <div class="container">
+
             <div class="box">
+              <div class="motivation-img">
+                <%if(data.catograySearch){%>
+                  <img src="/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
+                  <%}%>
+                <%if(!data.catograySearch){%>
+                  <img src="/undraw_mathematics_-4-otb.svg" alt="img">
+                  <%}%>
+              </div>
+              <div class="descritpion" >
+                <h2>Description</h2>
+                <p><%= data.course.description %></p>
+                <!-- <h2>Tags:</h2>
+                <div class="description-tags">
+                  <% for(let tag of data.course.tags){ %>
+                    <div class="tag"><%= tag %></div>
+                  <% } %>
+                </div> -->
+                
+
+              </div>
               <% if(Array.isArray(data.course.content)){ %>
                 <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.course.name%>"></a>
                 <% } %>
                 
           <div class="top-text">
               <h1><%= data.course.name %><span><%= data.catograySearch %></span></h1>
-            <p>
-                <%= data.course.desc %>
-            </p>
+
+            <div class="tags">
+                <div class="tag">course</div>
+                <!-- <div class="tag">CS205</div> -->
+                <% for(let tag of data.course.tags){ %>
+                  <div class="tag"><%= tag %></div>
+                <% } %>
+            </div>
+            <div class="rating">
+              <% if(data.avg>0){ %>
+                <i class="fa-solid fa-star active "></i>
+                <%= data.avg %>
+              <% }  %>
+
+              <% if(data.avg<=0){ %>
+                <i class="fa-solid fa-star"></i> No Rating
+              <% } %>
+            </div>
           </div>
           <div class="items">
             <% if(!data.catograySearch) { %>
@@ -100,17 +137,17 @@
                 </div>
             </div>
             </div>
-            <!-- <div class="tools">
+            <div class="tools">
               <button title="Review"><i class="fa-solid fa-star btn" onclick="document.querySelector('.stars').classList.toggle('hide')"></i></button>
               <div class="stars hide">
-                <input type="radio" name="start" id="star1"><label for="star1"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star2"><label for="star2"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star3"><label for="star3"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star4"><label for="star4"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star5"><label for="star5"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="start" id="star1" data-num-star="5"><label for="star1"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="start" id="star2" data-num-star="4"><label for="star2"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="start" id="star3" data-num-star="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="start" id="star4" data-num-star="2"><label for="star4"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="start" id="star5" data-num-star="1"><label for="star5"><i class="fa-solid fa-star"></i></label>
               </div>
               <button title="Discussion" onclick="document.querySelector('.discussionBox').classList.toggle('hide')"><i class="fa-solid fa-message btn"></i></button>
-            </div> -->
+            </div>
       
             <!-- <div class="reviewBox">
 
@@ -119,6 +156,9 @@
         </div>
       </div>
     </main>
+    <footer class="text-center w-100">
+      <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
+   </footer>
     <!-- Bootstrap JS -->
    <script src="/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
