@@ -34,7 +34,6 @@ main .box {
   /* background-color: red; */
   /* overflow: hidden; */
   min-width: 500px;
-  position: relative;
 }
 /* image */
 .motivation-img {
