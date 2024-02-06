@@ -9,7 +9,10 @@ const Swal = require('sweetalert2')
 const { usersCollection, coursesCollection } = require('../models/config');
 
 function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    if (typeof string !== 'string') throw new TypeError('Expected a string');
+    string = string.replace(/-/g, '\\x2d');
+    string = string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string // $& means the whole matched string
 }
 
 module.exports = {
@@ -111,7 +114,7 @@ module.exports = {
 
         if(req.query.q){
             const sanitizedQuery = escapeRegExp(req.query.q);
-            const data = await coursesCollection.find({name: {$regex :new RegExp(sanitizedQuery, 'ig')}});
+            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'ig'}});
             return res.render('search',{data:data, user:req.session.user,q:req.query.q})
         }
         else{
