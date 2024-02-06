@@ -152,7 +152,6 @@ a[href="/signout"]:hover {
   gap: 10px;
 }
 .tags .tag {
-  font-size: 12px;
   background-color: #f7f7f7;
   color: var(--dark-color);
   border-radius: 5px;
