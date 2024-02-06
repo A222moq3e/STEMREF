@@ -102,8 +102,8 @@ module.exports = {
     // Search Page
     search:async (req,res)=>{
         // Change this
-        if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
-        if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
+        // if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
+        // if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
         if(req.query.q){
             const data = await coursesCollection.find({name: {$regex :new RegExp(req.query.q, 'ig')}});
@@ -116,25 +116,19 @@ module.exports = {
     },
     // Pricing
     pricing:(req,res)=>{
-    if(req.session.user && !req.session.user.authenticated ) return res.redirect("/login")
+    // if(req.session.user && !req.session.user.authenticated ) return res.redirect("/login")
         res.render("pricing",{data:{user:req.session.user}})
     },
     // User Data
     profile:(req,res)=>{
-        if(req.session && req.session.user){
-            res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user}})
-        } else{
-            res.redirect('login')
-        }
+
+        res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user}})
+    
     },
 
     EducatorDashboardGet: (req,res)=>{
         // const educator = new Educator(req.session.user.name,req.session.email);
-        if(req.session && req.session.user && req.session.user.userType=="educator" ){
-            res.render('EducatorDashboard',{ data:{user:req.session.user}});
-        } else{
-            res.redirect('login')
-        }
+        res.render('EducatorDashboard',{ data:{user:req.session.user}});
     },
 
     EducatorDashboardPost:async (req,res)=>{
@@ -159,9 +153,6 @@ module.exports = {
                 }
             }
             for(let catograyOfContent of Object.keys(data.Content)){
-                console.log(catograyOfContent);
-                console.log(req.body[catograyOfContent]);
-            
                 if(req.body[catograyOfContent]){
                     let arrCatagory= req.body[catograyOfContent];
                     let arrCatagoryUrl= req.body[catograyOfContent+'Url'];
@@ -179,41 +170,7 @@ module.exports = {
                 }
                 console.log(data);
             }
-            // //Videos
-            // // let videoLength = Array.isArray(req.body.Video) ? req.body.Video.length : 0;
-            // for(let i=0;i<5;i++)
-            // {
-            //     if(req.body.Video[i]=='') continue
-            //     let minData ={ name: req.body.Video[i], url:req.body.VideoUrl[i]}
-            //     data.Content.Videos.push(minData)
-            // }
-            // //Articles
-            // // let articleLength = Array.isArray(req.body.article) ? req.body.article.length : 0;
-            // for(let i=0;i<5;i++){
-            //     if(req.body.article[i]=='') continue
-            //     let minData ={ name: req.body.article[i], url:req.body.articlesUrl[i]}
-            //     data.Content.Articles.push(minData)
-            // }
-            // //Quizzes
-            // for(let i=0;i<5;i++){
-            //     if(req.body.quizzes[i]=='') continue
-            //     let minData ={ name: req.body.quizzes[i], url:req.body.quizzesUrl[i]}
-            //     data.Content.Quizzes.push(minData)
-            // }
-            // //Assignments
-            // // let assignmentsLength = Array.isArray(req.body.assignments) ? req.body.assignments.length : 0;
-            // for(let i=0;i<5;i++){
-            //     if(req.body.assignments[i]=='') continue
-            //     let minData ={ name: req.body.assignments[i], url:req.body.assignmentsUrl[i]}
-            //     data.Content.Assignments.push(minData)
-            // }
-            // //Others
-            // // let othersLength = Array.isArray(req.body.others) ? req.body.others.length : 0;
-            // for(let i=0;i<5;i++){
-            //     if(req.body.others[i]=='') continue
-            //     let minData ={ name: req.body.others[i], url:req.body.othersUrl[i]}
-            //     data.Content.Others.push(minData)
-            // }
+
         
             const courseIsExist = await coursesCollection.findOne({name: data.name})
             if(courseIsExist){
@@ -225,8 +182,6 @@ module.exports = {
                 const coursedata = await coursesCollection.insertMany(data);
                 console.log('course Added:',coursedata);
                 res.status(200).send('course add!');
-                
-              
             }
     }catch (error) {
         console.log(error);

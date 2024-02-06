@@ -65,7 +65,12 @@
 
             <div class="box">
               <div class="motivation-img">
-                <img src="/undraw_mathematics_-4-otb.svg" alt="img">
+                <%if(data.catograySearch){%>
+                  <img src="/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
+                  <%}%>
+                <%if(!data.catograySearch){%>
+                  <img src="/undraw_mathematics_-4-otb.svg" alt="img">
+                  <%}%>
               </div>
               <div class="descritpion" >
                 <h2>Description</h2>
@@ -94,15 +99,12 @@
                 <% } %>
             </div>
             <div class="rating">
-              
-              <% if(data.course.reviews){ %>
+              <% if(data.avg>0){ %>
                 <i class="fa-solid fa-star active "></i>
-                <% for(let i=0;i<data.course.reviews;i++){ %>
-                  hi
-                <% }  %>
+                <%= data.avg %>
               <% }  %>
 
-              <% if(!data.course.reviews){ %>
+              <% if(data.avg<=0){ %>
                 <i class="fa-solid fa-star"></i> No Rating
               <% } %>
             </div>
@@ -154,6 +156,9 @@
         </div>
       </div>
     </main>
+    <footer class="text-center w-100">
+      <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
+   </footer>
     <!-- Bootstrap JS -->
    <script src="/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->

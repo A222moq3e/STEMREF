@@ -13,8 +13,8 @@ var limiter  = rateLimit({
     message: "Too many requests made from this IP, please try again in a few minutes"
   });
 router.use(limiter)
-router.use((req,res,next)=>{
-    console.log('Time:', Date.now());
+router.use('/courseContent', (req,res,next)=>{
+    console.log('User Enter CourseContent Page Time:', Date.now());
     next()
 })
 

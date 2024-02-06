@@ -256,7 +256,19 @@ a {
   left: 30px;
   cursor: pointer;
 }
-
+@media screen and (max-width: 1024px) {
+  .descritpion {
+    top: 105%;
+    width: 100%;
+    height: fit-content;
+    padding: 30px;
+    margin-bottom: 20px;
+    left: 0;
+  }
+  .motivation-img {
+    display: none;
+  }
+}
 @media screen and (max-width: 600px) {
   main .box {
     min-width: 300px;

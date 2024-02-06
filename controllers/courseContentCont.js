@@ -12,19 +12,40 @@ let iconUse = {
     "Others":"fa-solid fa-arrow-up-right-from-square",
     "share":"fa-solid fa-share"
 }
+let bgIconUse = {
+    "Videos":"undraw_video_files_fu10.svg",
+    "Articles":"undraw_online_articles_re_yrkj.svg",
+    "Quizzes":"undraw_online_test_re_kyfx.svg",
+    "Assignments":"undraw_task_re_wi3v.svg",
+    "Others":"undraw_task_re_wi3v.svg",
+    "share":"fa-solid fa-share",
+    "normal":"undraw_mathematics_-4-otb.svg"
+}
 module.exports = {
     courseContent:async (req,res)=>{
         return res.redirect('search',{data:{user:req.session.user}})
     },
     courseContentByName:async (req,res)=>{
        try{
-            if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
+            // if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
             const data = await coursesCollection.findOne({name: req.params.name})
-            const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
+            const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
+            let reviews = course.reviews
+            // console.log(course);
+            let sum=0
+            let avg=0
+            if(reviews){
+                console.log('in reviews');
+                for(let r of Object.keys(reviews)){
+                    sum+= parseInt(reviews[r])
+                    console.log(sum);
+                }
+                avg = Math.round(sum/Object.keys(reviews).length,2)
+            }
             // const user = new Student(req.session.user.name,req.session.user.email);
             // const user = new 
             if(!data) return res.send('sorry this course not found')
-            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,catograySearch:''}})
+            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,catograySearch:'',avg:avg}})
        }catch(e){
             console.log(e);
        }
@@ -33,12 +54,23 @@ module.exports = {
     },
     courseContentByNameAndCatogray:async (req,res)=>{
         try{
-            if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
+            // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
-        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.review,data.Content);
+        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
         // course.removeContent();
         // console.log(req.params.catogray);
         let catogray = req.params.catogray;
+        let reviews = course.reviews
+        let sum=0
+        let avg=0
+        if(reviews){
+            for(let r of Object.keys(reviews)){
+                sum+= parseInt(reviews[r])
+                console.log(sum);
+            }
+            avg = Math.round(sum/Object.keys(reviews).length,2)
+        }
+        
         // console.log(data.Content[catogray]);
         let urls = data.Content[catogray]
         let urls_filterd = urls.filter((url)=>{
@@ -51,7 +83,7 @@ module.exports = {
         if(!data)
             res.send('sorry this course not found')
         else{
-            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,user:req.session.user}})
+            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg}})
             // res.render('courseContent',{data:{course:course,user:req.session.user}})
         }
         // res.render('courseContent')
@@ -61,7 +93,7 @@ module.exports = {
     },
     courseContentRate:async (req,res)=>{
         try{
-            if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
+            // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
             let stars = req.body.starsNum;
             let courseName = req.params.name;
             let username = req.session.user.name;
@@ -74,7 +106,7 @@ module.exports = {
 
             courseData.reviews[username]=stars;
             userData.reviewed[courseName] =stars
-                
+            console.log(courseData);
             
             let courseDelete = await coursesCollection.findOneAndRemove({name:courseName})
             let courseInserted = await coursesCollection.insertMany(courseData)
