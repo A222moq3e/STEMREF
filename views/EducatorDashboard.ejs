@@ -34,6 +34,20 @@
 </head>
 <body>
     <main>
+        <% if(typeof data !== 'undefined'){%>
+            <% if(typeof data.acc!== 'undefined'){ %>
+                <script type="module">
+                    Swal.fire({
+                        title: '<%= data.acc %> !',
+                        text: 'Course <%= data.acc %> Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Thank You',
+                        customClass: {
+                            confirmButton: 'button-style'
+                        }
+                      }) 
+                </script>
+            <% } } %>
         <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
             <div class="container">
               <a class="navbar-brand" href="/"><img class="logo" src="./logo.svg" alt="logo"></a>

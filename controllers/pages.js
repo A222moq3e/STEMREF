@@ -176,12 +176,14 @@ module.exports = {
             if(courseIsExist){
                 const coursedata = await coursesCollection.updateOne({name: data.name},data);
                 console.log('course Updated:',coursedata);
-                res.status(200).send('course update!');
+                // res.status(200).send('course update!');
+                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'Updated'}});
             }else{
                 // add Data   
                 const coursedata = await coursesCollection.insertMany(data);
                 console.log('course Added:',coursedata);
-                res.status(200).send('course add!');
+                // res.status(200).send('course add!');
+                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'inserted'}});
             }
     }catch (error) {
         console.log(error);
