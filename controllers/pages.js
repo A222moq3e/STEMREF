@@ -8,6 +8,10 @@ const Swal = require('sweetalert2')
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 module.exports = {
     index:(req,res)=>{  
         console.log('log in home');  
@@ -106,9 +110,11 @@ module.exports = {
         // if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
         if(req.query.q){
-            const data = await coursesCollection.find({name: {$regex :new RegExp(req.query.q, 'ig')}});
+            const sanitizedQuery = escapeRegExp(req.query.q);
+            const data = await coursesCollection.find({name: {$regex :new RegExp(sanitizedQuery, 'ig')}});
             return res.render('search',{data:data, user:req.session.user,q:req.query.q})
-        }else{
+        }
+        else{
             const data = await coursesCollection.find({})
             console.log(coursesCollection)
             return res.render('search',{data:data, user:req.session.user,q:''})
