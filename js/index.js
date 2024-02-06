@@ -145,9 +145,9 @@ app.listen(3005,()=>{
 
 // Start HTTPS and HTTP servers
 // const HTTPS_PORT = 443;
+// const HTTP_PORT = 80;
+const HTTPS_PORT = 443;
 if(process.env.PROD!="False"){
-    const HTTP_PORT = 80;
-  const HTTPS_PORT = 443;
   const privateKey = fs.readFileSync(keyPath, 'utf8');
   const certificate = fs.readFileSync(certPath, 'utf8');
   const httpsServer = https.createServer({ key: privateKey, cert: certificate }, app);
