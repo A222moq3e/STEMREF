@@ -16,9 +16,9 @@
     "express-rate-limit": "^7.1.5",
     "express-session": "^1.17.3",
     "http": "^0.0.1-security",
-    "mongoose": "^7.6.4",
+    "mongoose": "^7.6.8",
     "nodemailer": "^6.9.8",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.0.3",
     "sweetalert2": "^11.10.4"
   }
 }
