@@ -26,6 +26,7 @@ module.exports = {
         return res.redirect('search',{data:{user:req.session.user}})
     },
     courseContentByName:async (req,res)=>{
+        console.log('in courseContentByName');
        try{
             // if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
             const data = await coursesCollection.findOne({name: req.params.name})
@@ -53,6 +54,7 @@ module.exports = {
         // res.render('courseContent')
     },
     courseContentByNameAndCatogray:async (req,res)=>{
+        console.log('in courseContentByNameAndCatogray');
         try{
             // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
@@ -92,6 +94,7 @@ module.exports = {
         }
     },
     courseContentRate:async (req,res)=>{
+    console.log('in courseContentRate');
         try{
             // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
             let stars = req.body.starsNum;
