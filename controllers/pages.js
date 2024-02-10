@@ -116,7 +116,9 @@ module.exports = {
         if(req.query.q){
             console.log(req.query.q);
             const sanitizedQuery = escapeRegExp(req.query.q);
-            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'ig'}});
+            console.log(sanitizedQuery);
+            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}});
+            console.log(data);
             return res.render('search',{data:data, user:req.session.user,q:req.query.q})
         }
         else{
