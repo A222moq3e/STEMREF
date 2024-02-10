@@ -26,7 +26,8 @@ main .box {
   flex-direction: column;
   align-items: flex-start;
   gap: 25px;
-  padding: 40px 30px;
+  padding: 30px 30px;
+  padding-top: 50px;
   height: fit-content;
   background: rgba(57, 77, 255, 0.9);
   /* backdrop-filter: blur(10px); */

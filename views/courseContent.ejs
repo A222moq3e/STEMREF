@@ -93,7 +93,10 @@
 
 
               </div>
-              <% if(Array.isArray(data.course.content)){ %>
+              <% if((!data.catograySearch)){ %>
+                <a class="fa-solid fa-arrow-left" style="color: white;" href="/search"></a>
+                <% } %>
+              <% if((data.catograySearch)){ %>
                 <a class="fa-solid fa-arrow-left" style="color: white;" href="/courseContent/<%=data.course.name%>"></a>
                 <% } %>
                 
@@ -157,9 +160,9 @@
               </div>
               <button title="Discussion" onclick="document.querySelector('.discussionBox').classList.toggle('hide')"><i class="fa-solid fa-message btn"></i></button>
             </div>
-      
-            <!-- <div class="reviewBox">
-
+<!--       
+            <div class="reviewBox">
+              <a href=""></a>
             </div> -->
           </div>
         </div>
