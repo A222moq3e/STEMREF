@@ -112,7 +112,9 @@ module.exports = {
         // if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
         // if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
+       try{
         if(req.query.q){
+            console.log(req.query.q);
             const sanitizedQuery = escapeRegExp(req.query.q);
             const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'ig'}});
             return res.render('search',{data:data, user:req.session.user,q:req.query.q})
@@ -122,6 +124,9 @@ module.exports = {
             console.log(coursesCollection)
             return res.render('search',{data:data, user:req.session.user,q:''})
         }
+       }catch(e){
+        console.log(e);
+       }
     },
     // Pricing
     pricing:(req,res)=>{
