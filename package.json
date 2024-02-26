@@ -19,6 +19,6 @@
     "mongoose": "^7.6.8",
     "nodemailer": "^6.9.8",
     "nodemon": "^3.0.3",
-    "sweetalert2": "^11.10.4"
+    "sweetalert2": "^11.10.5"
   }
 }
