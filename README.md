@@ -21,6 +21,20 @@ npm i
 ### Don't Forget to Set your ENV variable 
 ```env
 SECRET_SESSION = 'Session Secret'
+# HTTPS Keys
+KEYPATH ="S:/privkey.pem"
+CERTPATH ="S:/fullchain.pem"
+# Ports
+HTTPS_PORT="443"
+HTTP_PORT="80"
+HOST = "0.0.0.0"
+# Google User Credintials
+MY_EMAIL_PASSWORD="XXX"
+GOOGLE_CLIENT_ID="XXX-XXXX.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="XXX-XXX-X"
+GOOGLE_OAUTH_REDIRECT_URL="https://domatin name/forget"
+# MongoDB Url
+MONGODB_CLUSTER = "mongodb+srv://Mongo Url"
 ```
 ### Lastly Run the Code Using this Command
 ```bash
