@@ -22,8 +22,8 @@ npm i
 ```env
 SECRET_SESSION = 'Session Secret'
 # HTTPS Keys
-KEYPATH ="S:/privkey.pem"
-CERTPATH ="S:/fullchain.pem"
+KEYPATH ="~/privkey.pem"
+CERTPATH ="~/fullchain.pem"
 # Ports
 HTTPS_PORT="443"
 HTTP_PORT="80"
