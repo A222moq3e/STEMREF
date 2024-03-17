@@ -18,29 +18,30 @@ function escapeRegExp(string) {
 module.exports = {
     index:(req,res)=>{  
         console.log('log in home');  
-        if(req.session.user)
-        res.render("home",{data:{accesses:req.session.user.authenticated, user:req.session.user}})
-        else
-        res.render("home",{data:{accesses:false}})
+
+        return res.render("home",buildDataBeforeRender(req))
     },
     
     loginGet:(req,res)=>{
-        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
-        else
+        if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
+
         res.render("login")
     },
     loginPost:async  (req,res)=>{
         const MaxAttemps = 5;
         if(req.session.failedAttempts &&req.session.failedAttempts>=MaxAttemps) return res.status(403).send('forbbiden, to many faileded attmeps')
         try {
+            if(!req.body.username || !req.body.password){
+                return res.status(401).render('login',{data:{err:"no parameter founds!"}});
+            }
             const check = await usersCollection.findOne({name:req.body.username})
             if(!check){
-                return res.render('login',{data:{err:"user not found!"}});
+                return res.status(401).render('login',{data:{err:"user not found!"}});
             }
            
             if(check.password != createHash(req.body.password)){
                 console.log('wrong password');
-                return res.render('login',{data:{err:'wrong password'}})
+                return res.status(401).render('login',{data:{err:'wrong password'}})
 
             } 
             console.log(check.userType);
@@ -214,6 +215,16 @@ module.exports = {
 function createHash(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
+
+function buildDataBeforeRender(req){
+    let renderData = {data:{accesses:false}};
+    if(req.session.user)
+    renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user}};
+    return renderData;
+
+}
+
+
 // function checkIsLogin(){
 //     if(!req.session && !req.session.user) return res.render('login')
 // }
