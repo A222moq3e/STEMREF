@@ -4,7 +4,7 @@ const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
 
-const Swal = require('sweetalert2')
+const Swal = require('sweetalert2');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -23,14 +23,16 @@ module.exports = {
     },
     
     loginGet:(req,res)=>{
-        if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
+        // if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
 
         res.render("login")
     },
     loginPost:async  (req,res)=>{
         const MaxAttemps = 5;
+        // check attemps
         if(req.session.failedAttempts &&req.session.failedAttempts>=MaxAttemps) return res.status(403).send('forbbiden, to many faileded attmeps')
         try {
+            // check, no empty parameters
             if(!req.body.username || !req.body.password){
                 return res.status(401).render('login',{data:{err:"no parameter founds!"}});
             }
@@ -44,27 +46,24 @@ module.exports = {
                 return res.status(401).render('login',{data:{err:'wrong password'}})
 
             } 
-            console.log(check.userType);
+            // console.log(check.userType);
             switch(check.userType){
                 case 'student':
                     req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
-                    res.redirect('search');
-                    break;
+                    return res.redirect('search');
                 case 'user':
                     req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
-                    res.redirect('search');
-                    break;
+                    return res.redirect('search');
                 case 'educator':
                     req.session.user = new Educator(check.name,check.email);
-                    res.redirect('EducatorDashboard');
-                    break;
+                    return res.redirect('EducatorDashboard');
                 case 'admin':
                     req.session.user = new Student(check.name,check.email); 
-                    res.redirect('home');
-                    break;
+                    return res.redirect('home');
+
                 default:
                     // res.status(404).send('wrong data, contact with Support')
-                    res.render('login',{data:{Swal:Swal,err:'wrong data, contact with Support'}})
+                    return res.render('login',{data:{err:'wrong data, contact with Support'}})
             }
             
         } catch (error) {
@@ -86,25 +85,30 @@ module.exports = {
             }
             // check if the user already exists
             const userIsExist = await usersCollection.findOne({name: data.name})
-            console.log('userIsExist:', userIsExist);
-            console.log('userIsExist:', data.name);
             if(userIsExist){
-                res.render('register',{data:{Swal:Swal,err:"User already exists. Please choose diffrent Name"}})
-                return;
+                return res.render('register',{data:{err:"User already exists. Please choose diffrent Name"}});
+            }
+            const emailIsExist = await usersCollection.findOne({name: data.name})
+            if(emailIsExist){
+                return res.render('register',{data:{err:"Email already exists. Please choose diffrent email"}});
             }
             // add Data   
             const userdata = await usersCollection.insertMany(data);
-            res.redirect("login")
+            return res.redirect("login")
             
         }catch (error) {
             console.log(error);
-            res.send("wrong Details")
+            res.status(401).send("wrong Details")
         }
     
     },
     signout:(req,res)=>{
-        req.session.user.authenticated = false;
-        res.redirect("/");
+        // req.session.user.authenticated = false;
+        console.log('session',req.session);
+        req.session = null
+        // delete req.session
+
+        return res.redirect("/")
     },
 
     // Search Page
@@ -138,9 +142,7 @@ module.exports = {
     },
     // User Data
     profile:(req,res)=>{
-
         res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user}})
-    
     },
 
     EducatorDashboardGet: (req,res)=>{
