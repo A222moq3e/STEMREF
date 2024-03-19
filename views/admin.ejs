@@ -74,9 +74,26 @@
               </div>
             </div>
           </nav>
-          <div class="users-box">
-            <!-- all users here -->
-          </div>
+          <div class="users-box d-flex justify-content-center table-responsive container">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <th scope="col">#</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">UserType</th>
+              </thead>
+              <tbody>
+                <% for(let i of data.users ){%>
+                  <tr class="user">
+                    <td scope="row">#</div>
+                    <td><%= i.name %></div>
+                    <td><%= i.email %></div>
+                    <td><%= i.userType %></div>
+                  </tr>
+                    <% } %>  
+                </div>
+              </tbody>
+            </table>
     </main>
     <footer class="text-center w-100">
         <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>

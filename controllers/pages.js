@@ -50,16 +50,16 @@ module.exports = {
             switch(check.userType){
                 case 'student':
                     req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
-                    return res.redirect('search');
+                    return res.status(302).redirect('search');
                 case 'user':
                     req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
-                    return res.redirect('search');
+                    return res.status(302).redirect('search');
                 case 'educator':
                     req.session.user = new Educator(check.name,check.email);
-                    return res.redirect('EducatorDashboard');
+                    return res.status(302).redirect('EducatorDashboard');
                 case 'admin':
                     req.session.user = new Student(check.name,check.email); 
-                    return res.redirect('home');
+                    return res.status(302).redirect('home');
 
                 default:
                     // res.status(404).send('wrong data, contact with Support')
@@ -72,8 +72,8 @@ module.exports = {
         }
     },
     registerGet:(req,res)=>{
-        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
-        else  res.render("register")
+        // if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
+        return  res.render("register")
     },
     registerPost: async (req,res)=>{
         try{
@@ -104,7 +104,7 @@ module.exports = {
     },
     signout:(req,res)=>{
         // req.session.user.authenticated = false;
-        console.log('session',req.session);
+        // console.log('session',req.session);
         req.session = null
         // delete req.session
 
