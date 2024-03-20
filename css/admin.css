@@ -1,0 +1,9 @@
+tbody {
+  counter-reset: ctr;
+}
+
+.user .num::before {
+  counter-increment: ctr;
+  content: counter(ctr);
+  /* content: ">"; */
+}

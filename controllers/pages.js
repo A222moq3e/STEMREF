@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
+const  Admin  = require('../interface/Admin.js');
 
 const Swal = require('sweetalert2');
 // console.log('in pages.js');
@@ -53,13 +54,13 @@ module.exports = {
                     return res.status(302).redirect('search');
                 case 'user':
                     req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
-                    return res.status(302).redirect('search');
+                    return res.status(302).redirect('/search');
                 case 'educator':
                     req.session.user = new Educator(check.name,check.email);
-                    return res.status(302).redirect('EducatorDashboard');
+                    return res.status(302).redirect('/EducatorDashboard');
                 case 'admin':
-                    req.session.user = new Student(check.name,check.email); 
-                    return res.status(302).redirect('home');
+                    req.session.user = new Admin(check.name,check.email); 
+                    return res.status(302).redirect('/');
 
                 default:
                     // res.status(404).send('wrong data, contact with Support')

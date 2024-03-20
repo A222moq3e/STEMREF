@@ -1,6 +1,6 @@
 const User = require('./User');
 class Admin extends User{
-    constructor(name,email){
+    constructor(name,email,img){
         super(name,email,true,'admin')
     }
     addUser(){

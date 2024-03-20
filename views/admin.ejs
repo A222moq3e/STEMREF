@@ -32,7 +32,8 @@
     <!-- CSS  -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/login.css">
-    <link rel="stylesheet" href="/EducatorDashboard.css">
+    <link rel="stylesheet" href="/admin.css">
+    <!-- <link rel="stylesheet" href="/EducatorDashboard.css"> -->
     <title>STEMREF | Admin Page</title>
     <style>
         .container form input{
@@ -75,7 +76,7 @@
             </div>
           </nav>
           <div class="users-box d-flex justify-content-center table-responsive container">
-            <table class="table table-striped">
+            <table class="table table-striped table-dark">
               <thead class="thead-dark">
                 <th scope="col">#</th>
                 <th scope="col">NAME</th>
@@ -84,11 +85,19 @@
               </thead>
               <tbody>
                 <% for(let i of data.users ){%>
-                  <tr class="user">
-                    <td scope="row">#</div>
-                    <td><%= i.name %></div>
-                    <td><%= i.email %></div>
-                    <td><%= i.userType %></div>
+                  <tr class="user ">
+                    <td class="num" scope="row"></td>
+                    <td class="username "><%= i.name %></td>
+                    <td class="email"><%= i.email %></td>
+                    <td>
+                      <select class="form-select chooseType" aria-label="Default select example"  data-bs-theme="dark">
+                        <% for(let j of ["user","student","educator","admin"]){%>
+                          <option <% if(i.userType == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                          <% } %>
+                      </select>
+                     
+                    </td>
+                    <!-- <td><i class="fa-solid fa-trash"></i></td> -->
                   </tr>
                     <% } %>  
                 </div>
@@ -104,6 +113,7 @@
     <!-- SweetAlert2 JavaScript -->
     <script src="/sweetalert2.all.min.js"></script>
     <script src="/main.js"></script>
+    <script src="/admin.js"></script>
     
     <div class="waves" ></div>
 

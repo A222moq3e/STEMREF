@@ -48,8 +48,11 @@ router.use((req,res,next)=>{
     next()
 })
 router.use('/EducatorDashboard',(req,res,next)=>{
-  console.log(req.path);
     if(req.session.user.userType != "educator") return res.redirect("/")
+    next()
+})
+router.use('/admin',(req,res,next)=>{
+    if(req.session.user.userType != "admin") return res.redirect("/")
     next()
 })
 router.get('/',controller.index)
@@ -69,6 +72,7 @@ router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
 router.get('/admin',controllerAdmin.adminGet);
 router.post('/admin',controllerAdmin.adminPost);
+router.put('/admin/:user/userType/:userType',controllerAdmin.adminPut);
 
 
 
