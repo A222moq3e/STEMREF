@@ -1,11 +1,12 @@
 class User{
-    constructor(name,email,authenticated,userType,img){
+    constructor(name,email,authenticated,userType,img,navs){
         this.name= name;
         if(email) this.email = email;
-        else this.email = 'no email'
+        else this.email = 'no email';
         this.authenticated = authenticated;
         this.userType = userType;
-        this.setImage(img)
+        this.setImage(img);
+        this.navs = navs;
     }
     verfiyLogin(){
         //some function
@@ -27,6 +28,10 @@ class User{
     setImage(img){
         if(img)this.img = img
         else this.img = 'avatar3.svg'
+    }
+    // TODO: add locations file
+    setNavs(navs){
+        this.navs = navs
     }
     // setUserType(userType){
     //     if(userType)this.userType = userType

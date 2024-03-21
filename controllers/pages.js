@@ -125,12 +125,13 @@ module.exports = {
             console.log(sanitizedQuery);
             const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}});
             console.log(data);
-            return res.render('search',{data:data, user:req.session.user,q:req.query.q})
+            return res.render('search',{data:data, user:req.session.user,q:req.query.q,path:'/'+req.path.split('/')[1]})
         }
         else{
             const data = await coursesCollection.find({})
-            console.log(coursesCollection)
-            return res.render('search',{data:data, user:req.session.user,q:''})
+            console.log('user=>',req.session.user);
+            console.log('navs=>',req.session.user.navs);
+            return res.render('search',{data:data, user:req.session.user,q:'',path:'/'+req.path.split('/')[1]})
         }
        }catch(e){
         console.log(e);
@@ -139,16 +140,16 @@ module.exports = {
     // Pricing
     pricing:(req,res)=>{
     // if(req.session.user && !req.session.user.authenticated ) return res.redirect("/login")
-        res.render("pricing",{data:{user:req.session.user}})
+        res.render("pricing",{data:{user:req.session.user,path:'/'+req.path.split('/')[1]}})
     },
     // User Data
     profile:(req,res)=>{
-        res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user}})
+        res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}})
     },
 
     EducatorDashboardGet: (req,res)=>{
         // const educator = new Educator(req.session.user.name,req.session.email);
-        res.render('EducatorDashboard',{ data:{user:req.session.user}});
+        res.render('EducatorDashboard',{ data:{user:req.session.user,path:'/'+req.path.split('/')[1]}});
     },
 
     EducatorDashboardPost:async (req,res)=>{
@@ -197,13 +198,13 @@ module.exports = {
                 const coursedata = await coursesCollection.updateOne({name: data.name},data);
                 console.log('course Updated:',coursedata);
                 // res.status(200).send('course update!');
-                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'Updated'}});
+                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'Updated',path:'/'+req.path.split('/')[1]}});
             }else{
                 // add Data   
                 const coursedata = await coursesCollection.insertMany(data);
                 console.log('course Added:',coursedata);
                 // res.status(200).send('course add!');
-                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'inserted'}});
+                res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'inserted',path:'/'+req.path.split('/')[1]}});
             }
     }catch (error) {
         console.log(error);
@@ -222,7 +223,7 @@ function createHash(password) {
 function buildDataBeforeRender(req){
     let renderData = {data:{accesses:false}};
     if(req.session.user)
-    renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user}};
+    renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}};
     return renderData;
 
 }

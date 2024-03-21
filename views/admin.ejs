@@ -54,7 +54,11 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav mb-2 mb-lg-0 w-100  align-items-center">
                     <!-- <li class="nav-item"><a class="nav-link" href="/">Home</a></li> -->
-                    <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Admin</a></li>
+                    <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="#">Admin</a></li> -->
+                    <% for(let i of data.user.navs){ %>
+                      <!-- TODO: add active class by if statments -->
+                      <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                      <% } %>
                         <!-- <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register">Register</a></li> -->
                         <div class="dropstart ms-md-auto">
@@ -90,7 +94,7 @@
                     <td class="username "><%= i.name %></td>
                     <td class="email"><%= i.email %></td>
                     <td>
-                      <select class="form-select chooseType" aria-label="Default select example"  data-bs-theme="dark">
+                      <select class="form-select chooseType <% if(i.userType == "admin"){%> admin <% }%>" aria-label="Default select example"  data-bs-theme="dark">
                         <% for(let j of ["user","student","educator","admin"]){%>
                           <option <% if(i.userType == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
                           <% } %>

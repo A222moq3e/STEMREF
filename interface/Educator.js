@@ -1,7 +1,7 @@
 const User = require('./User');
 class Educator extends User{
     constructor(name,email){
-        super(name,email,true,'educator','avatar8.svg')
+        super(name,email,true,'educator','avatar8.svg',["Home","Insert Course"])
     }
     addCourse(){
         // some function

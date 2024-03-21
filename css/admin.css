@@ -7,3 +7,10 @@ tbody {
   content: counter(ctr);
   /* content: ">"; */
 }
+.user select {
+  cursor: pointer;
+}
+.admin {
+  pointer-events: none;
+  color: #aaa;
+}

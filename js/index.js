@@ -26,6 +26,15 @@ const secretSessionString = process.env.SECRET_SESSION
 // const bootstrap = require('bootstrap');
 // const popper = require('popper');
 app.set("view engine","ejs")
+
+app.set("navsTranslator",{
+  "Home":"/",
+  "Dashboard":"/admin",
+  "Search":"/search",
+  "Pricing":"/pricing",
+  "Insert Course":"/EducatorDashboard"
+
+})
 // app.set("views",htmlPath)
 console.log('process.env.TEST');
 console.log(process.env.TEST);
