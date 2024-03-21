@@ -49,13 +49,12 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
                   <% for(let i of data.user.navs){ %>
-                    <!-- TODO: add active class by if statments -->
                     <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
                     <% } %>
 
                     <div class="dropstart ms-md-auto">
                         <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="/avatars/<%= data.user.img %>.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;">
+                          <img src="/avatars/<%= data.user.img %>" class="rounded-circle navbar-user-avatar " style="width: 50px;">
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
                         <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a>

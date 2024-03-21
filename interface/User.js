@@ -29,7 +29,6 @@ class User{
         if(img)this.img = img
         else this.img = 'avatar3.svg'
     }
-    // TODO: add locations file
     setNavs(navs){
         this.navs = navs
     }

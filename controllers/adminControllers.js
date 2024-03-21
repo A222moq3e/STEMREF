@@ -14,7 +14,6 @@ module.exports = {
         res.render('admin',{data:{user:admin}})
     },
     adminPut:async (req,res)=>{
-        // TODO: update user
         const admin = new Admin(req.session.user.name,req.session.user.email)
         console.log(`Update Successfully, ${req.params.user} to ${req.params.userType}`);
         const usersUpdate =  await usersCollection.updateOne({name:req.params.user},{userType:req.params.userType});

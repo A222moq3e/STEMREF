@@ -140,11 +140,11 @@ module.exports = {
     // Pricing
     pricing:(req,res)=>{
     // if(req.session.user && !req.session.user.authenticated ) return res.redirect("/login")
-        res.render("pricing",{data:{user:req.session.user,path:'/'+req.path.split('/')[1]}})
+        res.render("pricing",buildDataBeforeRender(req))
     },
     // User Data
     profile:(req,res)=>{
-        res.render('profile',{data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}})
+        res.render('profile',buildDataBeforeRender(req))
     },
 
     EducatorDashboardGet: (req,res)=>{

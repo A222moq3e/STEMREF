@@ -43,7 +43,6 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
                   <% for(let i of user.navs){ %>
-                    <!-- TODO: add active class by if statments -->
                     <li class="nav-item <% if(path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
                     <% } %>
                     <div class="dropstart ms-md-auto">
