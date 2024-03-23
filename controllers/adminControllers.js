@@ -11,7 +11,8 @@ module.exports = {
     },
     adminPost:(req,res)=>{
         const admin = new Admin(req.session.user.name,req.session.user.email)
-        res.render('admin',{data:{user:admin}})
+        // res.render('admin',{data:{user:admin}})
+        res.status(403).send('nothing here')
     },
     adminPut:async (req,res)=>{
         const admin = new Admin(req.session.user.name,req.session.user.email)
