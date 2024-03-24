@@ -79,10 +79,12 @@
             </div>
           </nav>
           <div class="users-box d-flex flex-column justify-content-center table-responsive container">
-            <form class="search-bar form-inline mt-2 mb-2" action="/admin/users" method="get" data-bs-theme="dark">
+            <!-- Search Function -->
+            <form class="search-bar form-inline mt-2 mb-2" action="/admin/search/users" method="get" data-bs-theme="dark">
                 <!-- <img class="vector" src="img/vector.svg" /> -->
                 <input  class="form-control"  type="search" placeholder="Search"  aria-label="Search" name="q">
             </form>
+            <!-- Show Data Table  -->
             <table class="table table-striped table-dark">
               <thead class="thead-dark">
                 <th scope="col">#</th>
