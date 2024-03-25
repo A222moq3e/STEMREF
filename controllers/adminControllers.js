@@ -7,7 +7,9 @@ module.exports = {
     adminGet:async (req,res)=>{
         // Get admin Page
         const admin = new Admin(req.session.user.name,req.session.user.email)
-        const users =  await usersCollection.find({})
+        let type = "users";
+        let query = req.query.q?{name:req.query.q}:{};
+        const users =  await usersCollection.find(query)
         res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
     },
     adminPost:(req,res)=>{
@@ -24,12 +26,13 @@ module.exports = {
         // res.render('admin',{data:{user:admin,users:users}})
         res.send("update successfully")
     },
-    adminSearchUsers: async (req,res)=>{
-        // Search for Users
-        const admin = new Admin(req.session.user.name,req.session.user.email)
-        const users =  await usersCollection.find({})
-        res.send('data serched')
-        // res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
-    }
+    // Removed
+    // adminSearchUsers: async (req,res)=>{
+    //     // Search for Users
+    //     const admin = new Admin(req.session.user.name,req.session.user.email)
+    //     const users =  await usersCollection.find({})
+    //     res.send('data serched')
+    //     // res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
+    // }
 
 }
