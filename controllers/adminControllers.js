@@ -8,6 +8,10 @@ module.exports = {
         // Get admin Page
         const admin = new Admin(req.session.user.name,req.session.user.email)
         let type = "users";
+        // const usersFormat = {
+        //    thead:["#","NAME","EMAIL","UserType"],
+        //    tdClasses:["num","username","email"]
+        // }
         let query = req.query.q?{name:req.query.q}:{};
         const users =  await usersCollection.find(query)
         res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
@@ -19,12 +23,18 @@ module.exports = {
         res.status(403).send('nothing here')
     },
     adminPut:async (req,res)=>{
-        // Update User Data
-        const admin = new Admin(req.session.user.name,req.session.user.email)
-        console.log(`Update Successfully, ${req.params.user} to ${req.params.userType}`);
-        const usersUpdate =  await usersCollection.updateOne({name:req.params.user},{userType:req.params.userType});
-        // res.render('admin',{data:{user:admin,users:users}})
-        res.send("update successfully")
+        try{
+
+            // Update User Data
+            const admin = new Admin(req.session.user.name,req.session.user.email)
+            console.log(`Update Successfully, ${req.params.user} to ${req.params.userType}`);
+            const usersUpdate =  await usersCollection.updateOne({name:req.params.user},{userType:req.params.userType});
+            // res.render('admin',{data:{user:admin,users:users}})
+            res.status(200).json({msg:"update successfully"})
+        }catch(e){
+            console.log('Error:',e);
+            res.status(400).json({msg:"update Failed"})
+        }
     },
     // Removed
     // adminSearchUsers: async (req,res)=>{

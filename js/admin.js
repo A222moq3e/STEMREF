@@ -11,6 +11,17 @@ console.log("document.querySelectorAll('.user')",document.querySelectorAll('.use
 
 async function changeType(username,email,userType){
     console.log('in changeType');
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
     const rawResponse = await fetch(`/admin/${username}/userType/${userType}`, {
         method: 'PUT',
         headers: {
@@ -18,7 +29,19 @@ async function changeType(username,email,userType){
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({userType:userType})
-      });
+        
+      })
+      .then(()=>{
+        Toast.fire({
+            icon: "success",
+            title: "update successfully"
+          })
+      }).catch((e)=>{
+        Toast.fire({
+            icon: "error",
+            title: "update Failed"
+          })
+      })
     //   const content = await rawResponse.json();
 
     //   console.log(content);
