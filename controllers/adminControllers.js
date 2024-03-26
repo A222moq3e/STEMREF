@@ -8,11 +8,14 @@ module.exports = {
         // Get admin Page
         const admin = new Admin(req.session.user.name,req.session.user.email)
         let type = "users";
+        // let filterType = "name"
+        let filterType = req.query.filterType?req.query.filterType:"name";
+        if(req.query.filterType=="All") filterType = "name"
         // const usersFormat = {
         //    thead:["#","NAME","EMAIL","UserType"],
         //    tdClasses:["num","username","email"]
         // }
-        let query = req.query.q?{name:req.query.q}:{};
+        const query = req.query.q?{[filterType]:req.query.q}:{};
         const users =  await usersCollection.find(query)
         res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
     },
