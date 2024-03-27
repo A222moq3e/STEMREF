@@ -114,7 +114,14 @@
             <div class="rating">
               <% if(data.avg>0){ %>
                 <i class="fa-solid fa-star active "></i>
-                <%= data.avg %>
+                <%for(let i=1;i<data.avg;i++){%>
+                  <i class="fa-solid fa-star active"></i>
+                <% } %>
+                <%for(let i=data.avg;i<5;i++){%>
+                  <i class="fa-solid fa-star"></i>
+                <% } %>
+
+                <span class="ms-1"><%= data.avg %></span>
               <% }  %>
 
               <% if(data.avg<=0){ %>

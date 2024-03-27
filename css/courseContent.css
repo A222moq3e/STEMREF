@@ -1,6 +1,7 @@
 :root {
   --main-color: #394dff;
   --dark-color: #232323;
+  --light-color: #d0d4fc;
 }
 /* TODO: add linear graiant in backgorund */
 main {
@@ -85,13 +86,14 @@ main .box {
   display: flex;
   justify-content: left;
   align-items: center;
-  font-size: 18px;
+  font-size: 12px;
   color: #ddd;
   /* color: #fff239; */
 }
 .rating i {
-  font-size: 14px;
+  font-size: 12px;
   cursor: auto;
+  padding: 1px;
 }
 .rating i.active {
   color: #fff239;
@@ -193,8 +195,15 @@ main .item-title {
   padding: 0;
 }
 .tools button .btn {
-  color: white;
+  color: var(--light-color);
+  /* text-shadow: 0 0 3px #000; */
+  /* -webkit-text-fill-color: transparent; */
+  /* -webkit-text-stroke-width: 2px; */
+  /* -webkit-text-stroke-color: #333; */
+  /* border: 2px solid white; */
+  /* background-color: white; */
   font-size: 20px;
+  margin-right: 1px;
   opacity: 0.7;
   transition: 0.3s;
 }

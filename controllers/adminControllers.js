@@ -18,6 +18,7 @@ module.exports = {
         const query = req.query.q?{[filterType]:req.query.q}:{};
         const users =  await usersCollection.find(query)
         res.render('admin',{data:{user:admin,users:users,path:'/'+req.path.split('/')[1]}})
+        // TODO: add courses control like users
     },
     adminPost:(req,res)=>{
         // For future data
