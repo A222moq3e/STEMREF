@@ -28,3 +28,14 @@ async function send_stars(num){
     const data = await response.json(); // Get the data from the response
     return data;
 }
+
+
+document.querySelector('.review-btn').addEventListener('click',(e)=>{
+    e.target.classList.toggle('active');
+    document.querySelector('.stars').classList.toggle('hide')
+})
+
+document.querySelector('.discussion-btn').addEventListener('click',(e)=>{
+    e.target.classList.toggle('active');
+    document.querySelector('.discussionBox').classList.toggle('hide');
+})

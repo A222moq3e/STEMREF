@@ -170,7 +170,6 @@ main .item:hover {
   transform: translateY(-5%);
 }
 main .item-title {
-  position: relative;
   width: fit-content;
   margin-top: -1px;
   font-weight: 700;
@@ -178,6 +177,14 @@ main .item-title {
   letter-spacing: 1.45px;
   line-height: 13px;
   white-space: nowrap;
+}
+.item-title i.mask {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100px;
+  font-size: 100px;
+  opacity: 0.3;
 }
 /* tools */
 .tools {
