@@ -19,12 +19,12 @@ const rateLimit = require('express-rate-limit');
 const keyPath = "./assets/secretsKeys/privkey.pem"
 const certPath =  "./assets/secretsKeys/fullchain.pem"
 const secretSessionString = process.env.SECRET_SESSION
+
 //const port = process.env.PORT || 3000; port already specified down uncomment this and comment the down http and https server for localhost
 // let accesses  = false;
 // const htmlPath = path.join(__dirname,'../pages')
 // app.use(express.json())
 // const bootstrap = require('bootstrap');
-// const popper = require('popper');
 app.set("view engine","ejs")
 
 app.set("navsTranslator",{
