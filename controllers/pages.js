@@ -129,20 +129,18 @@ module.exports = {
         if(req.query.sort){
             sortWay = sortTranslator[req.query.sort];
         }
-        if(req.query.q){
-            
-            const sanitizedQuery = escapeRegExp(req.query.q);
-            
-            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}}).sort(sortWay);
+        const sanitizedQuery = escapeRegExp(req.query.q);
+        const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}}).sort(sortWay);
 
-            return res.render('search',{data:data, user:req.session.user,q:req.query.q,path:'/'+req.path.split('/')[1]})
-        }
-        else{
-            const data = await coursesCollection.find({}).sort(sortWay)
-            return res.render('search',{data:data, user:req.session.user,q:'',path:'/'+req.path.split('/')[1]})
-        }
+        const renderedData = {data:data, user:req.session.user,
+                                q:req.query.q?req.query.q:'',
+                                sort:req.query.sort?req.query.sort:'',
+                                path:'/'+req.path.split('/')[1]};
+        
+
+        return res.render('search',renderedData)
        }catch(e){
-        console.log(e);
+            console.log(e);
        }
     },
     // Pricing
@@ -179,7 +177,9 @@ module.exports = {
                     Quizzes:[],
                     Assignments:[],
                     Others:[],
-                }
+                },
+                date: new Date()
+
             }
             for(let catograyOfContent of Object.keys(data.Content)){
                 if(req.body[catograyOfContent]){

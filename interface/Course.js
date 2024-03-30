@@ -1,6 +1,6 @@
 class Course{
 
-    constructor(name, description, Author, tags, paidContent,reviews, content){
+    constructor(name, description, Author, tags, paidContent,reviews, content,date){
         // TODO: add course create date
             this.name=name;
             this.description=description;
@@ -10,6 +10,7 @@ class Course{
             this.reviews = reviews
             this.content=content;
             this.filterEmptyUrls()
+            this.date = date;
     }
     getName() {
         return this.name;

@@ -39,12 +39,12 @@ main .search-bar {
   /* border-radius: 20px; */
   /* margin-top: 30px; */
 }
-.sort-select {
-  width: fit-content;
-}
+/* .sort-select {
+} */
 .sort-select,
 .filter {
   cursor: pointer;
+  width: fit-content;
 }
 main .search-bar input {
   background-color: #333333;

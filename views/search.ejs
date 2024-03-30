@@ -73,11 +73,12 @@
              <div class="control-results d-flex justify-content-between">
               <select class="sort-select form-select rounded-pill" aria-label="select sort"  data-bs-theme="dark" name="sort">
                 <% for(let j of ["Alphabatical","Recomend","popular","new"]){%>
-                  <option <% if("" == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                  <option <% if(sort == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
                   <% } %>
+                  <!-- <i class="fa-solid fa-arrow-up-wide-short"></i> -->
                 </select>
-                <div class="filter w-25">
-                  filter
+                <div class="filter">
+                  <span>filter </span><i class="fa-solid fa-filter"></i>
                 </div>
              </div>
             </form>
