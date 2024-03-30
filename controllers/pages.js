@@ -119,18 +119,26 @@ module.exports = {
         // if(req.session.user.userType == "educator") return res.redirect("/EducatorDashboard")
 
        try{
+        let sortWay = {name:1};
+        const sortTranslator ={
+            "Alphabatical": {name:1},
+            "Recomend": {name:1},//TODO: add way to know recomonded
+            "popular": {name:1},//TODO: add way to know popular, by add number of views
+            "new": {},//TODO: add way to know popular, by add date to course
+        }
+        if(req.query.sort){
+            sortWay = sortTranslator[req.query.sort];
+        }
         if(req.query.q){
-            console.log(req.query.q);
+            
             const sanitizedQuery = escapeRegExp(req.query.q);
-            console.log(sanitizedQuery);
-            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}});
-            console.log(data);
+            
+            const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}}).sort(sortWay);
+
             return res.render('search',{data:data, user:req.session.user,q:req.query.q,path:'/'+req.path.split('/')[1]})
         }
         else{
-            const data = await coursesCollection.find({})
-            console.log('user=>',req.session.user);
-            console.log('navs=>',req.session.user.navs);
+            const data = await coursesCollection.find({}).sort(sortWay)
             return res.render('search',{data:data, user:req.session.user,q:'',path:'/'+req.path.split('/')[1]})
         }
        }catch(e){

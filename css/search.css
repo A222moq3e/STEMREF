@@ -39,6 +39,13 @@ main .search-bar {
   /* border-radius: 20px; */
   /* margin-top: 30px; */
 }
+.sort-select {
+  width: fit-content;
+}
+.sort-select,
+.filter {
+  cursor: pointer;
+}
 main .search-bar input {
   background-color: #333333;
   width: 100%;
@@ -171,4 +178,3 @@ main p {
     transform: translateY(0%);
   }
 }
-

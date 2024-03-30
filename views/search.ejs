@@ -61,11 +61,27 @@
             </div>
           </nav>
         <div class="container">
-            <form class="search-bar mt-2" action="/search" method="get">
-                <!-- <img class="vector" src="img/vector.svg" /> -->
+            <!-- <form class="search-bar mt-2" action="/search" method="get">
                 <input type="text" placeholder="Search" name="q">
+            </form> -->
+            <form class="search-tools w-100 mt-2 mb-2">
+
+              <div class="search-bar w-100 p-0 mb-2" action="/search" method="get" data-bs-theme="dark">
+                <!-- <img class="vector" src="img/vector.svg" /> -->
+                <input  class="form-control"  type="search" placeholder="Search"  aria-label="Search" name="q">
+              </div>
+             <div class="control-results d-flex justify-content-between">
+              <select class="sort-select form-select rounded-pill" aria-label="select sort"  data-bs-theme="dark" name="sort">
+                <% for(let j of ["Alphabatical","Recomend","popular","new"]){%>
+                  <option <% if("" == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                  <% } %>
+                </select>
+                <div class="filter w-25">
+                  filter
+                </div>
+             </div>
             </form>
-            <div class="text-about-courses">
+            <div class="text-about-courses w-100">
                 <% if(q){ %>
                 <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
                 <%}%>
@@ -74,14 +90,19 @@
                 <%}%>
                 <div class="found mb-2">Found: <%= data.length %></div>
             </div>
-          <div class="courses row pb-5">
+          <div class="courses row pb-5 w-100">
             <% for(let course of data){ %>
             <div class="item col-md-3 col-lg-2  col-5 h-100" data-course-name="<%= course.name %>" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
                 <div class="tags">
                   <div class="tag">course</div>
                   <!-- <div class="tag">CS205</div> -->
-                  <% for(let tag of course.tags){ %>
+                  <% let i=1 %>
+                  <% for(const tag of course.tags){ %>
+                    <%if(i++>=3){%>
+                      <div class="tag" title="there is more tag">..+</div>
+                      <% break %>
+                    <% } %>
                     <div class="tag"><%= tag %></div>
                   <% } %>
                 </div>

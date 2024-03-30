@@ -1,5 +1,6 @@
 class User{
     constructor(name,email,authenticated,userType,img,navs){
+        // TODO: add user create date
         this.name= name;
         if(email) this.email = email;
         else this.email = 'no email';

@@ -9,7 +9,7 @@ if(window.screen.width< 600){
 }else if(window.screen.width < 1080){
     numColumns = 3;
 }else if(window.screen.width >= 1080){
-    numColumns = 5;
+    numColumns = 6;
 }
 generateBoxesView(numColumns)
 

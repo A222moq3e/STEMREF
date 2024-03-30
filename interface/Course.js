@@ -1,6 +1,7 @@
 class Course{
 
     constructor(name, description, Author, tags, paidContent,reviews, content){
+        // TODO: add course create date
             this.name=name;
             this.description=description;
             this.Author=Author;
