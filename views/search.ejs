@@ -72,7 +72,7 @@
               </div>
              <div class="control-results d-flex justify-content-between">
               <select class="sort-select form-select rounded-pill" aria-label="select sort"  data-bs-theme="dark" name="sort">
-                <% for(let j of ["Alphabatical","Recomend","popular","new"]){%>
+                <% for(let j of Object.keys(sortTranslator)){%>
                   <option <% if(sort == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
                   <% } %>
                   <!-- <i class="fa-solid fa-arrow-up-wide-short"></i> -->
@@ -87,9 +87,9 @@
                 <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
                 <%}%>
                 <% if(!q) {%>
-                <h1 class="m-0 d-none d-md-block">Courses</h1>
+                <h1 class="m-0 d-none d-md-block"><%= data.length %> Courses</h1>
                 <%}%>
-                <div class="found mb-2">Found: <%= data.length %></div>
+                
             </div>
           <div class="courses row pb-5 w-100">
             <% for(let course of data){ %>

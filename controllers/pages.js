@@ -124,17 +124,19 @@ module.exports = {
             "Alphabatical": {name:1},
             "Recomend": {name:1},//TODO: add way to know recomonded
             "popular": {name:1},//TODO: add way to know popular, by add number of views
-            "new": {},//TODO: add way to know popular, by add date to course
+            "Release": {},//TODO: add way to know popular, by add date to course
         }
         if(req.query.sort){
             sortWay = sortTranslator[req.query.sort];
         }
-        const sanitizedQuery = escapeRegExp(req.query.q);
+        const searchQuery = req.query.q?req.query.q:'';
+        const sanitizedQuery = escapeRegExp(searchQuery);
         const data = await coursesCollection.find({name: {$regex :sanitizedQuery, $options: 'i'}}).sort(sortWay);
 
         const renderedData = {data:data, user:req.session.user,
                                 q:req.query.q?req.query.q:'',
                                 sort:req.query.sort?req.query.sort:'',
+                                sortTranslator:sortTranslator,
                                 path:'/'+req.path.split('/')[1]};
         
 
