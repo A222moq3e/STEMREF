@@ -10,7 +10,7 @@ class Course{
             this.reviews = reviews
             this.content=content;
             this.filterEmptyUrls()
-            this.date = date;
+            this.date = date?date:new Date(2024,5,4);
     }
     getName() {
         return this.name;
@@ -63,6 +63,10 @@ class Course{
             paidContent: getPaidContent(),
             Content:getContent()
         }
+    }
+    showDate(){
+        // return this.date
+        return this.date.getFullYear()+'-'+String(this.date.getMonth() + 1).padStart(2, '0')+'-'+String(this.date.getDate()).padStart(2, '0');;
     }
 }
 

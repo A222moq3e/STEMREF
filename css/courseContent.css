@@ -272,6 +272,23 @@ a {
   left: 30px;
   cursor: pointer;
 }
+
+.bottom-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.bottom-box .date {
+  background-color: red;
+  display: flex;
+  align-items: center;
+}
+.bottom-box .date p {
+  font-size: 16px;
+  display: flex;
+}
+
 @media screen and (max-width: 1024px) {
   .descritpion {
     top: 105%;

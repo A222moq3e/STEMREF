@@ -157,18 +157,23 @@
                 </div>
             </div>
             </div>
-            <div class="tools">
-              <button class="review-btn" title="Review"><i class="fa-solid fa-star btn"></i></button>
-              <!-- TODO: change review to popup review with message -->
-              <div class="stars hide">
-                <input type="radio" name="start" id="star1" data-num-star="5"><label for="star1"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star2" data-num-star="4"><label for="star2"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star3" data-num-star="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star4" data-num-star="2"><label for="star4"><i class="fa-solid fa-star"></i></label>
-                <input type="radio" name="start" id="star5" data-num-star="1"><label for="star5"><i class="fa-solid fa-star"></i></label>
+            <div class="bottom-box">
+              <div class="tools">
+                <button class="review-btn" title="Review"><i class="fa-solid fa-star btn"></i></button>
+                <!-- TODO: change review to popup review with message -->
+                <div class="stars hide">
+                  <input type="radio" name="start" id="star1" data-num-star="5"><label for="star1"><i class="fa-solid fa-star"></i></label>
+                  <input type="radio" name="start" id="star2" data-num-star="4"><label for="star2"><i class="fa-solid fa-star"></i></label>
+                  <input type="radio" name="start" id="star3" data-num-star="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
+                  <input type="radio" name="start" id="star4" data-num-star="2"><label for="star4"><i class="fa-solid fa-star"></i></label>
+                  <input type="radio" name="start" id="star5" data-num-star="1"><label for="star5"><i class="fa-solid fa-star"></i></label>
+                </div>
+                <!-- Suggession: make button change description to reviews -->
+                <button class="discussion-btn" title="Discussion"><i class="fa-solid fa-message btn"></i></button>
               </div>
-              <!-- Suggession: make button change description to reviews -->
-              <button class="discussion-btn" title="Discussion"><i class="fa-solid fa-message btn"></i></button>
+              <div class="date">
+                <p><%= data.course.showDate() %></p>
+              </div>
             </div>
 <!--       
             <div class="reviewBox">
