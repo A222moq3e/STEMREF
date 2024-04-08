@@ -180,7 +180,8 @@ module.exports = {
                     Assignments:[],
                     Others:[],
                 },
-                date: new Date()
+                date: new Date(),
+                inserter:req.session.user
 
             }
             for(let catograyOfContent of Object.keys(data.Content)){
