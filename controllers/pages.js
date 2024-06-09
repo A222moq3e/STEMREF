@@ -4,7 +4,7 @@ const  Course  = require('../interface/Course.js');// course not Course, Strange
 const  Student  = require('../interface/Student.js');
 const  Educator  = require('../interface/Educator.js');
 
-const Swal = require('sweetalert2')
+const Swal = require('sweetalert2');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -26,7 +26,6 @@ module.exports = {
     
     loginGet:(req,res)=>{
         if(req.session.user && req.session.user.authenticated) res.redirect("/search")
-        else
         res.render("login")
     },
     loginPost:async  (req,res)=>{
