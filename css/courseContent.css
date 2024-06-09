@@ -1,6 +1,7 @@
 :root {
   --main-color: #394dff;
   --dark-color: #232323;
+  --light-color: #d0d4fc;
 }
 /* TODO: add linear graiant in backgorund */
 main {
@@ -85,13 +86,14 @@ main .box {
   display: flex;
   justify-content: left;
   align-items: center;
-  font-size: 18px;
+  font-size: 12px;
   color: #ddd;
   /* color: #fff239; */
 }
 .rating i {
-  font-size: 14px;
+  font-size: 12px;
   cursor: auto;
+  padding: 1px;
 }
 .rating i.active {
   color: #fff239;
@@ -168,7 +170,6 @@ main .item:hover {
   transform: translateY(-5%);
 }
 main .item-title {
-  position: relative;
   width: fit-content;
   margin-top: -1px;
   font-weight: 700;
@@ -176,6 +177,14 @@ main .item-title {
   letter-spacing: 1.45px;
   line-height: 13px;
   white-space: nowrap;
+}
+.item-title i.mask {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100px;
+  font-size: 100px;
+  opacity: 0.3;
 }
 /* tools */
 .tools {
@@ -193,8 +202,15 @@ main .item-title {
   padding: 0;
 }
 .tools button .btn {
-  color: white;
+  color: var(--light-color);
+  /* text-shadow: 0 0 3px #000; */
+  /* -webkit-text-fill-color: transparent; */
+  /* -webkit-text-stroke-width: 2px; */
+  /* -webkit-text-stroke-color: #333; */
+  /* border: 2px solid white; */
+  /* background-color: white; */
   font-size: 20px;
+  margin-right: 1px;
   opacity: 0.7;
   transition: 0.3s;
 }
@@ -256,6 +272,23 @@ a {
   left: 30px;
   cursor: pointer;
 }
+
+.bottom-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.bottom-box .date {
+  background-color: red;
+  display: flex;
+  align-items: center;
+}
+.bottom-box .date p {
+  font-size: 16px;
+  display: flex;
+}
+
 @media screen and (max-width: 1024px) {
   .descritpion {
     top: 105%;

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Login Page.">
     <!-- Google Fonts -->
     <meta http-equiv="Content-Security-Policy" content="default-src *; img-src * data:; style-src * 'unsafe-inline'; font-src *; script-src * 'unsafe-inline' 'unsafe-eval';">    <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
@@ -13,7 +14,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-DTZ0K15FEB');
     </script>    
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,8 +88,8 @@
                         <i class="fa-solid fa-eye-slash eye hide"></i>
                     </div>
                     <div class="remember">
-                        <label for="remb">Remember me</label>
-                        <input type="checkbox" name="remb" id="remb">
+                        <label for="remb" class="form-check-label">Remember me</label>
+                        <input type="checkbox" class="form-check-input" name="remb" id="remb">
                     </div>
                     <a href="/forget">Forget Password?</a>
                     <!-- <a href="/register">Don't have Account?</a> -->
@@ -113,8 +113,9 @@
     <footer class="text-center w-100">
         <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
      </footer>
-      <!-- Bootstrap JS -->
-     <script src="/bootstrap.min.js"></script>
+     <div class="waves" ></div>
+    <!-- Bootstrap JS -->
+    <script src="/bootstrap.min.js"></script>
     <script src="/main.js"></script>
     <script src="/login.js"></script>
     <script>
@@ -131,8 +132,6 @@
 
         })
     </script>
-    <!-- <img class="waves" src="/waves.svg" alt="waves background"> -->
-    <div class="waves" ></div>
     <!-- SweetAlert2 JavaScript -->
     <script src="/sweetalert2.all.min.js"></script>
 </body>

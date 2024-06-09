@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Search Page">
     <!-- Google Fonts -->
     <meta http-equiv="Content-Security-Policy" content="default-src *; img-src * data:; style-src * 'unsafe-inline'; font-src *; script-src * 'unsafe-inline' 'unsafe-eval';">    <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
@@ -11,7 +12,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-DTZ0K15FEB');
     </script>    
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,9 +42,9 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="/">Home</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="/search">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                  <% for(let i of user.navs){ %>
+                    <li class="nav-item <% if(path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                    <% } %>
                     <div class="dropstart ms-md-auto">
                         <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;">
@@ -61,27 +61,49 @@
             </div>
           </nav>
         <div class="container">
-            <form class="search-bar mt-2" action="/search" method="get">
-                <!-- <img class="vector" src="img/vector.svg" /> -->
+            <!-- <form class="search-bar mt-2" action="/search" method="get">
                 <input type="text" placeholder="Search" name="q">
+            </form> -->
+            <form class="search-tools w-100 mt-2 mb-2">
+
+              <div class="search-bar w-100 p-0 mb-2" action="/search" method="get" data-bs-theme="dark">
+                <!-- <img class="vector" src="img/vector.svg" /> -->
+                <input  class="form-control"  type="search" placeholder="Search"  aria-label="Search" name="q">
+              </div>
+             <div class="control-results d-flex justify-content-between">
+              <select class="sort-select form-select rounded-pill" aria-label="select sort"  data-bs-theme="dark" name="sort">
+                <% for(let j of Object.keys(sortTranslator)){%>
+                  <option <% if(sort == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                  <% } %>
+                  <!-- <i class="fa-solid fa-arrow-up-wide-short"></i> -->
+                </select>
+                <div class="filter">
+                  <span>filter </span><i class="fa-solid fa-filter"></i>
+                </div>
+             </div>
             </form>
-            <div class="text-about-courses">
+            <div class="text-about-courses w-100">
                 <% if(q){ %>
                 <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
                 <%}%>
                 <% if(!q) {%>
-                <h1 class="m-0 d-none d-md-block">Courses</h1>
+                <h1 class="m-0 d-none d-md-block"><%= data.length %> Courses</h1>
                 <%}%>
-                <div class="found mb-2">Found: <%= data.length %></div>
+                
             </div>
-          <div class="courses row pb-5">
+          <div class="courses row pb-5 w-100">
             <% for(let course of data){ %>
             <div class="item col-md-3 col-lg-2  col-5 h-100" data-course-name="<%= course.name %>" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
                 <div class="tags">
                   <div class="tag">course</div>
                   <!-- <div class="tag">CS205</div> -->
-                  <% for(let tag of course.tags){ %>
+                  <% let i=1 %>
+                  <% for(const tag of course.tags){ %>
+                    <%if(i++>=3){%>
+                      <div class="tag" title="there is more tag">..+</div>
+                      <% break %>
+                    <% } %>
                     <div class="tag"><%= tag %></div>
                   <% } %>
                 </div>

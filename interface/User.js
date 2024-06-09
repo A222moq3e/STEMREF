@@ -1,11 +1,13 @@
 class User{
-    constructor(name,email,authenticated,userType,img){
+    constructor(name,email,authenticated,userType,img,navs){
+        // TODO: add user create date
         this.name= name;
         if(email) this.email = email;
-        else this.email = 'no email'
+        else this.email = 'no email';
         this.authenticated = authenticated;
         this.userType = userType;
-        this.setImage(img)
+        this.setImage(img);
+        this.navs = navs;
     }
     verfiyLogin(){
         //some function
@@ -27,6 +29,9 @@ class User{
     setImage(img){
         if(img)this.img = img
         else this.img = 'avatar3.svg'
+    }
+    setNavs(navs){
+        this.navs = navs
     }
     // setUserType(userType){
     //     if(userType)this.userType = userType

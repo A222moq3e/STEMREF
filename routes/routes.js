@@ -20,6 +20,22 @@ router.use((req,res,next)=>{
     console.log('Time:', Date.now());
     next()
 })
+// if change of check login
+// function checkIsNotLogin(req,res,next){
+//   if(!req.session || !req.session.user || !req.session.user.authenticated) {
+//     return res.render('login');
+//   } 
+//   next();
+// }
+
+// for Login and Register Pages
+function checkUserLogin(req,res,next){
+  if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
+  next()
+}
+
+
+
 // Check if he is not sign in
 router.use(['/signout','/search','/profile','/pricing','/EducatorDashboard','/admin','/courseContent'],(req,res,next)=>{
     if(req.session.user && !req.session.user.authenticated) return res.redirect("/login")
@@ -32,15 +48,18 @@ router.use((req,res,next)=>{
     next()
 })
 router.use('/EducatorDashboard',(req,res,next)=>{
-  console.log(req.path);
     if(req.session.user.userType != "educator") return res.redirect("/")
     next()
 })
+router.use('/admin',(req,res,next)=>{
+    if(req.session.user.userType != "admin") return res.redirect("/")
+    next()
+})
 router.get('/',controller.index)
-router.get('/login',controller.loginGet)
-router.post('/login',controller.loginPost)
-router.get('/register',controller.registerGet)
-router.post('/register',controller.registerPost)
+router.get('/login',checkUserLogin,controller.loginGet)
+router.post('/login',checkUserLogin,controller.loginPost)
+router.get('/register',checkUserLogin,controller.registerGet)
+router.post('/register',checkUserLogin,controller.registerPost)
 router.get('/forget',controllerForget.forgetGet)
 router.post('/forget',controllerForget.forgetPost)
 router.get('/reset-password/:token',controllerForget.resetPasswordGet)
@@ -53,6 +72,9 @@ router.get('/EducatorDashboard',controller.EducatorDashboardGet)
 router.post('/EducatorDashboard',controller.EducatorDashboardPost)
 router.get('/admin',controllerAdmin.adminGet);
 router.post('/admin',controllerAdmin.adminPost);
+router.put('/admin/:user/userType/:userType',controllerAdmin.adminPut);
+
+
 
 
 

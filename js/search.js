@@ -1,49 +1,19 @@
-// let arr = [
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-//     {"name":"CS290","descritption":"aaaaaaaaaaaaa"},
-// ]
 
-// Screen reader
+
+// Screen Reader
 let item = document.querySelectorAll('.item');
 let cousesContainer = document.querySelector('.courses');
+let numColumns = 5;
 if(window.screen.width< 600){
-    generateBoxesView(2)
-    // console.log('cousesContainer',cousesContainer);
-    // let boxl = document.createElement('div');
-    // let boxr = document.createElement('div');
-    // let boxAll = document.createElement('div');
-    // boxl.classList.add('col-6','row');
-    // boxr.classList.add('col-6','row');
-    // for(let i of item){
-    //     i.classList.remove('col-5')
-    //     i.classList.add('mb-2', 'col-12')
-    //     // console.log(i);
-    //     if(boxl.innerHTML.length > boxr.innerHTML.length){
-    //         boxr.append(i)
-    //         console.log('to boxr');
-    //     }
-    //     else{
-    //         boxl.appendChild(i)
-    //         console.log('to boxl');
-
-    //     }
-    // }
-    // boxAll.appendChild(boxl)
-    // boxAll.appendChild(boxr)
-    // cousesContainer.innerHTML = boxAll.innerHTML
+    numColumns = 2;
 }else if(window.screen.width < 1080){
-    generateBoxesView(3)
+    numColumns = 3;
 }else if(window.screen.width >= 1080){
-    generateBoxesView(5)
+    numColumns = 6;
 }
+generateBoxesView(numColumns)
 
 function generateBoxesView(num){
-    console.log(num/12);
     let boxs = []
     for (let i =0;i<num;i++){
         boxs[i] = document.createElement('div')
@@ -76,7 +46,7 @@ function generateBoxesView(num){
     for (let i =0;i<numOfBoxes;i++){
         boxAll.appendChild(boxs[i])
     }
-    cousesContainer.innerHTML = boxAll.innerHTML
+    cousesContainer.innerHTML = boxAll.innerHTML;
 }
 
 

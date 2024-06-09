@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google Fonts -->
+    <meta name="description" content="STEMREF | Pricing Page.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <meta http-equiv="Content-Security-Policy" content="default-src *; img-src * data:; style-src * 'unsafe-inline'; font-src *; script-src * 'unsafe-inline' 'unsafe-eval';">    <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- Google tag (gtag.js) -->
@@ -126,9 +127,10 @@
                  </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 w-100 align-items-center">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="/pricing">Pricing</a></li>
+                                      <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="#">Admin</a></li> -->
+                                      <% for(let i of data.user.navs){ %>
+                                        <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                                        <% } %>
                         <div class="dropstart ms-md-auto">
                             <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false"> <img

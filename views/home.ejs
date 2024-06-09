@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Main Page.">
       <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DTZ0K15FEB"></script>
@@ -37,7 +38,8 @@
     <!-- <link rel="stylesheet" href="/bg.css"> -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/index.css">
-    <title>STEMREF</title>
+    <title>STEMREF | Main Page</title>
+    <!-- TODO: Read more for CSRF, https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html -->
 </head>
 <body>
     <!-- <div class="bg-gradient">
@@ -57,9 +59,13 @@
                             <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                             <% } %>
                             <% if(data.accesses){ %>
-                                <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
+                            <% for(let i of data.user.navs){ %>
+                            <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                            <% } %>
+                               
+                                <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li> -->
                             
                             <div class="dropstart ms-md-auto">
                                 <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">

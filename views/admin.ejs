@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Admin Page.">
     <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DTZ0K15FEB"></script>
@@ -31,8 +32,9 @@
     <!-- CSS  -->
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/login.css">
-    <link rel="stylesheet" href="/EducatorDashboard.css">
-    <title>STEMREF | Educator Page</title>
+    <link rel="stylesheet" href="/admin.css">
+    <!-- <link rel="stylesheet" href="/EducatorDashboard.css"> -->
+    <title>STEMREF | Admin Page</title>
     <style>
         .container form input{
             background-color: transparent;
@@ -52,7 +54,10 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav mb-2 mb-lg-0 w-100  align-items-center">
                     <!-- <li class="nav-item"><a class="nav-link" href="/">Home</a></li> -->
-                    <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Admin</a></li>
+                    <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="#">Admin</a></li> -->
+                    <% for(let i of data.user.navs){ %>
+                      <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                      <% } %>
                         <!-- <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register">Register</a></li> -->
                         <div class="dropstart ms-md-auto">
@@ -73,9 +78,50 @@
               </div>
             </div>
           </nav>
-          <div class="users-box">
-            <!-- all users here -->
-          </div>
+          <div class="users-box d-flex flex-column justify-content-center table-responsive container">
+            <!-- Search Function -->
+            <!-- <form class="search-bar form-inline mt-2 mb-2" action="/admin/search/users" method="get" data-bs-theme="dark"> -->
+              <form class="search-tools d-flex flex-row gap-3 mt-2 mb-2">
+
+                <div class="search-bar p-0 " action="/admin" method="get" data-bs-theme="dark">
+                  <!-- <img class="vector" src="img/vector.svg" /> -->
+                  <input  class="form-control pe-5"  type="search" placeholder="Search"  aria-label="Search" name="q">
+                  <button class="search-btn btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+               <select class="form-select" aria-label="select search type"  data-bs-theme="dark" name="filterType">
+                <% for(let j of ["All","name","email","userType"]){%>
+                  <option <% if("" == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                  <% } %>
+                </select>
+              </form>
+            <!-- Show Data Table  -->
+            <table class="table table-striped table-dark">
+              <thead class="thead-dark">
+                <th scope="col">#</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">UserType</th>
+              </thead>
+              <tbody>
+                <% for(let i of data.users ){%>
+                  <tr class="user ">
+                    <td class="num" scope="row"></td>
+                    <td class="username "><%= i.name %></td>
+                    <td class="email"><%= i.email %></td>
+                    <td>
+                      <select class="form-select chooseType <% if(i.userType == "admin"){%> admin <% }%>" aria-label="Default select example"  data-bs-theme="dark">
+                        <% for(let j of ["user","student","educator","admin"]){%>
+                          <option <% if(i.userType == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                          <% } %>
+                      </select>
+                     
+                    </td>
+                    <!-- <td><i class="fa-solid fa-trash"></i></td> -->
+                  </tr>
+                    <% } %>  
+                </div>
+              </tbody>
+            </table>
     </main>
     <footer class="text-center w-100">
         <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
@@ -86,6 +132,7 @@
     <!-- SweetAlert2 JavaScript -->
     <script src="/sweetalert2.all.min.js"></script>
     <script src="/main.js"></script>
+    <script src="/admin.js"></script>
     
     <div class="waves" ></div>
 

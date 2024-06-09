@@ -41,7 +41,7 @@ module.exports = {
                     sum+= parseInt(reviews[r])
                     console.log(sum);
                 }
-                avg = Math.round(sum/Object.keys(reviews).length,2)
+                avg = (sum/Object.keys(reviews).length).toPrecision(2);
             }
             // const user = new Student(req.session.user.name,req.session.user.email);
             // const user = new 
