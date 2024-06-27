@@ -35,10 +35,9 @@ main .search-bar {
   width: 85%;
   height: 50px;
   gap: 4px;
-  /* padding: 7px 10px; */
-  /* border-radius: 20px; */
-  /* margin-top: 30px; */
 }
+
+
 /* .sort-select {
 } */
 .sort-select,

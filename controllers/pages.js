@@ -6,7 +6,6 @@ const  Educator  = require('../interface/Educator.js');
 const  Admin  = require('../interface/Admin.js');
 
 const Swal = require('sweetalert2');
-const Swal = require('sweetalert2');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 

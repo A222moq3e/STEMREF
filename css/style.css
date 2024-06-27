@@ -179,6 +179,41 @@ footer {
     background-repeat: no-repeat;
 } */
 
+/* Looding */
+/* HTML: <div class="loader"></div> */
+.loading {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  line-height: 1.2em;
+  display: inline-grid;
+  margin: auto;
+}
+.loader:before,
+.loader:after {
+  content: "Loading...";
+  grid-area: 1/1;
+  -webkit-mask: linear-gradient(90deg, #fff 50%, #ffffff00 0) 0 50%/2ch 100%;
+  color: #0000;
+  text-shadow: 0 0 0 #fff, 0 calc(var(--s, 1) * 1.2em) 0 #fff;
+  animation: l15 1s infinite;
+}
+.loader:after {
+  -webkit-mask-position: 1ch 50%;
+  --s: -1;
+}
+@keyframes l15 {
+  80%,
+  100% {
+    text-shadow: 0 calc(var(--s, 1) * -1.2em) 0 #fff, 0 0 0 #fff;
+  }
+}
+
 @media screen and (max-width: 600px) {
   div.waves {
     height: 30%;

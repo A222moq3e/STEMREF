@@ -14,6 +14,9 @@ if(window.screen.width< 600){
 generateBoxesView(numColumns)
 
 function generateBoxesView(num){
+    let loading = document.querySelector('.loading');
+    loading.style.display = "flex"
+    cousesContainer.innerHTML = ""
     let boxs = []
     for (let i =0;i<num;i++){
         boxs[i] = document.createElement('div')
@@ -42,11 +45,13 @@ function generateBoxesView(num){
         numOfBoxesCounter += 1
         numOfBoxesCounter = numOfBoxesCounter % numOfBoxes;
 
+
     }
     for (let i =0;i<numOfBoxes;i++){
         boxAll.appendChild(boxs[i])
     }
     cousesContainer.innerHTML = boxAll.innerHTML;
+    loading.style.display = "none"
 }
 
 
