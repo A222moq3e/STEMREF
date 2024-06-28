@@ -1,0 +1,18 @@
+
+{
+  "welcome": "مرحبا بكم في موقعنا",
+  "Login":"تسجيل الدخول",
+  "Register":"تسجيل",
+  "HOMEPAGE":{
+    "DISCOVER":"إكتشف",
+    "TheWorlds":"في العالم",
+    "Greatest":"أكبر",
+    "library":"مكتبة",
+    "is at your fingertips!":"بين يديك",
+    "Get Started":"ابدأ"
+  },
+  "error":{
+        "404":"لم نجد الصفحة المرجوة",
+        "Unknown":"خطأ"
+    }
+}

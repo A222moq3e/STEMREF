@@ -4,7 +4,7 @@ const cookieSession  = require('cookie-session')
 const store = new session.MemoryStore();
 const app = express();
 // const path = require('path');
-console.log('start index');
+console.log("[+]","start index");
 // const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -12,6 +12,10 @@ require('dotenv').config();
 const router = require('../routes/routes')
 const courseContentRoute = require('../routes/courseContentRoute');
 const rateLimit = require('express-rate-limit');
+const i18next = require('i18next');
+const i18nextMiddleware = require('i18next-http-middleware');
+const Backend = require('i18next-fs-backend');
+const path = require('path');
 // const helmet = require('helmet')
 // var csurf = require('csurf') deprecated
 // const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
@@ -35,8 +39,39 @@ app.set("navsTranslator",{
   "Insert Course":"/EducatorDashboard"
 
 })
-// app.set("views",htmlPath)
-console.log('process.env.TEST');
+
+// static files
+app.use(express.static('css'))
+app.use(express.static('imgs'))
+app.use(express.static('js'))
+app.use(express.static('json'))
+
+i18next
+  .use(Backend)
+  .use(i18nextMiddleware.LanguageDetector)
+  .init({
+    debug:true,
+    fallbackLng: 'en',
+    backend: {
+      loadPath: path.join(__dirname, '../locales/{{lng}}/translation.json')
+    },
+    detection: {
+      order: ['querystring', 'cookie'],
+      caches: ['cookie']
+    }
+  });
+console.log(i18next.t('welcom'))
+
+app.use(i18nextMiddleware.handle(i18next));
+// Middleware to pass translation function to templates
+app.use((req, res, next) => {
+  console.log('Current language:', req.language);
+  console.log('Translation function:', req.t('welcome'));
+  res.locals.t = req.t;
+  next();
+});
+
+console.log("[+]",'process.env.TEST');
 console.log(process.env.TEST);
 
 // Session
@@ -75,10 +110,7 @@ app.use(cookieSession({
 //   })
 // );
 
-// static files
-app.use(express.static('css'))
-app.use(express.static('imgs'))
-app.use(express.static('js'))
+
 
 // Convert data into json 
 app.use(express.json())

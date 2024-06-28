@@ -1,0 +1,18 @@
+{
+    "welcome": "Welcome to our website",
+    "Login":"Login",
+    "Register":"Register",
+    "HOMEPAGE":{
+        "DISCOVER":"DISCOVER",
+        "TheWorlds":"The Worlds",
+        "Greatest":"Greatest",
+        "library":"library",
+        "is at your fingertips!":"is at your fingertips!",
+        "Get Started":"Get Started"
+
+    },
+    "error":{
+        "404":"not Fount",
+        "Unknown":"Something Wrong"
+    }
+}

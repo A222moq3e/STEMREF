@@ -19,8 +19,8 @@ function escapeRegExp(string) {
 module.exports = {
     index:(req,res)=>{  
         console.log('log in home');  
-
-        return res.render("home",buildDataBeforeRender(req))
+        const buildDataBeforeRenderData = buildDataBeforeRender(req)
+        return res.render("home",{...buildDataBeforeRenderData, req})
     },
     
     loginGet:(req,res)=>{
