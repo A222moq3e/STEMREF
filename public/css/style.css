@@ -25,6 +25,22 @@ body {
   background-color: var(--dark-color);
   color: #fff;
 }
+html[lang="ar"] nav {
+  direction: rtl;
+}
+
+html[lang="ar"] .dropdown-menu {
+  direction: rtl;
+  text-align: right;
+}
+html[lang="ar"] ul.navbar-nav {
+  direction: rtl;
+}
+html[lang="ar"] ul.navbar-nav .dropstart {
+  margin-left: 0 !important;
+  margin-right: auto;
+}
+
 .hide {
   display: none;
 }
@@ -123,8 +139,8 @@ div.waves {
   background-repeat: repeat;
   background: linear-gradient(180deg, #0000001e 90%, transparent 100%);
   /* display: none; */
-  -webkit-mask-image: url("/waves.svg");
-  mask-image: url("/waves.svg");
+  -webkit-mask-image: url("/assets/imgs/waves.svg");
+  mask-image: url("/assets/imgs/waves.svg");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: cover;
@@ -222,9 +238,11 @@ footer {
 
 @font-face {
   font-family: "Rubik";
-  src: url("/Roboto,Rubik/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
+  src: url("/assets/Roboto,Rubik/Rubik/static/Rubik-SemiBold.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "Roboto";
-  src: url("/Roboto,Rubik/Rubik/static/Roboto-Black.ttf") format("truetype");
+  src: url("/assets/Roboto,Rubik/Rubik/static/Roboto-Black.ttf")
+    format("truetype");
 }

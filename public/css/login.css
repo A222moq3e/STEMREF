@@ -13,6 +13,22 @@
 /* .box .container{
     justify-content: right;
 } */
+/* Arabic CSS style */
+html[lang="ar"] .box .container form .top-text * {
+  text-align: right;
+}
+html[lang="ar"] .box .container form div label {
+  right: 20px;
+  left: unset;
+}
+html[lang="ar"] .box .container form div input {
+  direction: rtl;
+}
+
+html[lang="ar"] .box .container .eye {
+  left: 20px;
+}
+
 .box {
   display: flex;
   justify-content: right;
@@ -123,10 +139,9 @@ form .password .eye {
   transform: translateY(-50%);
   right: 20px;
   cursor: pointer;
+  z-index: 100;
 }
-.fa-eye-slash {
-  /* display: none; */
-}
+
 form button {
   width: 100%;
 }

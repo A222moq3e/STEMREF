@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= req.language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,56 +22,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- Font Awesom -->
-    <link rel="stylesheet" href="/all.min.css"> 
+    <link rel="stylesheet" href="/libs/all.min.css"> 
      <!-- SweetAlert2 CSS -->
-     <link rel="stylesheet" href="/sweetalert2.min.css">
+     <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
         <title>STEMREF | Forget Page</title>
 </head>
 <body>
     <main>
 
-        <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
-            <div class="container">
-              <a class="navbar-brand" href="/"><img class="logo" src="./logo.svg" alt="logo"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
-                <ul class="navbar-nav mb-2 mb-lg-0 w-100">
-                  <li class="nav-item"><a class="nav-link" aria-current="page" href="/">Home</a></li>
-                  <li class="nav-item active  ms-md-auto"><a class="nav-link" href="/login">Login</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                </ul>
-            
-              </div>
-            </div>
-          </nav>
+      <%- include('partials/header.ejs') %>
         <div class="box">
             <div class="container">
             <% if (!data.ok){ %>
             <form action="/forget" method="post">
               <div class="top-text">
-                  <h1>Forget Passowrd</h1>
-                  <p class="hi-message">Don't worry</p>
+                  <h1><%= t('LOGINPAGE.Forget Passowrd') %></h1>
+                  <p class="hi-message"><%= t('LOGINPAGE.Don\'t worry') %></p>
               </div>
               <!-- email input field -->
               <div class="email password">
                   <input type="email" id="email" name="email" required>
-                  <label for="email">Email</label>
+                  <label for="email"><%= t('LOGINPAGE.Email') %></label>
               </div>
-              <button class="button-style">Send</button>
+              <button class="button-style"><%= t('Send') %></button>
           </form>
           <% } %>
           <% if(data.ok){ %>
           <div class="sended">
-            Email sended successfuly!, check your email
+            <%= t('LOGINPAGE.Email sended successfuly!, check your email') %>
             <!-- <br> -->
             <!-- <a href="/login">back to login</a> -->
           </div>
@@ -85,12 +70,12 @@
    <div class="waves" ></div>
    
       <!-- Bootstrap JS -->
-    <script src="/bootstrap.min.js"></script>
-    <script src="/main.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-    <script src="/sweetalert2.all.min.js"></script>
-    <!-- <script src="/login.js"></script> -->
-    <!-- <img class="waves" src="/waves.svg" alt="waves background"> -->
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js"></script>
 
 </body>
 </html> 

@@ -31,6 +31,16 @@ section .container {
 .imgBox:hover i {
   opacity: 1;
 }
+.textContent h3,
+.textContent input {
+  font-size: 22px;
+}
+input {
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  color: #333;
+}
 
 h3 {
   color: #e7e7e7;

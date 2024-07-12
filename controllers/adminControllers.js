@@ -1,6 +1,6 @@
 
 
-const  Admin  = require('../interface/Admin.js');
+const  Admin  = require('../models/classes/Admin.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
 module.exports = {

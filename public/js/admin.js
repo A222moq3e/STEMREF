@@ -1,4 +1,3 @@
-console.log('in admin js file');
 document.querySelectorAll('.user').forEach((u)=>{
     const username = u.querySelector('.username').innerHTML;
     const email = u.querySelector('.email').innerHTML;
@@ -6,11 +5,9 @@ document.querySelectorAll('.user').forEach((u)=>{
         changeType(username,email,u.querySelector('select').value);
     })
 })
-console.log("document.querySelectorAll('.user')",document.querySelectorAll('.user'))
 
 
 async function changeType(username,email,userType){
-    console.log('in changeType');
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -44,5 +41,4 @@ async function changeType(username,email,userType){
       })
     //   const content = await rawResponse.json();
 
-    //   console.log(content);
 }

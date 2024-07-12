@@ -1,9 +1,9 @@
 // const Pages = require('../models/config');
 const crypto = require('crypto');
-const  Course  = require('../interface/Course.js');// course not Course, Strange
-const  Student  = require('../interface/Student.js');
-const  Educator  = require('../interface/Educator.js');
-const  Admin  = require('../interface/Admin.js');
+const  Course  = require('../models/classes/Course.js');// course not Course, Strange
+const  Student  = require('../models/classes/Student.js');
+const  Educator  = require('../models/classes/Educator.js');
+const  Admin  = require('../models/classes/Admin.js');
 
 const Swal = require('sweetalert2');
 // console.log('in pages.js');
@@ -44,7 +44,6 @@ module.exports = {
             if(check.password != createHash(req.body.password)){
                 console.log('wrong password');
                 return res.status(401).render('login',{data:{err:'wrong password'}})
-
             } 
             // console.log(check.userType);
             switch(check.userType){
@@ -73,7 +72,8 @@ module.exports = {
     },
     registerGet:(req,res)=>{
         // if(req.session.user && req.session.user.authenticated) return res.redirect("/search")
-        return  res.render("register")
+        const buildDataBeforeRenderData = buildDataBeforeRender(req)
+        return  res.render("register",{...buildDataBeforeRenderData})
     },
     registerPost: async (req,res)=>{
         try{
@@ -120,9 +120,9 @@ module.exports = {
        try{
         let sortWay = {name:1};
         const sortTranslator ={
-            "Alphabatical": {name:1},
-            "Recomend": {name:1},//TODO: add way to know recomonded
-            "popular": {name:1},//TODO: add way to know popular, by add number of views
+            "Alphabetical": {name:1},
+            "Recommended": {name:1},//TODO: add way to know recomonded
+            "Popular": {name:1},//TODO: add way to know popular, by add number of views
             "Release": {},//TODO: add way to know popular, by add date to course
         }
         if(req.query.sort){
@@ -230,13 +230,14 @@ function createHash(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
 
+// TODO: Make this as middleware
 function buildDataBeforeRender(req){
     let renderData = {data:{accesses:false}};
     if(req.session.user)
     renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}};
     return renderData;
-
 }
+
 
 
 // function checkIsLogin(){

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= req.language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,17 +22,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- Font Awesom -->
-    <link rel="stylesheet" href="/all.min.css"> 
+    <link rel="stylesheet" href="/libs/all.min.css"> 
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="/sweetalert2.min.css">
+    <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/login.css">
-    <link rel="stylesheet" href="/EducatorDashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/EducatorDashboard.css">
     <title>STEMREF | Educator Page</title>
     <style>
         .container form input{
@@ -175,11 +175,13 @@
         <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
      </footer>
     <!-- Bootstrap JS -->
-   <script src="/bootstrap.min.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-    <script src="/sweetalert2.all.min.js"></script>
-    <script src="/main.js"></script>
-    <script src="/EducatorDashboard.js"></script>
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/EducatorDashboard.js"></script>
     <div class="waves" ></div>
 
 </body>

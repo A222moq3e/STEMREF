@@ -23,63 +23,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- font awesome Library -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="/all.css"> 
-    <link rel="stylesheet" href="/all.min.css"> 
+    <link rel="stylesheet" href="/libs/all.css"> 
+    <link rel="stylesheet" href="/libs/all.min.css"> 
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="/sweetalert2.min.css">
+    <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/courseContent.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/courseContent.css">
         <title>STEMREF | Course Content Page</title>
   </head>
   <body>
     <main>
       
-        <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
-            <div class="container">
-              <a class="navbar-brand" href="/"><img class="logo" src="/logo.svg" alt="logo"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
-                  <% for(let i of data.user.navs){ %>
-                    <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
-                    <% } %>
-
-                    <div class="dropstart ms-md-auto">
-                        <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="/avatars/<%= data.user.img %>" class="rounded-circle navbar-user-avatar " style="width: 50px;">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
-                        <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a>
-                        <a class="dropdown-item" href="/profile">Profile</a>
-                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://STEMREF.askardesign.com/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank">Refer to friends</a>
-                        <a class="dropdown-item" href="mailto:stemref@gmail.com">Give Feedback</a>
-                        <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                    </div>
-                    
-                  
-                </ul>
-            
-              </div>
-            </div>
-          </nav>
+      <%- include('partials/header.ejs') %>
           
         <div class="overlap">
           <div class="container">
             <div class="box">
               <div class="motivation-img">
                 <%if(data.catograySearch){%>
-                  <img src="/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
+                  <img src="/assets/imgs/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
                   <%}%>
                 <%if(!data.catograySearch){%>
-                  <img src="/undraw_mathematics_-4-otb.svg" alt="img">
+                  <img src="/assets/imgs/undraw_mathematics_-4-otb.svg" alt="img">
                   <%}%>
               </div>
               <div class="descritpion" >
@@ -190,12 +161,13 @@
    </footer>
    <!-- Google tag (gtag.js) -->
     <!-- Bootstrap JS -->
-   <script src="/bootstrap.min.js"></script>
+   <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-    <script src="/sweetalert2.all.min.js"></script>
-    
-    <script src="/main.js" type="module"></script>
-    <script src="/courseContent.js"></script>
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js" type="module"></script>
+    <script src="/js/courseContent.js"></script>
 
     <div class="waves" ></div>
   </body>

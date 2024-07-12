@@ -6,11 +6,7 @@ for(let star of stars){
         let num = star.getAttribute('data-num-star')
         send_stars(num)
     })
-    // console.log(star);
-    // if(star.checked){
-    //     console.log('star checked is', star);
-    // }
-    // i++;
+    
 }
 async function send_stars(num){
     const response = fetch('/courseContent/'+nameCourse+'/stars',{
@@ -22,7 +18,6 @@ async function send_stars(num){
     })
     if (!response.ok) {
         const message = `An error has occurred: ${response.status}`;
-        console.log(message);
         return false
     }
     const data = await response.json(); // Get the data from the response

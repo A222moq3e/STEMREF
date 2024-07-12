@@ -21,58 +21,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- font awesome Library -->
-    <link rel="stylesheet" href="/all.min.css"> 
+    <link rel="stylesheet" href="/libs/all.min.css"> 
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="/sweetalert2.min.css">
+    <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/profile.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/profile.css">
         <title>STEMREF | Profile Page</title>
   </head>
   <body>
     <main>
-        <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
-            <div class="container">
-              <a class="navbar-brand" href="/"><img class="logo" src="./logo.svg" alt="logo"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
-                <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
-                  <% for(let i of data.user.navs){ %>
-                    <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
-                    <% } %>
-                    <div class="dropstart ms-md-auto">
-                        <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
-                        <a class="dropdown-item disabled" href="/">Hi <%= data.user.name %></a>
-                        <a class="dropdown-item active" href="/profile">Profile</a>
-                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://stemref.askardesign.com/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank">Refer to friends</a>
-                        <a class="dropdown-item" href="mailto:stemref@gmail.com">Give Feedback</a>
-                        <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                    </div>      
-                </ul>
-              </div>
-            </div>
-          </nav>
+      <%- include('partials/header.ejs') %>
           <section class="profile">
             <div class="container">
               <div class="imgBox">
 
-                <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 100px;">
+                <img src="/assets/imgs/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 100px;">
                 <i class="fa-solid fa-pen-to-square"></i>
               </div>
                 <!-- <input class="disable" value="<%= data.user.name %>"> -->
                 <div class="textContent">
-                  <h3 class="disable" >Username:<span> @<%= data.user.name %></span></h3>
-                <h3 class="disable" >Email:<span> <%= data.user.email %></span></h3>
-                <h3 class="disable" >Subscribe:<span> <%= data.user.paidUser==true?data.user.paidUser:false %></span></h3>
+                  <h3 class="disable" >Username: @<input type="text" value="<%= data.user.name %>"></h3>
+                <h3 class="disable" >Email: <input type="email" value="<%= data.user.email  %>"></h3>
+                <h3 class="disable" >Subscribe: <span></span><%= data.user.paidUser==true?data.user.paidUser:false %></span></h3>
                 <% if(data.user.reviewed){ %>
                   <h3>Your Course Reviews:</h3>
                   <div class="reviewes">
@@ -115,11 +90,13 @@
    </footer>
 
     <!-- Bootstrap JS -->
-   <script src="/bootstrap.min.js"></script>
+   <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-<script src="/sweetalert2.all.min.js"></script>
-    <script src="/main.js"></script>
-    <script src="/search.js"></script>
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/search.js"></script>
     <div class="waves" ></div>
   </body>
 </html>

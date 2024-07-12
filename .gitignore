@@ -4,3 +4,4 @@ assets/secretsKeys/privkey.pem
 assets/secretsKeys/fullchain.pem
 assets/secretsKeys/*
 .env
+logger/logs/*

@@ -40,7 +40,6 @@ function generateBoxesView(num){
         
         if(i.querySelector('p').innerText.length > 220)
         i.querySelector('p').innerText =  i.querySelector('p').innerText.slice(0,230)+' ...';
-        // console.log(i);
         boxs[numOfBoxesCounter].append(i);
         numOfBoxesCounter += 1
         numOfBoxesCounter = numOfBoxesCounter % numOfBoxes;

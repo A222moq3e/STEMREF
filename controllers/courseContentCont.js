@@ -1,6 +1,6 @@
 // const Pages = require('../models/config');
 const { usersCollection, coursesCollection } = require('../models/config');
-const  Course  = require('../interface/Course.js');// course not Course, Strange
+const  Course  = require('../models/classes/Course.js');// course not Course, Strange
 // const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
