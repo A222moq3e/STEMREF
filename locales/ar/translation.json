@@ -13,6 +13,9 @@
   "Home":"الصفحة الرئيسية",
   "Search":"البحث",
   "Pricing":"الأشتراك",
+  "Insert Course":"إضافة مقرر",
+  "Dashboard Admin":"لوحة تحكم المدير",
+  "Dashboard Educator":"لوحة تحكم المعلم",
   "HOMEPAGE":{
     "DISCOVER":"إكتشف",
     "TheWorlds":"في العالم",
@@ -42,6 +45,14 @@
     "Popular":"الأشهر",
     "Release":"الوقت"
   },
+  "PROFILEPAGE":{
+    "Subscribe":"مشترك",
+    "Your Reviews":"تقييماتك",
+    "Subject":"المادة",
+    "Reivew":"التقييم",
+    "true":"نعم",
+    "false":"لا"
+},
   "error":{
         "404":"لم نجد الصفحة المرجوة",
         "Unknown":"خطأ"

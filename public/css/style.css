@@ -40,6 +40,9 @@ html[lang="ar"] ul.navbar-nav .dropstart {
   margin-left: 0 !important;
   margin-right: auto;
 }
+html[lang="ar"] .text h1 {
+  direction: rtl;
+}
 
 .hide {
   display: none;
@@ -76,6 +79,11 @@ nav .logo {
 .navbar-user-avatar {
   border: 1px solid #aaa;
 }
+form.lang-form-select {
+  min-width: 75px;
+  padding: 0;
+}
+
 /* Header Text */
 h1 span {
   position: relative;

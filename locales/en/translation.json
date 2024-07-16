@@ -12,6 +12,9 @@
     "Home":"Home",
     "Search":"Search",
     "Pricing":"Pricing",
+    "Insert Course":"Insert Course",
+    "Dashboard Admin":"Dashboard Admin",
+    "Dashboard Educator":"Dashboard Educator",
     "HOMEPAGE":{
         "DISCOVER":"DISCOVER",
         "TheWorlds":"The Worlds",
@@ -42,6 +45,14 @@
         "Alphabetical":"Alphabetical",
         "Popular":"Popular",
         "Release":"Release"
+    },
+    "PROFILEPAGE":{
+        "Subscribe":"Subscribe",
+        "Your Reviews":"Your Reviews",
+        "Subject":"Subject",
+        "Reivew":"Reivew",
+        "true":"true",
+        "false":"false"
     },
     "error":{
         "404":"not Fount",

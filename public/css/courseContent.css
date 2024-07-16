@@ -95,7 +95,7 @@ main .box {
   cursor: auto;
   padding: 1px;
 }
-.rating i.active {
+.rating .fa-star.active {
   color: #fff239;
 }
 
@@ -178,7 +178,7 @@ main .item-title {
   line-height: 13px;
   white-space: nowrap;
 }
-.item-title i.mask {
+.item-title .mask {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -262,6 +262,20 @@ i {
   /* background-color: red; */
   color: white;
 }
+.five {
+  color: #60df71;
+}
+.four {
+  /* color: #60df71; */
+  color: #75df60;
+}
+.three {
+  color: #fff209;
+}
+.two {
+  color: #fff209;
+}
+
 a {
   text-decoration: none;
 }
