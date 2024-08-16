@@ -1,5 +1,5 @@
 # STEMREF
-# ![logo](https://github.com/A222moq3e/STEMREF/blob/main/imgs/logo-min.svg)
+# ![logo](https://github.com/A222moq3e/STEMREF/blob/main/public/assets/imgs/logo-min.svg)
 ## Introduction
 Stemref is the worlds largest library of information for Computer Science Content Made by the Students of Imam Mohammad Ibn Saud University,
 online website (https://stemref.askardesign.com/)
