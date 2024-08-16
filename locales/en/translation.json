@@ -1,0 +1,61 @@
+{
+    "welcome": "Welcome to our website",
+    "Login":"Login",
+    "Register":"Register",
+    "or":"or",
+    "Hi":"Hi",
+    "Profile":"Profile",
+    "Refer to friends":"Refer to friends",
+    "Give Feedback":"Give Feedback",
+    "Signout":"Signout",
+    "Send":"Send",
+    "Home":"Home",
+    "Search":"Search",
+    "Pricing":"Pricing",
+    "Insert Course":"Insert Course",
+    "Dashboard Admin":"Dashboard Admin",
+    "Dashboard Educator":"Dashboard Educator",
+    "HOMEPAGE":{
+        "DISCOVER":"DISCOVER",
+        "TheWorlds":"The Worlds",
+        "Greatest":"Greatest",
+        "library":"library",
+        "is at your fingertips!":"is at your fingertips!",
+        "Get Started":"Get Started",
+        "SecondLine":"The Worlds <span>Greatest</span> library",
+        "Let's Learn":"Let's Learn",
+        "WELCOME":"WELCOME"
+
+    },
+    "LOGINPAGE":{
+        "Welcome new Member":"Welcome new Member",
+        "Username":"Username",
+        "Password":"Password",
+        "Email":"Email",
+        "Glad you are back":"Glad you are back :)",
+        "Remember me":"Remember me",
+        "Forget Password?":"Forget Password?",
+        "Forget Passowrd":"Forget Passowrd",
+        "Don't worry":"Don't worry",
+        "Email sended successfuly!, check your email":"تم الإسال بنجاح، تحقق من بريدك الإلكتروني"
+    },
+    "SEARCHPAGE":{
+        "filter":"filter",
+        "Recommended":"Recommended",
+        "Alphabetical":"Alphabetical",
+        "Popular":"Popular",
+        "Release":"Release"
+    },
+    "PROFILEPAGE":{
+        "Subscribe":"Subscribe",
+        "Your Reviews":"Your Reviews",
+        "Subject":"Subject",
+        "Reivew":"Reivew",
+        "true":"true",
+        "false":"false"
+    },
+    "error":{
+        "404":"not Fount",
+        "Unknown":"Something Wrong"
+    }
+}

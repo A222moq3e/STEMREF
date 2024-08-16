@@ -1,10 +1,11 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= req.language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Admin Page.">
     <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DTZ0K15FEB"></script>
@@ -21,18 +22,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- Font Awesom -->
-    <link rel="stylesheet" href="/all.min.css"> 
-       <!-- SweetAlert2 CSS -->
-       <link rel="stylesheet" href="/sweetalert2.min.css">
+    <link rel="stylesheet" href="/libs/all.min.css"> 
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/login.css">
-    <link rel="stylesheet" href="/EducatorDashboard.css">
-    <title>STEMREF | Educator Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <!-- <link rel="stylesheet" href="/EducatorDashboard.css"> -->
+    <title>STEMREF | Admin Page</title>
     <style>
         .container form input{
             background-color: transparent;
@@ -45,14 +47,17 @@
     <main>
         <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
             <div class="container">
-              <a class="navbar-brand" href="/"><img class="logo" src="./logo.svg" alt="logo"></a>
+              <a class="navbar-brand" href="/"><img class="logo" src="/assets/imgs/logo.svg" alt="logo"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
                 <ul class="navbar-nav mb-2 mb-lg-0 w-100  align-items-center">
                     <!-- <li class="nav-item"><a class="nav-link" href="/">Home</a></li> -->
-                    <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Admin</a></li>
+                    <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="#">Admin</a></li> -->
+                    <% for(let i of data.user.navs){ %>
+                      <li class="nav-item <% if(data.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= i %></a></li>
+                      <% } %>
                         <!-- <li class="nav-item loginLink"><a class="nav-link" href="/login">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="/register">Register</a></li> -->
                         <div class="dropstart ms-md-auto">
@@ -73,19 +78,62 @@
               </div>
             </div>
           </nav>
-          <div class="users-box">
-            <!-- all users here -->
-          </div>
+          <div class="users-box d-flex flex-column justify-content-center table-responsive container">
+            <!-- Search Function -->
+            <!-- <form class="search-bar form-inline mt-2 mb-2" action="/admin/search/users" method="get" data-bs-theme="dark"> -->
+              <form class="search-tools d-flex flex-row gap-3 mt-2 mb-2">
+
+                <div class="search-bar p-0 " action="/admin" method="get" data-bs-theme="dark">
+                  <!-- <img class="vector" src="img/vector.svg" /> -->
+                  <input  class="form-control pe-5"  type="search" placeholder="Search"  aria-label="Search" name="q">
+                  <button class="search-btn btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+               <select class="form-select" aria-label="select search type"  data-bs-theme="dark" name="filterType">
+                <% for(let j of ["All","name","email","userType"]){%>
+                  <option <% if("" == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                  <% } %>
+                </select>
+              </form>
+            <!-- Show Data Table  -->
+            <table class="table table-striped table-dark">
+              <thead class="thead-dark">
+                <th scope="col">#</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">UserType</th>
+              </thead>
+              <tbody>
+                <% for(let i of data.users ){%>
+                  <tr class="user ">
+                    <td class="num" scope="row"></td>
+                    <td class="username "><%= i.name %></td>
+                    <td class="email"><%= i.email %></td>
+                    <td>
+                      <select class="form-select chooseType <% if(i.userType == "admin"){%> admin <% }%>" aria-label="Default select example"  data-bs-theme="dark">
+                        <% for(let j of ["user","student","educator","admin"]){%>
+                          <option <% if(i.userType == j){ %> selected <% } %> value=<%= j %>><%= j %></option>
+                          <% } %>
+                      </select>
+                     
+                    </td>
+                    <!-- <td><i class="fa-solid fa-trash"></i></td> -->
+                  </tr>
+                    <% } %>  
+                </div>
+              </tbody>
+            </table>
     </main>
     <footer class="text-center w-100">
         <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
      </footer>
     <!-- Bootstrap JS -->
-    <!--<script src="/bootstrap.min.js"></script> -->
-   <script src="/bootstrap.min.js"></script>
+   <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-    <script src="/sweetalert2.all.min.js"></script>
-    <script src="/main.js"></script>
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/admin.js"></script>
     
     <div class="waves" ></div>
 

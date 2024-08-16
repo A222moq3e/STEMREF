@@ -1,7 +1,7 @@
 const User = require('./User');
 class Student extends User{
     constructor(name,email,subscribe,reviewed,img){
-        super(name,email,true,'student',img)
+        super(name,email,true,'student',img,["Home","Search","Pricing"])
         if(subscribe)
         this.subscribe = subscribe;
         else

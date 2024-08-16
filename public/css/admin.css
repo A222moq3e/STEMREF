@@ -1,0 +1,56 @@
+:root {
+  --main-color: #394dff;
+  --dark-color: #232323;
+  --second-color: #5a6bff;
+  --third-color: #7b88ff;
+  --fourth-color: #bdc4ff;
+  --fifth-darker-color: #202d9b;
+}
+
+tbody {
+  counter-reset: ctr;
+}
+
+.user .num::before {
+  counter-increment: ctr;
+  content: counter(ctr);
+  /* content: ">"; */
+}
+.user select {
+  cursor: pointer;
+}
+.admin {
+  pointer-events: none;
+  color: #aaa;
+}
+/* .search-tools {
+  width: 100%;
+} */
+
+.search-bar {
+  position: relative;
+  /* width: 100%; */
+  min-width: 780px;
+}
+
+.search-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  max-width: 40px;
+  color: var(--main-color);
+  border-color: var(--main-color);
+  border-radius: 0 5px 5px 0px;
+}
+.search-btn:hover {
+  background-color: var(--main-color);
+}
+.search-bar .search-btn i {
+  color: var(--main-color);
+  transition: 0.3s;
+}
+
+.search-bar .search-btn:hover i {
+  color: #eee;
+}

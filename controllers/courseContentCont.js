@@ -1,6 +1,6 @@
 // const Pages = require('../models/config');
 const { usersCollection, coursesCollection } = require('../models/config');
-const  Course  = require('../interface/Course.js');// course not Course, Strange
+const  Course  = require('../models/classes/Course.js');// course not Course, Strange
 // const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
@@ -41,12 +41,13 @@ module.exports = {
                     sum+= parseInt(reviews[r])
                     console.log(sum);
                 }
-                avg = Math.round(sum/Object.keys(reviews).length,2)
+                avg = (sum/Object.keys(reviews).length).toPrecision(2);
             }
             // const user = new Student(req.session.user.name,req.session.user.email);
             // const user = new 
+            
             if(!data) return res.send('sorry this course not found')
-            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,catograySearch:'',avg:avg}})
+            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,catograySearch:'',avg:avg, color:getReviewColor(avg)}})
        }catch(e){
             console.log(e);
        }
@@ -72,7 +73,7 @@ module.exports = {
             }
             avg = Math.round(sum/Object.keys(reviews).length,2)
         }
-        
+
         // console.log(data.Content[catogray]);
         let urls = data.Content[catogray]
         let urls_filterd = urls.filter((url)=>{
@@ -85,7 +86,7 @@ module.exports = {
         if(!data)
             res.send('sorry this course not found')
         else{
-            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg}})
+            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
             // res.render('courseContent',{data:{course:course,user:req.session.user}})
         }
         // res.render('courseContent')
@@ -130,4 +131,18 @@ module.exports = {
         }
     }
 
+}
+
+function getReviewColor(avg){
+    let color = "";
+    if(avg>=4 && avg <= 5){
+        color = "five";
+    }else if(avg >= 3 && avg <4){
+        color = "four";
+    }else if(avg >= 2 && avg <3){
+        color = "three";
+    }else{
+        color = "two";
+    }
+    return color
 }

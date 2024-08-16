@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= req.language %>">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="STEMREF | Search Page">
     <!-- Google Fonts -->
     <meta http-equiv="Content-Security-Policy" content="default-src *; img-src * data:; style-src * 'unsafe-inline'; font-src *; script-src * 'unsafe-inline' 'unsafe-eval';">    <!-- Google Fonts -->
     <!-- Google tag (gtag.js) -->
@@ -11,7 +12,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-DTZ0K15FEB');
     </script>    
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,68 +20,65 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@100;500;700;900&family=Roboto:wght@100;300;500&family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet"> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
     <!-- font awesome Library -->
-    <link rel="stylesheet" href="/all.min.css"> 
+    <link rel="stylesheet" href="/libs/all.min.css"> 
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="/sweetalert2.min.css">
+    <link rel="stylesheet" href="/libs/sweetalert2.min.css">
     <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="/logo-min.svg">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/logo-min.svg">
     <!-- CSS  -->
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/search.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/search.css">
         <title>STEMREF | Search Page</title>
   </head>
   <body>
     <main>
-        <nav class="navbar navbar-expand-lg navbar-dark p-lg-4 p-md-4"   style="background-color: #232323;">
-            <div class="container">
-              <a class="navbar-brand" href="/"><img class="logo" src="./logo.svg" alt="logo"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent"  style="background-color: #232323;">
-                <ul class="navbar-nav mb-2 mb-lg-0  w-100  align-items-center">
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="/">Home</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="/search">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
-                    <div class="dropstart ms-md-auto">
-                        <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
-                        <a class="dropdown-item disabled" href="/">Hi <%= user.name %></a>
-                        <a class="dropdown-item" href="/profile">Profile</a>
-                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://STEMREF.askardesign.com/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank">Refer to friends</a>
-                        <a class="dropdown-item" href="mailto:stemref@gmail.com">Give Feedback</a>
-                        <a class="dropdown-item" href="/signout">Signout <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                    </div>      
-                </ul>
-              </div>
-            </div>
-          </nav>
+      <%- include('partials/header.ejs') %>
         <div class="container">
-            <form class="search-bar mt-2" action="/search" method="get">
-                <!-- <img class="vector" src="img/vector.svg" /> -->
+            <!-- <form class="search-bar mt-2" action="/search" method="get">
                 <input type="text" placeholder="Search" name="q">
+            </form> -->
+            <form class="search-tools w-100 mt-2 mb-2">
+
+              <div class="search-bar w-100 p-0 mb-2" action="/search" method="get" data-bs-theme="dark">
+                <!-- <img class="vector" src="img/vector.svg" /> -->
+                <input  class="form-control"  type="search" placeholder="Search"  aria-label="Search" name="q">
+              </div>
+             <div class="control-results d-flex justify-content-between">
+              <select class="sort-select form-select rounded-pill" aria-label="select sort"  data-bs-theme="dark" name="sort" onchange="this.form.submit()">
+                <% for(let j of Object.keys(sortTranslator)){%>
+                  <option <% if(sort == j){ %> selected <% } %> value=<%= j %>><%= t(`SEARCHPAGE.${j}`) %></option>
+                  <% } %>
+                  <!-- <i class="fa-solid fa-arrow-up-wide-short"></i> -->
+                </select>
+                <div class="filter">
+                  <span><%= t('SEARCHPAGE.filter') %> </span><i class="fa-solid fa-filter"></i>
+                </div>
+             </div>
             </form>
-            <div class="text-about-courses">
+            <div class="text-about-courses w-100">
                 <% if(q){ %>
                 <h1 class="m-0 d-none d-md-block">Search For: <%= q %></h1>
                 <%}%>
                 <% if(!q) {%>
-                <h1 class="m-0 d-none d-md-block">Courses</h1>
+                <h1 class="m-0 d-none d-md-block"><%= data.length %> Courses</h1>
                 <%}%>
-                <div class="found mb-2">Found: <%= data.length %></div>
+                
             </div>
-          <div class="courses row pb-5">
+          <div class="courses row pb-5 w-100 position-relative">
             <% for(let course of data){ %>
             <div class="item col-md-3 col-lg-2  col-5 h-100" data-course-name="<%= course.name %>" title="<%= course.name %>">
                 <div class="title"><%= course.name %></div>
                 <div class="tags">
                   <div class="tag">course</div>
                   <!-- <div class="tag">CS205</div> -->
-                  <% for(let tag of course.tags){ %>
+                  <% let i=1 %>
+                  <% for(const tag of course.tags){ %>
+                    <%if(i++>=3){%>
+                      <div class="tag" title="there is more tag">..+</div>
+                      <% break %>
+                    <% } %>
                     <div class="tag"><%= tag %></div>
                   <% } %>
                 </div>
@@ -90,21 +87,25 @@
                 </p>
               </div>
               <% }%>
+            <div class="loading position-absolute w-100 h-100" style="background-color: #232323;">
+              <div class="loader"></div> 
+            </div>
+
           </div>
         </div>
    
 
 
     </main>
-    <footer class="text-center w-100">
-      <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
-   </footer>
+    <%- include('partials/footer') %>
     <!-- Bootstrap JS -->
-   <script src="/bootstrap.min.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
-    <script src="/sweetalert2.all.min.js"></script>
-    <script src="/main.js"></script>
-    <script src="/search.js"></script>
+    <script src="/libs/sweetalert2.all.min.js"></script>
+    <!-- font awesome Library -->
+    <script src="/libs/all.min.js"> </script>
+    <script src="/js/main.js"></script>
+    <script src="/js/search.js"></script>
     <div class="waves" ></div>
   </body>
 </html>
