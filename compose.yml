@@ -9,6 +9,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: dev
       MONGO_INITDB_ROOT_PASSWORD: dev
+      MONGO_INITDB_DATABASE: dev
 
 volumes:
   mongo_data:

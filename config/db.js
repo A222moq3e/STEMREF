@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(mongprocess.env.MONGODB_CLUSTERoUrl);
+        await mongoose.connect(process.env.MONGOURL || 'mongodb://localhost:27017/test');
         console.log('DB Connected Successfully');
     }
     catch (error) {
