@@ -4,8 +4,6 @@ const session = require('express-session');
 const cookieSession  = require('cookie-session')
 const store = new session.MemoryStore();
 const app = express();
-const https = require('https');
-const fs = require('fs');
 require('dotenv').config();
 const router = require('./routes/routes')
 const courseContentRoute = require('./routes/courseContentRoute');
@@ -14,12 +12,7 @@ const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 const path = require('path');
-// const helmet = require('helmet')
-// var csurf = require('csurf') deprecated
-// const keyPath = '/etc/letsencrypt/live/stemref/privkey.pem'
-// const certPath =  '/etc/letsencrypt/live/stemref/fullchain.pem'
-const keyPath = "./assets/secretsKeys/privkey.pem"
-const certPath =  "./assets/secretsKeys/fullchain.pem"
+
 const secretSessionString = process.env.SECRET_SESSION
 
 // Set EJS as templating engine
@@ -56,16 +49,7 @@ i18next
 console.log(i18next.t('welcom'))
 
 app.use(i18nextMiddleware.handle(i18next));
-// // Middleware to pass translation function to templates
-// app.use((req, res, next) => {
-//   console.log('Current language:', req.language);
-//   console.log('Translation function:', req.t('welcome'));
-//   if(res.locals.t &&  req.query.lng){
-//     res.locals.t = req.t;
-//     res.cookie('i18next', req.query.lng)
-//   }
-//   next();
-// });
+
 
 console.log("[+]",'process.env.TEST',process.env.TEST);
 
@@ -87,14 +71,7 @@ app.use(cookieSession({
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-//  TODO: Change logs to winston
-// app.use((req,res,next)=>{
-//   let nd = new Date();
-//   console.log(`[${nd}]:request`);
-//   if(req.session) console.log('req session:',req.session);
-//   // if (config.RATE_LIMITING_ENABLED === 'true') return res.status(403).send('Forbidden')
-//   next()
-// })
+
 
 // Rate Limit
 var limiter  = rateLimit({
@@ -124,45 +101,4 @@ app.use(courseContentRoute)
 app.listen(3005,()=>{
    console.log('port Connected in',`http://localhost:3005`);
 })
-
-
-// Redirect HTTP to HTTPS
-// const httpServer = http.createServer((req, res) => {
-//   res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-//   res.end();
-// });
-
-// Start HTTPS and HTTP servers
-// const HTTPS_PORT = 443;
-// const HTTP_PORT = 80;
-const HTTPS_PORT = 443;
-if(process.env.PROD!="False"){
-  const privateKey = fs.readFileSync(keyPath, 'utf8');
-  const certificate = fs.readFileSync(certPath, 'utf8');
-  const httpsServer = https.createServer({ key: privateKey, cert: certificate }, app);
-
-  httpsServer.listen(HTTPS_PORT, () => {
-    console.log(`HTTPS Server running on port ${HTTPS_PORT}`);
-  });
-}
-// // server code 
-// const httpsOptions = {
-//   key: fs.readFileSync(keyPath, 'utf8'),
-//   cert: fs.readFileSync(certPath, 'utf8')
-// };
-
-// const httpsServer = https.createServer(httpsOptions, app);
-// const HOST =process.env.HOST || "127.0.0.1"
-// httpsServer.listen(HTTPS_PORT,() => {
-//   console.log(`HTTPS server listening on port ${HTTPS_PORT}`);
-//   console.log(`https://${HOST}:${HTTPS_PORT}`);
-// });
-// // end
-
-// httpServer.listen(HTTP_PORT, () => {
-//   console.log(`HTTP server listening on port ${HTTP_PORT}`);
-//   console.log(`http://${HOST}:${HTTP_PORT}`);
-
-// });
-
 
