@@ -19,7 +19,7 @@ const router = require('./routes/routes')
 const courseContentRoute = require('./routes/courseContentRoute');
 
 envimport.config();
-const secretSessionString = process.env.SECRET_SESSION
+const secretSessionString = process.env.SECRET_SESSION || "thisisasecret";
 
 const store = new session.MemoryStore();
 const app = express();
