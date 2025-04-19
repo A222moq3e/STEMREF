@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
-const mongoUrl = process.env.MONGODB_CLUSTER
-const connect = mongoose.connect(mongoUrl)
 const Mixed = mongoose.Schema.Types.Mixed
 console.log('in config.js');
-connect.then(()=>{
-    console.log('db Connected Successfuly');
-    console.log('url',mongoUrl);
-}).catch(()=>{
-    console.log('db Connecte Faild!');
-})
 
 // Create User Schema
 const LoginSchema = new mongoose.Schema({

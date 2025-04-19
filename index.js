@@ -7,7 +7,7 @@ const rateLimit = require('express-rate-limit');
 // MISC
 const cookieSession  = require('cookie-session')
 const envimport = require('dotenv');
-
+const connectDB = require('./config/db');
 // i18next modules
 const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
@@ -23,6 +23,9 @@ const secretSessionString = process.env.SECRET_SESSION
 
 const store = new session.MemoryStore();
 const app = express();
+
+// Connect to DB
+connectDB();
 
 // Set EJS as templating engine
 app.set("view engine","ejs")
