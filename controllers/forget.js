@@ -14,14 +14,9 @@ module.exports = {
         const myEmailPassword =  process.env.MY_EMAIL_PASSWORD
         const url = 'https://127.0.0.1:3443'
         const resetToken = crypto.randomBytes(20).toString('hex');
-        // const googleClientid = process.env.GOOGLE_CLIENT_ID
-        // const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET 
-        // const googleOauthRedirectUrl = process.env.GOOGLE_OAUTH_REDIRECT_URL
         const user = await usersCollection.findOne({name:'test'});
-        // console.log(user.name);
         console.log({token:resetToken});
         console.log(resetToken);
-        // console.log(user.name);
         if(!user) return res.send('wrong email');
         const userAU = await usersCollection.findOneAndUpdate({email:user.email},{token:resetToken});
         // Create a Nodemailer transporter
