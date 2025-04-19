@@ -2,7 +2,7 @@
   "name": "STEMREF",
   "version": "2.0.0",
   "scripts": {
-    "start": "nodemon ./js/index.js",
+    "start": "node --watch index.js",
     "dev": "node --env-file .env --watch index.js"
   },
   "dependencies": {
