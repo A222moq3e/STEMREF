@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const mongoUrl = process.env.MONGODB_CLUSTER
 const connect = mongoose.connect(mongoUrl)
-
+const Mixed = mongoose.Schema.Types.Mixed
 console.log('in config.js');
 connect.then(()=>{
     console.log('db Connected Successfuly');
@@ -32,7 +32,7 @@ const LoginSchema = new mongoose.Schema({
       type:String,
       required:false
     },reviewed:{
-      type: "Mixed",
+      type: Mixed,
       required:false
   }
 })
@@ -54,35 +54,35 @@ const Courseschema = new mongoose.Schema({
     type: Boolean
   },
   reviews:{
-    type: "Mixed"
+    type: Mixed
   },
   discussions: {
-    type: "Mixed"
+    type: Mixed
   },
   Content: {
     Videos: {
       type: [
-        "Mixed"
+        Mixed
       ]
     },
     Articles: {
       type: [
-        "Mixed"
+        Mixed
       ]
     },
     Quizzes: {
       type: [
-        "Mixed"
+        Mixed
       ]
     },
     Assignments: {
       type: [
-        "Mixed"
+        Mixed
       ]
     },
     Others: {
       type: [
-        "Mixed"
+        Mixed
       ]
     }
   }
