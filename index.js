@@ -5,7 +5,7 @@ const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 
 // MISC
-const cookieSession  = require('cookie-session')
+const MongoStore = require('connect-mongo');
 const envimport = require('dotenv');
 const connectDB = require('./config/db');
 // i18next modules
@@ -21,7 +21,6 @@ const courseContentRoute = require('./routes/courseContentRoute');
 envimport.config();
 const secretSessionString = process.env.SECRET_SESSION || "thisisasecret";
 
-const store = new session.MemoryStore();
 const app = express();
 
 // Connect to DB
@@ -65,19 +64,24 @@ app.use(i18nextMiddleware.handle(i18next));
 
 console.log("[+]",'process.env.TEST',process.env.TEST);
 
-// Session
-app.set('trust proxy', 1);
-app.use(cookieSession({
-    secret:secretSessionString,
-    cookie: { 
-      maxAge : 24 * 60 * 60 * 1000, // 24 hours
-      secure: true, // added 'Secure' attribute
-      httpOnly: true, // added 'HttpOnly' attribute to prevent access through client-side script
-  },//24 hour
-    saveUninitialized: false,
-    store : store
+// Session (using MongoDB store for production)
+app.set('trust proxy', 1)
+app.use(session({
+  secret: secretSessionString,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI|| 'mongodb://localhost:27017/test' ,
+    collectionName: 'sessions',
+    ttl: 14 * 24 * 60 * 60 // 14 days
+  }),
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,      // 1 day
+    secure: process.env.NODE_ENV==='production', // only over HTTPS
+    httpOnly: true,
+    sameSite: 'lax'
+  }
 }))
-
 
 // Convert data into json 
 app.use(express.json())
