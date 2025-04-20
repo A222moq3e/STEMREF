@@ -1,5 +1,4 @@
 // const Pages = require('../models/config');
-const crypto = require('crypto');
 const  Course  = require('../models/classes/Course.js');// course not Course, Strange
 const  Student  = require('../models/classes/Student.js');
 const  Educator  = require('../models/classes/Educator.js');
