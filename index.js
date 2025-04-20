@@ -6,7 +6,6 @@ const rateLimit = require('express-rate-limit');
 
 // MISC
 const MongoStore = require('connect-mongo');
-const envimport = require('dotenv');
 const connectDB = require('./config/db');
 // i18next modules
 const i18next = require('i18next');
@@ -18,7 +17,10 @@ const path = require('path');
 const router = require('./routes/routes')
 const courseContentRoute = require('./routes/courseContentRoute');
 
-envimport.config();
+if (process.env.NODE_ENV !== 'production') {
+  const envimport = require('dotenv');
+  envimport.config();  
+}
 const secretSessionString = process.env.SECRET_SESSION || "thisisasecret";
 
 const app = express();
@@ -114,7 +116,7 @@ app.use(courseContentRoute)
 
 
 // Port Listner, [Do not remove this]
-app.listen(3005,()=>{
+app.listen(process.env.PORT||3005,()=>{
    console.log('port Connected in',`http://localhost:3005`);
 })
 
