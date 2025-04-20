@@ -4,7 +4,7 @@ const  Course  = require('../models/classes/Course.js');// course not Course, St
 // const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
-let iconUse = {
+const iconUse = {
     "Videos":"fa-solid fa-circle-play",
     "Articles":"fa-regular fa-newspaper",
     "Quizzes":"fa-solid fa-spell-check",
@@ -12,7 +12,7 @@ let iconUse = {
     "Others":"fa-solid fa-arrow-up-right-from-square",
     "share":"fa-solid fa-share"
 }
-let bgIconUse = {
+const bgIconUse = {
     "Videos":"undraw_video_files_fu10.svg",
     "Articles":"undraw_online_articles_re_yrkj.svg",
     "Quizzes":"undraw_online_test_re_kyfx.svg",
@@ -112,19 +112,6 @@ module.exports = {
             userData.reviewed[courseName] =stars
             console.log(courseData);
             
-            let courseDelete = await coursesCollection.findOneAndRemove({name:courseName})
-            let courseInserted = await coursesCollection.insertMany(courseData)
-            let userDelete = await usersCollection.findOneAndRemove({name:username})
-            let userInserted = await usersCollection.insertMany(userData)
-            // let updateByReview = await  usersCollection.findOneAndUpdate({name:username},userData.reviewed)
-
-            // console.log({review:previousReviews});
-
-
- 
-            // let updateByReview = await  coursesCollection.updateOne({name:courseName},{review:previousReviews})
-
-            // console.log(updateByReview);
             return true
         }catch(e){
             console.log(e);
