@@ -88,11 +88,13 @@ module.exports = {
     
     },
     signout:(req,res)=>{
-        // req.session.user.authenticated = false;
-        // console.log('session',req.session);
-        req.session = null
-        // delete req.session
-
-        return res.redirect("/")
+        req.session.destroy(error => {
+            if (error) {
+                console.log(error);
+                res.send("Error Logging out");
+            } else {
+                res.redirect('/');
+            }
+        });
     }
 }
