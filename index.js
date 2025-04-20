@@ -57,7 +57,7 @@ i18next
       caches: ['cookie']
     }
   });
-console.log(i18next.t('welcom'))
+console.log(i18next.t('welcome'))
 
 app.use(i18nextMiddleware.handle(i18next));
 
