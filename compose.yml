@@ -7,8 +7,6 @@ services:
     volumes:
       - mongo_data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: dev
-      MONGO_INITDB_ROOT_PASSWORD: dev
       MONGO_INITDB_DATABASE: test
 
 volumes:

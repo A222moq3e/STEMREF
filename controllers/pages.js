@@ -4,6 +4,7 @@ const  Course  = require('../models/classes/Course.js');// course not Course, St
 const  Student  = require('../models/classes/Student.js');
 const  Educator  = require('../models/classes/Educator.js');
 const  Admin  = require('../models/classes/Admin.js');
+const { buildDataBeforeRender,createHash } = require('../middlewares/misc.js');
 
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
@@ -139,17 +140,8 @@ module.exports = {
 }
 
 
-function createHash(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
 
-// TODO: Make this as middleware
-function buildDataBeforeRender(req){
-    let renderData = {data:{accesses:false}};
-    if(req.session.user)
-    renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}};
-    return renderData;
-}
+
 
 
 
