@@ -25,6 +25,10 @@ const secretSessionString = process.env.SECRET_SESSION || "thisisasecret";
 
 const app = express();
 
+app.disable("x-powered-by");
+
+
+
 // Connect to DB
 connectDB();
 
