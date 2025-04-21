@@ -47,7 +47,7 @@
                 <div class="textContent">
                   <h3 class="disable" ><%= t('LOGINPAGE.Username') %>: <input type="text" value="<%= data.user.name %>" placeholder="@"></h3>
                 <h3 class="disable" ><%= t('LOGINPAGE.Email') %>: <input type="email" value="<%= data.user.email  %>"></h3>
-                <h3 class="disable" ><%= t('PROFILEPAGE.Subscribe') %>: <span></span><%= t(`PROFILEPAGE.${data.user.paidUser==true?data.user.paidUser:false}`) %></span></h3>
+                <h3 class="disable" ><%= t('PROFILEPAGE.Subscribe') %>: <span><%= t(`PROFILEPAGE.${data.user.paidUser==true?data.user.paidUser:false}`) %></span></h3>
                 <% if(data.user.reviewed){ %>
                   <h3><%= t('PROFILEPAGE.Your Reviews') %>:</h3>
                   <div class="reviewes">
@@ -62,7 +62,9 @@
                         <td>
                           <%= review %>
                         </td>
+                        
                         <td>
+                          
                         <%for(let i=0;i<data.user.reviewed[review];i++){%>
                           <i class="fa-solid fa-star active"></i>
                         <% } %>
