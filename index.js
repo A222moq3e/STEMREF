@@ -1,4 +1,3 @@
-console.log("[+]","start index");
 // Express Modules
 const express = require('express');
 const session = require('express-session');
