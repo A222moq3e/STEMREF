@@ -6,14 +6,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Get DOM elements
   const courseName = document.querySelector('.course-title h1').innerText;
-  const ratingInputs = document.querySelectorAll('.rating-stars input');
-  const ratingLabels = document.querySelectorAll('.rating-stars label');
   const reviewTextArea = document.getElementById('review-comment');
-  const ratingFeedbackText = document.createElement('div');
   
-  // Setup rating feedback element
-  ratingFeedbackText.className = 'rating-feedback';
-  document.querySelector('.rating-stars').after(ratingFeedbackText);
+  // Setup rating stars
+  setupStarRating();
   
   // Panel elements
   const reviewsPanel = document.querySelector('.reviews-panel');
@@ -29,52 +25,71 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeAddReviewBtn = document.querySelector('.close-add-review-btn');
   const closeDiscussionBtn = document.querySelector('.close-discussion-btn');
   
-  // Convert all rating stars to outlined version initially
-  const ratingStars = document.querySelectorAll('.rating-stars label i');
-  ratingStars.forEach(star => {
-    star.classList.remove('fa-solid');
-    star.classList.add('fa-regular');
-  });
-  
-  // Enhanced star rating interaction
-  ratingLabels.forEach((label, index) => {
-    // Hover effects
-    label.addEventListener('mouseenter', () => {
-      const hoverRating = 5 - index;
-      updateStarsDisplay(hoverRating, 'hover');
-      ratingFeedbackText.textContent = ratingMessages[hoverRating];
-      ratingFeedbackText.classList.add('visible');
-    });
+  /**
+   * Sets up the star rating system with proper interactions
+   */
+  function setupStarRating() {
+    const container = document.querySelector('.add-review-panel');
+    if (!container) return;
     
-    // Click feedback - more interactive
-    label.addEventListener('click', () => {
-      const clickedRating = 5 - index;
-      updateStarsDisplay(clickedRating, 'selected');
-      ratingFeedbackText.textContent = ratingMessages[clickedRating];
-      
-      // Add visual confirmation feedback
-      label.classList.add('pulse-animation');
-      setTimeout(() => {
-        label.classList.remove('pulse-animation');
-      }, 500);
-      
-      // Mark corresponding input as checked
-      ratingInputs[index].checked = true;
-    });
-  });
-  
-  // Reset stars on mouseleave if no star is selected
-  document.querySelector('.rating-stars').addEventListener('mouseleave', () => {
-    const selectedInput = document.querySelector('.rating-stars input:checked');
-    if (selectedInput) {
-      // If a star is selected, keep that selection visible
-      updateStarsDisplay(selectedInput.getAttribute('data-num-star'), 'selected');
-    } else {
-      // Reset to no stars
-      resetStarsDisplay();
-      ratingFeedbackText.classList.remove('visible');
+    // First, remove the current stars implementation
+    const oldStars = container.querySelector('.rating-stars');
+    if (oldStars) {
+      oldStars.remove();
     }
-  });
+    
+    // Create a new rating stars container
+    const newStars = document.createElement('div');
+    newStars.className = 'rating-stars';
+    newStars.innerHTML = `
+      <div class="star-rating">
+        <input id="star5" type="radio" name="rating" value="5">
+        <label for="star5" title="5 stars">★</label>
+        <input id="star4" type="radio" name="rating" value="4">
+        <label for="star4" title="4 stars">★</label>
+        <input id="star3" type="radio" name="rating" value="3">
+        <label for="star3" title="3 stars">★</label>
+        <input id="star2" type="radio" name="rating" value="2">
+        <label for="star2" title="2 stars">★</label>
+        <input id="star1" type="radio" name="rating" value="1">
+        <label for="star1" title="1 star">★</label>
+      </div>
+    `;
+    
+    // Insert after the panel title
+    const panelHeader = container.querySelector('.panel-header');
+    panelHeader.after(newStars);
+    
+    // Create a feedback element
+    const feedbackEl = document.createElement('div');
+    feedbackEl.className = 'rating-feedback';
+    newStars.after(feedbackEl);
+    
+    // Rating feedback messages
+    const ratingMessages = {
+      '5': 'Excellent! This content is outstanding!',
+      '4': 'Very good! This content is quite helpful.',
+      '3': 'Good. Content meets expectations.',
+      '2': 'Fair. Content needs some improvement.',
+      '1': 'Poor. Content needs significant improvement.'
+    };
+    
+    // Add event listeners to star inputs
+    const starInputs = newStars.querySelectorAll('input[type="radio"]');
+    starInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        feedbackEl.textContent = ratingMessages[this.value];
+        feedbackEl.classList.add('visible');
+        
+        // Add animation effect to the clicked star
+        const label = this.nextElementSibling;
+        label.classList.add('pulse-animation');
+        setTimeout(() => {
+          label.classList.remove('pulse-animation');
+        }, 500);
+      });
+    });
+  }
   
   // Add event listener to submit review button
   if (submitReviewBtn) {
@@ -148,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   async function submitReview() {
     // Find the selected rating
-    const selectedRating = document.querySelector('.rating-stars input:checked');
+    const selectedRating = document.querySelector('.star-rating input:checked');
     
     if (!selectedRating) {
       Swal.fire({
@@ -163,9 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update submit button to show loading state
     submitReviewBtn.disabled = true;
-    submitReviewBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    submitReviewBtn.innerHTML = '<span class="spinner">⏳</span> Submitting...';
     
-    const starsNum = selectedRating.getAttribute('data-num-star');
+    const starsNum = selectedRating.value;
     const reviewText = reviewTextArea ? reviewTextArea.value.trim() : '';
     
     try {
@@ -191,9 +206,9 @@ document.addEventListener('DOMContentLoaded', function() {
         icon: 'success',
         title: 'Thank You!',
         html: `<div class="rating-success-animation">
-                 <i class="fa-solid fa-star star-animate"></i>
-                 <i class="fa-solid fa-star star-animate-delay-1"></i>
-                 <i class="fa-solid fa-star star-animate-delay-2"></i>
+                 <span class="star-animate">★</span>
+                 <span class="star-animate-delay-1">★</span>
+                 <span class="star-animate-delay-2">★</span>
                </div>
                <p>Your ${starsNum}-star review has been submitted</p>`,
         timer: 2500,
@@ -217,41 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
       submitReviewBtn.disabled = false;
       submitReviewBtn.innerHTML = 'Submit Review';
     }
-  }
-  
-  /**
-   * Update the display of stars based on the given rating
-   * @param {string|number} rating - The rating to display (1-5)
-   * @param {string} state - The state of the stars ('hover' or 'selected')
-   */
-  function updateStarsDisplay(rating, state) {
-    const num = parseInt(rating);
-    const starIcons = document.querySelectorAll('.rating-stars label i');
-    
-    starIcons.forEach((star, index) => {
-      const reversedIndex = starIcons.length - 1 - index;
-      
-      // Reset class to regular first
-      star.classList.remove('fa-solid');
-      star.classList.add('fa-regular');
-      
-      if (reversedIndex < num) {
-        // Change to solid for filled stars
-        star.classList.remove('fa-regular');
-        star.classList.add('fa-solid');
-      }
-    });
-  }
-  
-  /**
-   * Reset all stars to their default state
-   */
-  function resetStarsDisplay() {
-    const starIcons = document.querySelectorAll('.rating-stars label i');
-    starIcons.forEach(star => {
-      star.classList.remove('fa-solid');
-      star.classList.add('fa-regular');
-    });
   }
   
   /**

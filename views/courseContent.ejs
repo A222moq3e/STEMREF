@@ -52,12 +52,12 @@
           
           <div class="course-rating">
             <% if(data.avg > 0){ %>
-              <div class="rating-stars">
+              <div class="rating-display">
                 <% for(let i=0; i<Math.floor(data.avg); i++){ %>
-                  <i class="fa-solid fa-star <%= data.color %>"></i>
+                  <span class="star filled <%= data.color %>">★</span>
                 <% } %>
                 <% for(let i=data.avg; i<5; i++){ %>
-                  <i class="fa-solid fa-star"></i>
+                  <span class="star">☆</span>
                 <% } %>
               </div>
               <span class="rating-value"><%= data.avg %></span>
@@ -147,10 +147,10 @@
                       <span class="reviewer-name"><%= review.user.name %></span>
                       <div class="review-rating">
                         <% for(let i=0; i<review.rating; i++) { %>
-                          <i class="fa-solid fa-star <%= data.color %>"></i>
+                          <span class="star filled <%= data.color %>">★</span>
                         <% } %>
                         <% for(let i=review.rating; i<5; i++) { %>
-                          <i class="fa-solid fa-star"></i>
+                          <span class="star">☆</span>
                         <% } %>
                       </div>
                     </div>
@@ -173,21 +173,17 @@
               <button class="panel-close close-add-review-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
-            <div class="rating-stars">
-              <input type="radio" name="rating" id="star5" data-num-star="5">
-              <label for="star5"><i class="fa-regular fa-star"></i></label>
-              
-              <input type="radio" name="rating" id="star4" data-num-star="4">
-              <label for="star4"><i class="fa-regular fa-star"></i></label>
-              
-              <input type="radio" name="rating" id="star3" data-num-star="3">
-              <label for="star3"><i class="fa-regular fa-star"></i></label>
-              
-              <input type="radio" name="rating" id="star2" data-num-star="2">
-              <label for="star2"><i class="fa-regular fa-star"></i></label>
-              
-              <input type="radio" name="rating" id="star1" data-num-star="1">
-              <label for="star1"><i class="fa-regular fa-star"></i></label>
+            <div class="star-rating">
+              <input type="radio" name="rating" id="star5" value="5">
+              <label for="star5" title="5 stars">★</label>
+              <input type="radio" name="rating" id="star4" value="4">
+              <label for="star4" title="4 stars">★</label>
+              <input type="radio" name="rating" id="star3" value="3">
+              <label for="star3" title="3 stars">★</label>
+              <input type="radio" name="rating" id="star2" value="2">
+              <label for="star2" title="2 stars">★</label>
+              <input type="radio" name="rating" id="star1" value="1">
+              <label for="star1" title="1 star">★</label>
             </div>
             
             <textarea id="review-comment" class="review-text-area" placeholder="Share your thoughts about this course (optional)" maxlength="500"></textarea>

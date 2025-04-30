@@ -341,6 +341,40 @@ main {
   font-style: italic;
 }
 
+/* Styles for Unicode star displays */
+.rating-display {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.star.filled {
+  color: var(--warning-color);
+}
+
+/* Review rating stars */
+.review-rating .star {
+  font-size: 0.9rem;
+}
+
+/* Colors based on rating */
+.five {
+  color: var(--success-color);
+}
+
+.four {
+  color: var(--success-color);
+}
+
+.three, .two {
+  color: var(--warning-color);
+}
+
 /* Add review panel */
 .rating-stars {
   display: flex;
@@ -559,6 +593,89 @@ main {
   color: var(--text-light);
 }
 
+/* Star rating system with Unicode stars */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 0;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: var(--text-muted);
+  font-size: 2.5rem;
+  padding: 0 0.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* All stars to the right of the hovered star should be golden */
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: var(--warning-color);
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(255, 242, 9, 0.5));
+}
+
+/* Pulse animation for clicked star */
+.pulse-animation {
+  animation: star-pulse 0.5s ease;
+}
+
+@keyframes star-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+/* Success animation elements */
+.rating-success-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.rating-success-animation span {
+  color: var(--warning-color);
+  font-size: 2rem;
+}
+
+.star-animate {
+  animation: star-success 1.5s ease infinite;
+}
+
+.star-animate-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.star-animate-delay-2 {
+  animation-delay: 0.4s;
+}
+
+@keyframes star-success {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.5) rotate(20deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 /* Animation */
 @keyframes fadeIn {
