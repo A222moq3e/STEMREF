@@ -27,43 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
   /**
    * Sets up the star rating system with proper interactions
+   * This function now correctly handles the existing star rating from HTML
    */
   function setupStarRating() {
+    // Find rating panel and existing star rating
     const container = document.querySelector('.add-review-panel');
     if (!container) return;
     
-    // First, remove the current stars implementation
-    const oldStars = container.querySelector('.rating-stars');
-    if (oldStars) {
-      oldStars.remove();
-    }
+    const starRating = container.querySelector('.star-rating');
+    if (!starRating) return;
     
-    // Create a new rating stars container
-    const newStars = document.createElement('div');
-    newStars.className = 'rating-stars';
-    newStars.innerHTML = `
-      <div class="star-rating">
-        <input id="star5" type="radio" name="rating" value="5">
-        <label for="star5" title="5 stars">★</label>
-        <input id="star4" type="radio" name="rating" value="4">
-        <label for="star4" title="4 stars">★</label>
-        <input id="star3" type="radio" name="rating" value="3">
-        <label for="star3" title="3 stars">★</label>
-        <input id="star2" type="radio" name="rating" value="2">
-        <label for="star2" title="2 stars">★</label>
-        <input id="star1" type="radio" name="rating" value="1">
-        <label for="star1" title="1 star">★</label>
-      </div>
-    `;
-    
-    // Insert after the panel title
-    const panelHeader = container.querySelector('.panel-header');
-    panelHeader.after(newStars);
-    
-    // Create a feedback element
+    // Create the feedback element
     const feedbackEl = document.createElement('div');
     feedbackEl.className = 'rating-feedback';
-    newStars.after(feedbackEl);
+    starRating.after(feedbackEl);
     
     // Rating feedback messages
     const ratingMessages = {
@@ -74,10 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
       '1': 'Poor. Content needs significant improvement.'
     };
     
-    // Add event listeners to star inputs
-    const starInputs = newStars.querySelectorAll('input[type="radio"]');
+    // Add event listeners to existing star inputs
+    const starInputs = starRating.querySelectorAll('input[type="radio"]');
     starInputs.forEach(input => {
       input.addEventListener('change', function() {
+        // Display feedback message
         feedbackEl.textContent = ratingMessages[this.value];
         feedbackEl.classList.add('visible');
         
