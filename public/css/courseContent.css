@@ -344,7 +344,9 @@ main {
 /* Add review panel */
 .rating-stars {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: row-reverse; /* Allows proper hover effect */
+  justify-content: center;
+  gap: 0.8rem;
   margin-bottom: 1.5rem;
 }
 
@@ -354,32 +356,109 @@ main {
 
 .rating-stars label {
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .rating-stars label i {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  transition: all 0.2s ease;
   color: var(--text-muted);
-  transition: color 0.2s ease;
 }
 
+/* Default state - outline stars */
+.rating-stars label i.fa-star {
+  opacity: 0.7;
+}
+
+/* Hover state - filled stars */
 .rating-stars label:hover i,
 .rating-stars label:hover ~ label i,
-.rating-stars input:checked ~ label i {
+.rating-stars input[type="radio"]:checked ~ label i {
   color: var(--warning-color);
+  opacity: 1;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(255, 242, 9, 0.5));
 }
 
-.review-text-area {
-  width: 100%;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+.rating-stars label:hover {
+  transform: scale(1.1);
+}
+
+/* Visual effects for stars */
+.rating-stars label i.star-hover {
+  filter: drop-shadow(0 0 3px rgba(255, 242, 9, 0.5));
+}
+
+.rating-stars label i.star-selected {
+  filter: drop-shadow(0 0 3px rgba(255, 242, 9, 0.5));
+}
+
+.rating-feedback {
   color: var(--text-light);
-  resize: vertical;
-  min-height: 100px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  text-align: center;
+  font-weight: 500;
 }
 
+.rating-feedback.visible {
+  max-height: 50px;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0.5rem;
+}
+
+/* Star pulse animation */
+.pulse-animation {
+  animation: star-pulse 0.5s ease;
+}
+
+@keyframes star-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+/* Success animation for submitted review */
+.rating-success-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.star-animate {
+  color: var(--warning-color);
+  animation: star-success 1.5s ease infinite;
+}
+
+.star-animate:before {
+  font-weight: 900; /* Make sure animation stars are filled */
+}
+
+.star-animate-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.star-animate-delay-2 {
+  animation-delay: 0.4s;
+}
+
+@keyframes star-success {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.5) rotate(20deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Improve submit button with loading state */
 .submit-review-btn {
   background-color: var(--main-color);
   color: var(--text-light);
@@ -389,10 +468,59 @@ main {
   cursor: pointer;
   transition: var(--transition);
   font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 150px;
+  margin: 0 auto;
 }
 
 .submit-review-btn:hover {
-  background-color: rgba(57, 77, 255, 0.8);
+  background-color: var(--fifth-darker-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-review-btn:disabled {
+  background-color: rgba(57, 77, 255, 0.6);
+  cursor: wait;
+}
+
+.submit-review-btn i.fa-spinner {
+  margin-right: 0.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Update review text area to follow color scheme */
+.review-text-area {
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(57, 77, 255, 0.1);
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  color: var(--text-light);
+  resize: vertical;
+  min-height: 100px;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+  font-family: 'Rubik', sans-serif;
+}
+
+.review-text-area:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(57, 77, 255, 0.3);
+  background-color: rgba(57, 77, 255, 0.15);
+}
+
+.review-text-area::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Discussion panel */
@@ -431,18 +559,6 @@ main {
   color: var(--text-light);
 }
 
-/* Utilities */
-.five {
-  color: var(--success-color);
-}
-
-.four {
-  color: var(--success-color);
-}
-
-.three, .two {
-  color: var(--warning-color);
-}
 
 /* Animation */
 @keyframes fadeIn {

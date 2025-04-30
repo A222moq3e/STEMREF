@@ -7,7 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get DOM elements
   const courseName = document.querySelector('.course-title h1').innerText;
   const ratingInputs = document.querySelectorAll('.rating-stars input');
+  const ratingLabels = document.querySelectorAll('.rating-stars label');
   const reviewTextArea = document.getElementById('review-comment');
+  const ratingFeedbackText = document.createElement('div');
+  
+  // Setup rating feedback element
+  ratingFeedbackText.className = 'rating-feedback';
+  document.querySelector('.rating-stars').after(ratingFeedbackText);
   
   // Panel elements
   const reviewsPanel = document.querySelector('.reviews-panel');
@@ -23,11 +29,51 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeAddReviewBtn = document.querySelector('.close-add-review-btn');
   const closeDiscussionBtn = document.querySelector('.close-discussion-btn');
   
-  // Add event listeners to rating inputs
-  ratingInputs.forEach(input => {
-    input.addEventListener('change', function() {
-      highlightStars(this.getAttribute('data-num-star'));
+  // Convert all rating stars to outlined version initially
+  const ratingStars = document.querySelectorAll('.rating-stars label i');
+  ratingStars.forEach(star => {
+    star.classList.remove('fa-solid');
+    star.classList.add('fa-regular');
+  });
+  
+  // Enhanced star rating interaction
+  ratingLabels.forEach((label, index) => {
+    // Hover effects
+    label.addEventListener('mouseenter', () => {
+      const hoverRating = 5 - index;
+      updateStarsDisplay(hoverRating, 'hover');
+      ratingFeedbackText.textContent = ratingMessages[hoverRating];
+      ratingFeedbackText.classList.add('visible');
     });
+    
+    // Click feedback - more interactive
+    label.addEventListener('click', () => {
+      const clickedRating = 5 - index;
+      updateStarsDisplay(clickedRating, 'selected');
+      ratingFeedbackText.textContent = ratingMessages[clickedRating];
+      
+      // Add visual confirmation feedback
+      label.classList.add('pulse-animation');
+      setTimeout(() => {
+        label.classList.remove('pulse-animation');
+      }, 500);
+      
+      // Mark corresponding input as checked
+      ratingInputs[index].checked = true;
+    });
+  });
+  
+  // Reset stars on mouseleave if no star is selected
+  document.querySelector('.rating-stars').addEventListener('mouseleave', () => {
+    const selectedInput = document.querySelector('.rating-stars input:checked');
+    if (selectedInput) {
+      // If a star is selected, keep that selection visible
+      updateStarsDisplay(selectedInput.getAttribute('data-num-star'), 'selected');
+    } else {
+      // Reset to no stars
+      resetStarsDisplay();
+      ratingFeedbackText.classList.remove('visible');
+    }
   });
   
   // Add event listener to submit review button
@@ -115,6 +161,10 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
+    // Update submit button to show loading state
+    submitReviewBtn.disabled = true;
+    submitReviewBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    
     const starsNum = selectedRating.getAttribute('data-num-star');
     const reviewText = reviewTextArea ? reviewTextArea.value.trim() : '';
     
@@ -136,12 +186,17 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const data = await response.json();
       
-      // Show success message
+      // Show success message with star animation
       Swal.fire({
         icon: 'success',
         title: 'Thank You!',
-        text: 'Your review has been submitted successfully.',
-        timer: 2000,
+        html: `<div class="rating-success-animation">
+                 <i class="fa-solid fa-star star-animate"></i>
+                 <i class="fa-solid fa-star star-animate-delay-1"></i>
+                 <i class="fa-solid fa-star star-animate-delay-2"></i>
+               </div>
+               <p>Your ${starsNum}-star review has been submitted</p>`,
+        timer: 2500,
         showConfirmButton: false
       }).then(() => {
         // Refresh the page to show the updated review
@@ -158,24 +213,45 @@ document.addEventListener('DOMContentLoaded', function() {
         timer: 3000,
         showConfirmButton: false
       });
+      // Reset submit button
+      submitReviewBtn.disabled = false;
+      submitReviewBtn.innerHTML = 'Submit Review';
     }
   }
   
   /**
-   * Highlight stars based on selected rating
-   * @param {string} numStar - Number of stars to highlight
+   * Update the display of stars based on the given rating
+   * @param {string|number} rating - The rating to display (1-5)
+   * @param {string} state - The state of the stars ('hover' or 'selected')
    */
-  function highlightStars(numStar) {
-    const num = parseInt(numStar);
-    const starLabels = document.querySelectorAll('.rating-stars label i');
+  function updateStarsDisplay(rating, state) {
+    const num = parseInt(rating);
+    const starIcons = document.querySelectorAll('.rating-stars label i');
     
-    for (let i = 0; i < starLabels.length; i++) {
-      if (i < num) {
-        starLabels[i].classList.add('warning-color');
-      } else {
-        starLabels[i].classList.remove('warning-color');
+    starIcons.forEach((star, index) => {
+      const reversedIndex = starIcons.length - 1 - index;
+      
+      // Reset class to regular first
+      star.classList.remove('fa-solid');
+      star.classList.add('fa-regular');
+      
+      if (reversedIndex < num) {
+        // Change to solid for filled stars
+        star.classList.remove('fa-regular');
+        star.classList.add('fa-solid');
       }
-    }
+    });
+  }
+  
+  /**
+   * Reset all stars to their default state
+   */
+  function resetStarsDisplay() {
+    const starIcons = document.querySelectorAll('.rating-stars label i');
+    starIcons.forEach(star => {
+      star.classList.remove('fa-solid');
+      star.classList.add('fa-regular');
+    });
   }
   
   /**
