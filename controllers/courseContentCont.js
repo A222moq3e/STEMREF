@@ -41,7 +41,7 @@ module.exports = {
                 courseDoc.paidContent,
                 courseDoc.reviews,
                 courseDoc.Content,
-                courseDoc.date
+                courseDoc.createdAt
             );
             let reviews = course.reviews
             // console.log(course);
@@ -59,7 +59,17 @@ module.exports = {
             // const user = new 
             
             if(!courseDoc) return res.send('sorry this course not found')
-            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,CategorySearch:'',avg:avg, color:getReviewColor(avg)}})
+            res.render('courseContent',{data:{
+                course: course,
+                user: req.session.user,
+                icons: iconUse,
+                bgIconUse: bgIconUse,
+                CategorySearch: '',
+                avg: avg,
+                color: getReviewColor(avg),
+                createdAt: courseDoc.createdAt,
+                updatedAt: courseDoc.updatedAt
+            }})
        }catch(e){
             console.log(e);
        }
@@ -81,7 +91,7 @@ module.exports = {
                 courseDoc.paidContent,
                 courseDoc.reviews,
                 courseDoc.Content,
-                courseDoc.date
+                courseDoc.createdAt
             );
         // course.removeContent();
         // console.log(req.params.Category);
@@ -109,7 +119,19 @@ module.exports = {
         if(!courseDoc)
             res.send('sorry this course not found')
         else{
-            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, CategorySearch:Category,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
+            res.render('courseContent',{data:{
+                name: req.params.name,
+                course: course,
+                content: urls,
+                CategorySearch: Category,
+                icons: iconUse,
+                bgIconUse: bgIconUse,
+                user: req.session.user,
+                avg: avg,
+                color: getReviewColor(avg),
+                createdAt: courseDoc.createdAt,
+                updatedAt: courseDoc.updatedAt
+            }})
             // res.render('courseContent',{data:{course:course,user:req.session.user}})
         }
         // res.render('courseContent')

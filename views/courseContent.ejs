@@ -132,7 +132,8 @@
                 <button class="discussion-btn" title="Discussion"><i class="fa-solid fa-message btn"></i></button>
               </div>
               <div class="date">
-                <p><%= data.course.showDate() %></p>
+                <p>Created: <%= new Date(data.createdAt).toLocaleDateString() %></p>
+                <p>Updated: <%= new Date(data.updatedAt).toLocaleDateString() %></p>
               </div>
             </div>
 <!--       
