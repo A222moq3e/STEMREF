@@ -49,7 +49,7 @@
                      <h2><%- t('HOMEPAGE.SecondLine') %></h2>
                     <h3><%= t('HOMEPAGE.is at your fingertips!') %></h3>
                 </div>
-                <button class="get-started button-style get-started-click"><%= t('HOMEPAGE.Get Started') %></button>
+                <a href="/register" class="get-started button-style btn btn-primary"><%= t('HOMEPAGE.Get Started') %></a>
                 <% } %>
                 <% if(data.accesses){ %>
                 <div class="text">
@@ -57,7 +57,7 @@
                     <h2><%- t('HOMEPAGE.SecondLine') %></h2>
                     <h3><%= t('HOMEPAGE.is at your fingertips!') %></h3>
                 </div>
-                <button class="get-started button-style lets-learn-click"><%= t('HOMEPAGE.Let\'s Learn') %></button>
+                <a href="<%= data.user.userType==='admin'? '/admin' : data.user.userType==='educator'? '/educatorDashboard' : '/search' %>" class="get-started button-style btn btn-primary"><%= t("HOMEPAGE.Let's Learn") %></a>
                 <% } %>
             </div>
         </div>
@@ -72,18 +72,6 @@
     <script src="/libs/sweetalert2.all.min.js"></script>
     <!-- font awesome Library -->
     <script src="/libs/all.min.js"> </script>
-    <script>
-        if(document.querySelector('.get-started-click'))
-        document.querySelector('.get-started-click').addEventListener('click',()=>{
-            window.location.href='/register'; 
-        })
-        if(document.querySelector('.lets-learn-click'))
-        document.querySelector('.lets-learn-click').addEventListener('click',()=>{
-            window.location.href='/search'; 
-        })
-
-    </script>
-
     <script src="/js/main.js"></script>
 </body>
 </html>
