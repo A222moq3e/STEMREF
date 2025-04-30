@@ -1,84 +1,60 @@
 // const Pages = require('../models/config');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 // const cryptoRandomString = require('crypto-random-string');
 const { usersCollection, coursesCollection } = require('../models/config');
 
 module.exports = {
-    forgetGet: (req,res)=>{
-        return res.render('forget',{data:{ok:false}})
+    forgetGet: (req, res) => {
+        return res.render('forget', { data: { ok: false } });
     },
-    forgetPost: async(req,res)=>{
+    forgetPost: async (req, res) => {
         const { email } = req.body;
-        const myEmail  ='stemref@gmail.com'
-        const myEmailPassword =  process.env.MY_EMAIL_PASSWORD
-        const url = 'https://127.0.0.1:3443'
+        const baseUrl = process.env.BASE_URL || 'https://127.0.0.1:3443';
         const resetToken = crypto.randomBytes(20).toString('hex');
-        const user = await usersCollection.findOne({name:'test'});
-        console.log({token:resetToken});
-        console.log(resetToken);
-        if(!user) return res.send('wrong email');
-        const userAU = await usersCollection.findOneAndUpdate({email:user.email},{token:resetToken});
-        // Create a Nodemailer transporter
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            host:'smtp.gmail.com',
-            port:587,
-            secure:false,
-            auth: {
-                user: myEmail,
-                pass: myEmailPassword,
-            },
-        });
-        try {
+        const tokenExpires = Date.now() + 3600000; // 1 hour
+        const user = await usersCollection.findOne({ email });
+        if (user) {
+            await usersCollection.findOneAndUpdate(
+                { email },
+                { $set: { token: resetToken, tokenExpires } }
+            );
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user: 'stemref@gmail.com', pass: process.env.MY_EMAIL_PASSWORD }
+            });
             const mailOptions = {
-              from: myEmail,
-              to: email,
-              subject: 'Password Reset',
-              text: `Click on the following link to reset your password: http://${url}/reset-password/${resetToken}`,
+                from: 'stemref@gmail.com',
+                to: email,
+                subject: 'Password Reset',
+                text: `Click to reset your password: ${baseUrl}/reset-password/${resetToken}`
             };
-        
-            await transporter.sendMail(mailOptions);
-            console.log('Password reset email sent');
-            return res.render('forget',{data:{ok:true}})
-          } catch (error) {
-            console.error('Error sending password reset email:', error);
-            return res.render('forget',{data:{ok:false}})
-          }
-      
-    },  
-    resetPasswordGet:async(req, res) => {
-        const { token } = req.params;
-        console.log('token');
-        // console.log( req);
-        console.log( req.params);
-        console.log(token);
-        const user = await usersCollection.findOne({token:token});
-        console.log('user is');
-        console.log(user);
-        if(!user) return res.send('wrong token');
-        
-        res.render('reset-password-form', { token }); 
+            try { await transporter.sendMail(mailOptions); } 
+            catch (err) { console.error('Email error:', err); }
+        }
+        return res.render('forget', { data: { ok: true } });
     },
-    resetPasswordPost:async(req, res) => {
+    resetPasswordGet: async (req, res) => {
         const { token } = req.params;
-        const { newPassword, newPasswordRepeat  } = req.body;
-        const user = await usersCollection.find({token:token});
-        if(!user) return res.send('wrong token');
-        // Validate the new password
-        if(newPassword!=newPasswordRepeat )res.send('password not matched')
-        user.password = createHash(newPassword)
-        // Update the user's password in MongoDB using the token
-        
-        const userAU =  await usersCollection.findOneAndUpdate({token:token},{password: user.password, token:''});
-      
-      
-        res.send('change password success'); 
+        const user = await usersCollection.findOne({ token, tokenExpires: { $gt: Date.now() } });
+        if (!user) return res.send('Password reset link is invalid or has expired');
+        res.render('reset-password-form', { token });
+    },
+    resetPasswordPost: async (req, res) => {
+        const { token } = req.params;
+        const { newPassword, newPasswordRepeat } = req.body;
+        if (newPassword !== newPasswordRepeat) {
+            return res.send('Passwords do not match');
+        }
+        const user = await usersCollection.findOne({ token, tokenExpires: { $gt: Date.now() } });
+        if (!user) return res.send('Password reset link is invalid or has expired');
+        const hashed = await bcrypt.hash(newPassword, saltRounds);
+        await usersCollection.findOneAndUpdate(
+            { token },
+            { $set: { password: hashed }, $unset: { token: '', tokenExpires: '' } }
+        );
+        res.send('Password has been reset successfully');
     }
-      
-}
-
-
-function createHash(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
+};

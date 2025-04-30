@@ -1,5 +1,5 @@
 // Removed unused class model imports
-const { buildDataBeforeRender, createHash } = require('../middlewares/misc.js');
+const { buildDataBeforeRender } = require('../middlewares/misc.js');
 
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');

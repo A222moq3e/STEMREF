@@ -1,8 +1,9 @@
-const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const { buildDataBeforeRender } = require('../middlewares/misc.js');
 const Student = require('../models/classes/Student.js');
 const Educator = require('../models/classes/Educator.js');
 const Admin = require('../models/classes/Admin.js');
-const { buildDataBeforeRender,createHash } = require('../middlewares/misc.js');
 
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config.js');
@@ -27,12 +28,11 @@ module.exports = {
                 return res.status(401).render('login',{data:{err:"user not found!"}});
             }
            
-            if(check.password != createHash(req.body.password)){
-                // Track failed attempts
+            const match = await bcrypt.compare(req.body.password, check.password);
+            if (!match) {
                 req.session.failedAttempts = (req.session.failedAttempts || 0) + 1;
-                console.log('wrong password');
                 return res.status(401).render('login',{data:{err:'wrong password'}});
-            } 
+            }
             // console.log(check.userType);
             switch(check.userType){
                 case 'student':
@@ -65,9 +65,10 @@ module.exports = {
     },
     registerPost: async (req,res)=>{
         try{
-            const data= {
-                name:req.body.username,
-                password: createHash(req.body.password),
+            const hashed = await bcrypt.hash(req.body.password, saltRounds);
+            const data = {
+                name: req.body.username,
+                password: hashed,
                 email: req.body.email,
                 userType: "user"
             }
