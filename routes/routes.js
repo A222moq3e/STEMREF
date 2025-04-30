@@ -6,29 +6,31 @@ const controllerAdmin = require('../controllers/adminControllers');
 
 // Authentication and Authorization Middlewares
 function isAuthenticated(req, res, next) {
-  if (!req.session.user || !req.session.user.authenticated) {
-    return res.redirect('/login');
+  console.log('isAuthenticated');
+  if(req.session.user && req.session.user.authenticated) {
+    next();
   }
-  next();
+  res.redirect('/login');
 }
 
 function isNotAuthenticated(req, res, next) {
-  if (req.session.user && req.session.user.authenticated) {
-    return res.redirect('/search');
+  if (!req.session.user || !req.session.user.authenticated) {
+    return next();
   }
-  next();
+  res.send('You are already logged in');
 }
+
 
 function isEducator(req, res, next) {
   if (!req.session.user || req.session.user.userType !== 'educator') {
-    return res.redirect('/');
+    res.status(403).send('Access denied');
   }
   next();
 }
 
 function isAdmin(req, res, next) {
   if (!req.session.user || req.session.user.userType !== 'admin') {
-    return res.redirect('/');
+    res.status(403).send('Access denied');
   }
   next();
 }

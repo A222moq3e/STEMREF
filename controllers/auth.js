@@ -9,7 +9,6 @@ const { usersCollection, coursesCollection } = require('../models/config.js');
 
 module.exports = {
     loginGet:(req,res)=>{
-        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
         res.render("login")
     },
     loginPost:async  (req,res)=>{

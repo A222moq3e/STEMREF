@@ -49,7 +49,7 @@ i18next
   .use(Backend)
   .use(i18nextMiddleware.LanguageDetector)
   .init({
-    debug: true,
+    debug: false,
     fallbackLng: "en",
     backend: {
       loadPath: path.join(__dirname, "./locales/{{lng}}/translation.json"),
@@ -101,7 +101,6 @@ const limiter = rateLimit({
   message:
     "Too many requests made from this IP, please try again in a few minutes",
 });
-app.use(limiter);
 
 app.use((req, res, next) => {
   res.locals.req = req;
