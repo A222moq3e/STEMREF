@@ -96,7 +96,7 @@ app.use(express.urlencoded({extended:false}))
 
 // Rate Limit
 const limiter  = rateLimit({
-  windowMs: 10*60*1000, // 1 hour window
+  windowMs: 60*60*1000, // 1 hour window
   delayAfter: 20, // begin slowing down responses after the first 10 requests
   delayMs: 100, // slow down subsequent responses by 100 milliseconds per request
   max: 100, // start blocking after 50 requests
