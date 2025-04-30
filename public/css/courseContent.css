@@ -427,10 +427,11 @@ main {
   filter: drop-shadow(0 0 3px rgba(255, 242, 9, 0.5));
 }
 
+/* Fix the rating feedback message height and visibility */
 .rating-feedback {
   color: var(--text-light);
   margin-bottom: 1.5rem;
-  padding: 0.5rem;
+  padding: 0;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   max-height: 0;
@@ -443,10 +444,10 @@ main {
 }
 
 .rating-feedback.visible {
-  max-height: 50px;
+  max-height: 60px; /* Increased from 50px to prevent text cutoff */
   opacity: 1;
   transform: translateY(0);
-  padding: 0.5rem;
+  padding: 0.75rem; /* Slightly more padding */
 }
 
 /* Star pulse animation */
@@ -532,25 +533,26 @@ main {
   100% { transform: rotate(360deg); }
 }
 
-/* Update review text area to follow color scheme */
+/* Update review text area to remove scrollbar */
 .review-text-area {
   width: 100%;
   padding: 1rem;
-  background-color: rgba(57, 77, 255, 0.1);
-  border: 1px solid var(--main-color);
+  background-color: rgba(57, 77, 255, 0.05);
+  border: 1px solid rgba(57, 77, 255, 0.3);
   border-radius: 8px;
   color: var(--text-light);
-  resize: vertical;
+  resize: none; /* Changed from 'vertical' to 'none' to remove scrollbar */
   min-height: 100px;
   margin-bottom: 1rem;
   transition: var(--transition);
   font-family: 'Rubik', sans-serif;
+  overflow: auto; /* Use browser's default overflow behavior */
 }
 
 .review-text-area:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(57, 77, 255, 0.3);
-  background-color: rgba(57, 77, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(57, 77, 255, 0.2); /* Less intense focus glow */
+  background-color: rgba(57, 77, 255, 0.08); /* Slightly more visible but still subtle */
 }
 
 .review-text-area::placeholder {
