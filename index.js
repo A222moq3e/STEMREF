@@ -16,10 +16,6 @@ const path = require("path");
 const router = require("./routes/routes");
 const courseContentRoute = require("./routes/courseContentRoute");
 
-if (process.env.NODE_ENV !== "production") {
-  const envimport = require("dotenv");
-  envimport.config();
-}
 const secretSessionString = process.env.SECRET_SESSION || "thisisasecret";
 
 const app = express();
