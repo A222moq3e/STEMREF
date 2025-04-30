@@ -3,7 +3,7 @@ const Mixed = mongoose.Schema.Types.Mixed
 console.log('in config.js');
 
 // Create User Schema
-const LoginSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -37,7 +37,9 @@ const Courseschema = new mongoose.Schema({
     type: String
   },
   Author: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
   },
   tags: {
     type: [String]
@@ -81,14 +83,11 @@ const Courseschema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  inserter: {
-    type: Mixed
   }
 })
 
 // Collections
-const usersCollection = new mongoose.model("users", LoginSchema)
+const usersCollection = new mongoose.model("users", UserSchema)
 const coursesCollection = new mongoose.model("courses", Courseschema)
 
 module.exports = {usersCollection,coursesCollection };

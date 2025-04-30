@@ -75,23 +75,21 @@ module.exports = {
             return el != null && el != '';
         });
         try{
-            const data= {
+            const data = {
                 name: req.body.CourseName,
                 description: req.body.description,
                 tags: filteredTags,
-                reviews: [],  // use 'reviews' to match schema
-                discussions:{},
+                reviews: [],
+                discussions: {},
                 Content: {
-                    Videos:[],
-                    Articles:[],
-                    Quizzes:[],
-                    Assignments:[],
-                    Others:[],
+                    Videos: [],
+                    Articles: [],
+                    Quizzes: [],
+                    Assignments: [],
+                    Others: [],
                 },
                 date: new Date(),
-                inserter:req.session.user,
-                Author: req.session.user.name // Corrected to match schema field 'Author'
-
+                Author: req.session.userId
             }
             for(let CategoryOfContent of Object.keys(data.Content)){
                 if(req.body[CategoryOfContent]){

@@ -35,16 +35,20 @@ module.exports = {
             // console.log(check.userType);
             switch(check.userType){
                 case 'student':
-                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('search');
                 case 'user':
-                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/search');
                 case 'educator':
                     req.session.user = new Educator(check.name,check.email);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/EducatorDashboard');
                 case 'admin':
-                    req.session.user = new Admin(check.name,check.email); 
+                    req.session.user = new Admin(check.name,check.email);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/');
 
                 default:
