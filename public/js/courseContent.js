@@ -9,7 +9,7 @@ for(let star of stars){
     
 }
 async function send_stars(num){
-    const response = fetch('/courseContent/'+nameCourse+'/stars',{
+    const response = await fetch('/courseContent/'+nameCourse+'/stars',{
         method:'POST', 
         headers:{
             'Content-Type': 'application/json', // Set the content type of the request
