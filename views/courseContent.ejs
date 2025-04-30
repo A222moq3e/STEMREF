@@ -44,10 +44,10 @@
           <div class="container">
             <div class="box">
               <div class="motivation-img">
-                <%if(data.catograySearch){%>
-                  <img src="/assets/imgs/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
+                <%if(data.CategorySearch){%>
+                  <img src="/assets/imgs/<%= data.bgIconUse[data.CategorySearch]%>" alt="img">
                   <%}%>
-                <%if(!data.catograySearch){%>
+                <%if(!data.CategorySearch){%>
                   <img src="/assets/imgs/undraw_mathematics_-4-otb.svg" alt="img">
                   <%}%>
               </div>
@@ -55,15 +55,15 @@
                 <h2>Description</h2>
                 <p><%= data.course.description %></p>
               </div>
-              <% if((!data.catograySearch)){ %>
+              <% if((!data.CategorySearch)){ %>
                 <a style="color: white;" href="/search"><i class="fa-solid fa-arrow-left"></i></a>
                 <% } %>
-              <% if((data.catograySearch)){ %>
+              <% if((data.CategorySearch)){ %>
                 <a style="color: white;" href="/courseContent/<%=data.course.name%>"><i class="fa-solid fa-arrow-left"></i></a>
                 <% } %>
                 
           <div class="top-text">
-            <h1><%= data.course.name %><span><%= data.catograySearch %></span></h1>
+            <h1><%= data.course.name %><span><%= data.CategorySearch %></span></h1>
             <div class="tags">
                 <!-- <div class="tag">course</div> -->
                 <!-- <div class="tag">CS205</div> -->
@@ -90,17 +90,17 @@
             </div>
           </div>
           <div class="items">
-            <% if(!data.catograySearch) { %>
+            <% if(!data.CategorySearch) { %>
               <% for(const [key, value] of Object.entries(data.course.content)){ %>
                 <a class="item" href="<%= data.course.name +'/'+key %>"  title="<%= key %>">
                   <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i> <i class="<%= data.icons[key]%> mask"></i></div>
                   <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
                 </a>          
               <% } } %>
-              <% if(data.catograySearch){ %>
-                <% for(let {name, url} of data.course.content[data.catograySearch]){ %>
+              <% if(data.CategorySearch){ %>
+                <% for(let {name, url} of data.course.content[data.CategorySearch]){ %>
                     <a class="item" href="<%= url %>" target="_blank"  title="<%= name %>">
-                      <div class="item-title"><%= name %><i class="<%= data.icons[data.catograySearch]%>"></i></div>
+                      <div class="item-title"><%= name %><i class="<%= data.icons[data.CategorySearch]%>"></i></div>
                       <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
                     </a>          
                   <% }  %>

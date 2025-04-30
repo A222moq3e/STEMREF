@@ -93,20 +93,20 @@ module.exports = {
                 Author: req.session.user.name // Corrected to match schema field 'Author'
 
             }
-            for(let catograyOfContent of Object.keys(data.Content)){
-                if(req.body[catograyOfContent]){
-                    let arrCatagory= req.body[catograyOfContent];
-                    let arrCatagoryUrl= req.body[catograyOfContent+'Url'];
+            for(let CategoryOfContent of Object.keys(data.Content)){
+                if(req.body[CategoryOfContent]){
+                    let arrCatagory= req.body[CategoryOfContent];
+                    let arrCatagoryUrl= req.body[CategoryOfContent+'Url'];
                     if(!Array.isArray(arrCatagory) && arrCatagory!='' && arrCatagoryUrl!='' ){
                         let minData ={ name: arrCatagory, url:arrCatagoryUrl}
-                        data.Content[catograyOfContent].push(minData)
+                        data.Content[CategoryOfContent].push(minData)
                     }
                     else
                     for(let i=0;i<arrCatagory.length;i++)
                     {
                         if(arrCatagory[i]=='') continue
                         let minData ={ name: arrCatagory[i], url:arrCatagoryUrl[i]}
-                        data.Content[catograyOfContent].push(minData)
+                        data.Content[CategoryOfContent].push(minData)
                     }
                 }
                 console.log(data);

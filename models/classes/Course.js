@@ -48,8 +48,8 @@ class Course{
     }
     filterEmptyUrls(){
         let keys = Object.keys(this.content)
-        for(let catogray of keys){
-            this.content[catogray] = this.content[catogray].filter((url)=>{
+        for(let Category of keys){
+            this.content[Category] = this.content[Category].filter((url)=>{
                 return url.name != "" ;
             })
         }

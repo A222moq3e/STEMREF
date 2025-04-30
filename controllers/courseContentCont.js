@@ -48,22 +48,22 @@ module.exports = {
             // const user = new 
             
             if(!data) return res.send('sorry this course not found')
-            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,catograySearch:'',avg:avg, color:getReviewColor(avg)}})
+            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,CategorySearch:'',avg:avg, color:getReviewColor(avg)}})
        }catch(e){
             console.log(e);
        }
         
         // res.render('courseContent')
     },
-    courseContentByNameAndCatogray:async (req,res)=>{
-        console.log('in courseContentByNameAndCatogray');
+    courseContentByNameAndCategory:async (req,res)=>{
+        console.log('in courseContentByNameAndCategory');
         try{
             // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
         const data = await coursesCollection.findOne({name: req.params.name})
         const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
         // course.removeContent();
-        // console.log(req.params.catogray);
-        let catogray = req.params.catogray;
+        // console.log(req.params.Category);
+        let Category = req.params.Category;
         let reviews = course.reviews
         let sum=0
         let avg=0
@@ -75,8 +75,8 @@ module.exports = {
             avg = Math.round(sum/Object.keys(reviews).length,2)
         }
 
-        // console.log(data.Content[catogray]);
-        let urls = data.Content[catogray]
+        // console.log(data.Content[Category]);
+        let urls = data.Content[Category]
         let urls_filterd = urls.filter((url)=>{
             return url.name != "" ;
         })
@@ -87,7 +87,7 @@ module.exports = {
         if(!data)
             res.send('sorry this course not found')
         else{
-            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
+            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, CategorySearch:Category,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
             // res.render('courseContent',{data:{course:course,user:req.session.user}})
         }
         // res.render('courseContent')

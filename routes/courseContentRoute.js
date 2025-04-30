@@ -21,7 +21,7 @@ router.use('/courseContent', (req,res,next)=>{
 router.get('/courseContent',controller.courseContent)
 router.get('/courseContent/:name',controller.courseContentByName)
 router.post('/courseContent/:name/stars',controller.courseContentRate)
-router.get('/courseContent/:name/:catogray',controller.courseContentByNameAndCatogray)
+router.get('/courseContent/:name/:Category',controller.courseContentByNameAndCategory)
 
 
 module.exports = router ;
