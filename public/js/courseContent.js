@@ -1,74 +1,210 @@
-let nameCourse = document.querySelector('.top-text h1').innerText;
-let stars = document.querySelectorAll('.stars input');
-let reviewComment = document.getElementById('review-comment');
+/**
+ * Course Content Page JavaScript
+ * Handles all interactive elements including ratings, reviews, and discussions
+ */
 
-for(let star of stars){
-    star.addEventListener('change',()=>{
-        let num = star.getAttribute('data-num-star');
-        send_stars(num);
+document.addEventListener('DOMContentLoaded', function() {
+  // Get DOM elements
+  const courseName = document.querySelector('.course-title h1').innerText;
+  const ratingInputs = document.querySelectorAll('.rating-stars input');
+  const reviewTextArea = document.getElementById('review-comment');
+  
+  // Panel elements
+  const reviewsPanel = document.querySelector('.reviews-panel');
+  const addReviewPanel = document.querySelector('.add-review-panel');
+  const discussionPanel = document.querySelector('.discussion-panel');
+  
+  // Button elements
+  const reviewBtn = document.querySelector('.review-btn');
+  const showReviewsBtn = document.querySelector('.show-reviews-btn');
+  const discussionBtn = document.querySelector('.discussion-btn');
+  const submitReviewBtn = document.querySelector('.submit-review-btn');
+  const closeReviewsBtn = document.querySelector('.close-reviews-btn');
+  const closeAddReviewBtn = document.querySelector('.close-add-review-btn');
+  const closeDiscussionBtn = document.querySelector('.close-discussion-btn');
+  
+  // Add event listeners to rating inputs
+  ratingInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      highlightStars(this.getAttribute('data-num-star'));
     });
-}
-
-async function send_stars(num){
-    const reviewText = reviewComment ? reviewComment.value.trim() : '';
-    
-    const response = await fetch('/courseContent/'+nameCourse+'/stars',{
-        method:'POST', 
-        headers:{
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            starsNum: num,
-            reviewText: reviewText
-        })
+  });
+  
+  // Add event listener to submit review button
+  if (submitReviewBtn) {
+    submitReviewBtn.addEventListener('click', submitReview);
+  }
+  
+  // Panel toggle buttons
+  if (reviewBtn) {
+    reviewBtn.addEventListener('click', function() {
+      togglePanel(addReviewPanel);
+      reviewBtn.classList.toggle('active');
+      
+      // Hide other panels
+      hidePanel(reviewsPanel);
+      hidePanel(discussionPanel);
+      showReviewsBtn.classList.remove('active');
+      discussionBtn.classList.remove('active');
     });
+  }
+  
+  if (showReviewsBtn) {
+    showReviewsBtn.addEventListener('click', function() {
+      togglePanel(reviewsPanel);
+      showReviewsBtn.classList.toggle('active');
+      
+      // Hide other panels
+      hidePanel(addReviewPanel);
+      hidePanel(discussionPanel);
+      reviewBtn.classList.remove('active');
+      discussionBtn.classList.remove('active');
+    });
+  }
+  
+  if (discussionBtn) {
+    discussionBtn.addEventListener('click', function() {
+      togglePanel(discussionPanel);
+      discussionBtn.classList.toggle('active');
+      
+      // Hide other panels
+      hidePanel(reviewsPanel);
+      hidePanel(addReviewPanel);
+      showReviewsBtn.classList.remove('active');
+      reviewBtn.classList.remove('active');
+    });
+  }
+  
+  // Close button event listeners
+  if (closeReviewsBtn) {
+    closeReviewsBtn.addEventListener('click', function() {
+      hidePanel(reviewsPanel);
+      showReviewsBtn.classList.remove('active');
+    });
+  }
+  
+  if (closeAddReviewBtn) {
+    closeAddReviewBtn.addEventListener('click', function() {
+      hidePanel(addReviewPanel);
+      reviewBtn.classList.remove('active');
+    });
+  }
+  
+  if (closeDiscussionBtn) {
+    closeDiscussionBtn.addEventListener('click', function() {
+      hidePanel(discussionPanel);
+      discussionBtn.classList.remove('active');
+    });
+  }
+  
+  /**
+   * Submit a review for the current course
+   */
+  async function submitReview() {
+    // Find the selected rating
+    const selectedRating = document.querySelector('.rating-stars input:checked');
     
-    if (!response.ok) {
-        const message = `An error has occurred: ${response.status}`;
-        return false;
+    if (!selectedRating) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Rating Required',
+        text: 'Please select a star rating before submitting',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      return;
     }
     
-    const data = await response.json();
+    const starsNum = selectedRating.getAttribute('data-num-star');
+    const reviewText = reviewTextArea ? reviewTextArea.value.trim() : '';
     
-    // Show success message
-    Swal.fire({
+    try {
+      const response = await fetch(`/courseContent/${courseName}/stars`, {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          starsNum: starsNum,
+          reviewText: reviewText
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Show success message
+      Swal.fire({
         icon: 'success',
         title: 'Thank You!',
         text: 'Your review has been submitted successfully.',
         timer: 2000,
         showConfirmButton: false
-    }).then(() => {
-        // Hide the review form
-        document.querySelector('.stars').classList.add('hide');
+      }).then(() => {
         // Refresh the page to show the updated review
         location.reload();
-    });
+      });
+      
+      return data;
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Something went wrong',
+        text: 'Please try submitting your review again later.',
+        timer: 3000,
+        showConfirmButton: false
+      });
+    }
+  }
+  
+  /**
+   * Highlight stars based on selected rating
+   * @param {string} numStar - Number of stars to highlight
+   */
+  function highlightStars(numStar) {
+    const num = parseInt(numStar);
+    const starLabels = document.querySelectorAll('.rating-stars label i');
     
-    return data;
-}
-
-document.querySelector('.review-btn').addEventListener('click',(e)=>{
-    e.target.classList.toggle('active');
-    document.querySelector('.stars').classList.toggle('hide');
-    // Hide reviews list when opening review form
-    document.querySelector('.reviewsContainer').classList.add('hide');
+    for (let i = 0; i < starLabels.length; i++) {
+      if (i < num) {
+        starLabels[i].classList.add('warning-color');
+      } else {
+        starLabels[i].classList.remove('warning-color');
+      }
+    }
+  }
+  
+  /**
+   * Toggle panel visibility
+   * @param {HTMLElement} panel - The panel to toggle
+   */
+  function togglePanel(panel) {
+    if (panel) {
+      panel.classList.toggle('active');
+    }
+  }
+  
+  /**
+   * Hide panel
+   * @param {HTMLElement} panel - The panel to hide
+   */
+  function hidePanel(panel) {
+    if (panel) {
+      panel.classList.remove('active');
+    }
+  }
+  
+  /**
+   * Show panel
+   * @param {HTMLElement} panel - The panel to show
+   */
+  function showPanel(panel) {
+    if (panel) {
+      panel.classList.add('active');
+    }
+  }
 });
-
-document.querySelector('.discussion-btn').addEventListener('click',(e)=>{
-    e.target.classList.toggle('active');
-    document.querySelector('.discussionBox').classList.toggle('hide');
-    // Hide reviews when opening discussion
-    document.querySelector('.reviewsContainer').classList.add('hide');
-});
-
-// New button to show reviews
-const showReviewsBtn = document.querySelector('.show-reviews-btn');
-if (showReviewsBtn) {
-    showReviewsBtn.addEventListener('click',(e)=>{
-        e.target.classList.toggle('active');
-        document.querySelector('.reviewsContainer').classList.toggle('hide');
-        // Hide other panels
-        document.querySelector('.stars').classList.add('hide');
-        document.querySelector('.discussionBox').classList.add('hide');
-    });
-}
