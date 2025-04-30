@@ -1,7 +1,7 @@
 const crypto = require('crypto');
-const  Course  = require('../models/classes/Course.js');// course not Course, Strange
-const  Student  = require('../models/classes/Student.js');
-const  Educator  = require('../models/classes/Educator.js');
+const Student = require('../models/classes/Student.js');
+const Educator = require('../models/classes/Educator.js');
+const Admin = require('../models/classes/Admin.js');
 const { buildDataBeforeRender,createHash } = require('../middlewares/misc.js');
 
 // console.log('in pages.js');
@@ -27,8 +27,10 @@ module.exports = {
             }
            
             if(check.password != createHash(req.body.password)){
+                // Track failed attempts
+                req.session.failedAttempts = (req.session.failedAttempts || 0) + 1;
                 console.log('wrong password');
-                return res.status(401).render('login',{data:{err:'wrong password'}})
+                return res.status(401).render('login',{data:{err:'wrong password'}});
             } 
             // console.log(check.userType);
             switch(check.userType){
@@ -73,9 +75,9 @@ module.exports = {
             if(userIsExist){
                 return res.render('register',{data:{err:"User already exists. Please choose diffrent Name"}});
             }
-            const emailIsExist = await usersCollection.findOne({name: data.name})
+            const emailIsExist = await usersCollection.findOne({email: data.email});
             if(emailIsExist){
-                return res.render('register',{data:{err:"Email already exists. Please choose diffrent email"}});
+                return res.render('register',{data:{err:"Email already exists. Please choose a different email"}});
             }
             // add Data   
             const userdata = await usersCollection.insertMany(data);

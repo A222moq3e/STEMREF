@@ -77,6 +77,13 @@ const Courseschema = new mongoose.Schema({
         Mixed
       ]
     }
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  inserter: {
+    type: Mixed
   }
 })
 

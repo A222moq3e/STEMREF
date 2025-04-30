@@ -22,8 +22,9 @@ const bgIconUse = {
     "normal":"undraw_mathematics_-4-otb.svg"
 }
 module.exports = {
-    courseContent:async (req,res)=>{
-        return res.redirect('search',{data:{user:req.session.user}})
+    courseContent: async (req, res) => {
+        // Redirect to search with session user context
+        return res.redirect('/search');
     },
     courseContentByName:async (req,res)=>{
         console.log('in courseContentByName');
@@ -97,24 +98,23 @@ module.exports = {
     courseContentRate:async (req,res)=>{
     console.log('in courseContentRate');
         try{
-            // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
-            let stars = req.body.starsNum;
-            let courseName = req.params.name;
-            let username = req.session.user.name;
-            let courseData = await coursesCollection.findOne({name:courseName})
-            let userData = await usersCollection.findOne({name:username})
-            courseData.reviews = courseData.reviews?courseData.reviews:{};
-            
-            userData.reviewed = userData.reviewed?userData.reviewed:{};
-            
-
-            courseData.reviews[username]=stars;
-            userData.reviewed[courseName] =stars
-            console.log(courseData);
-            
-            return true
+            const stars = Number(req.body.starsNum);
+            const courseName = req.params.name;
+            const username = req.session.user.name;
+            // Update course reviews
+            const course = await coursesCollection.findOne({ name: courseName });
+            course.reviews = course.reviews || {};
+            course.reviews[username] = stars;
+            await coursesCollection.updateOne({ name: courseName }, { $set: { reviews: course.reviews } });
+            // Update user reviewed list
+            const user = await usersCollection.findOne({ name: username });
+            user.reviewed = user.reviewed || {};
+            user.reviewed[courseName] = stars;
+            await usersCollection.updateOne({ name: username }, { $set: { reviewed: user.reviewed } });
+            return res.status(200).json({ success: true, average: Object.values(course.reviews).reduce((a,b)=>a+Number(b),0) / Object.keys(course.reviews).length });
         }catch(e){
             console.log(e);
+            return res.status(500).json({ error: 'Unable to rate course' });
         }
     }
 

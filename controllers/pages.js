@@ -1,9 +1,5 @@
-// const Pages = require('../models/config');
-const  Course  = require('../models/classes/Course.js');// course not Course, Strange
-const  Student  = require('../models/classes/Student.js');
-const  Educator  = require('../models/classes/Educator.js');
-const  Admin  = require('../models/classes/Admin.js');
-const { buildDataBeforeRender,createHash } = require('../middlewares/misc.js');
+// Removed unused class model imports
+const { buildDataBeforeRender, createHash } = require('../middlewares/misc.js');
 
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
@@ -73,17 +69,17 @@ module.exports = {
     },
 
     EducatorDashboardPost:async (req,res)=>{
-        // const educator = new Educator(req.session.user,req.session.email);
+        // Add course author from session
         if( !Array.isArray(req.body.tags)) return res.send('wrong tags type')
         let filteredTags = req.body.tags.filter((el)=> {
             return el != null && el != '';
         });
         try{
             const data= {
-                name:req.body.CourseName,
+                name: req.body.CourseName,
                 description: req.body.description,
                 tags: filteredTags,
-                review:[],
+                reviews: [],  // use 'reviews' to match schema
                 discussions:{},
                 Content: {
                     Videos:[],
@@ -93,7 +89,8 @@ module.exports = {
                     Others:[],
                 },
                 date: new Date(),
-                inserter:req.session.user
+                inserter:req.session.user,
+                Author: req.session.user.name // Corrected to match schema field 'Author'
 
             }
             for(let catograyOfContent of Object.keys(data.Content)){
@@ -118,13 +115,16 @@ module.exports = {
         
             const courseIsExist = await coursesCollection.findOne({name: data.name})
             if(courseIsExist){
-                const coursedata = await coursesCollection.updateOne({name: data.name},data);
+                const coursedata = await coursesCollection.updateOne(
+                    { name: data.name },
+                    { $set: data }
+                );
                 console.log('course Updated:',coursedata);
                 // res.status(200).send('course update!');
                 res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'Updated',path:'/'+req.path.split('/')[1]}});
             }else{
                 // add Data   
-                const coursedata = await coursesCollection.insertMany(data);
+                const coursedata = await coursesCollection.insertOne(data);
                 console.log('course Added:',coursedata);
                 // res.status(200).send('course add!');
                 res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'inserted',path:'/'+req.path.split('/')[1]}});
