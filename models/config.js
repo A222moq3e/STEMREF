@@ -79,12 +79,10 @@ const Courseschema = new mongoose.Schema({
         Mixed
       ]
     }
-  },
-  date: {
-    type: Date,
-    default: Date.now
   }
 })
+// Enable automatic createdAt and updatedAt fields
+Courseschema.set('timestamps', true)
 
 // Collections
 const usersCollection = new mongoose.model("users", UserSchema)
