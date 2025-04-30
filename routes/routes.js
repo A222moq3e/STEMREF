@@ -6,11 +6,12 @@ const controllerAdmin = require('../controllers/adminControllers');
 
 // Authentication and Authorization Middlewares
 function isAuthenticated(req, res, next) {
-  console.log('isAuthenticated');
-  if(req.session.user && req.session.user.authenticated) {
-    next();
+  if (req.session.user && req.session.user.authenticated) {
+    return next();
   }
-  res.redirect('/login');
+  const msg = encodeURIComponent('Please login to access this page');
+  // Redirect with 302 so the browser navigates to login page
+  return res.redirect(`/login?err=${msg}`);
 }
 
 function isNotAuthenticated(req, res, next) {
@@ -19,7 +20,6 @@ function isNotAuthenticated(req, res, next) {
   }
   res.send('You are already logged in');
 }
-
 
 function isEducator(req, res, next) {
   if (!req.session.user || req.session.user.userType !== 'educator') {

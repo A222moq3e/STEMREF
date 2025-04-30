@@ -9,7 +9,9 @@ const { usersCollection, coursesCollection } = require('../models/config.js');
 
 module.exports = {
     loginGet:(req,res)=>{
-        res.render("login")
+        const err = req.query.err;
+        const data = err ? { err: decodeURIComponent(err) } : undefined;
+        res.render("login", { data });
     },
     loginPost:async  (req,res)=>{
         const MaxAttemps = 5;
