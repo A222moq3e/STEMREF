@@ -30,8 +30,19 @@ module.exports = {
         console.log('in courseContentByName');
        try{
             // if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
-            const data = await coursesCollection.findOne({name: req.params.name})
-            const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
+            const courseDoc = await coursesCollection
+                .findOne({ name: req.params.name })
+                .populate('Author', 'name');
+            const course = new Course(
+                courseDoc.name,
+                courseDoc.description,
+                courseDoc.Author.name,
+                courseDoc.tags,
+                courseDoc.paidContent,
+                courseDoc.reviews,
+                courseDoc.Content,
+                courseDoc.date
+            );
             let reviews = course.reviews
             // console.log(course);
             let sum=0
@@ -47,7 +58,7 @@ module.exports = {
             // const user = new Student(req.session.user.name,req.session.user.email);
             // const user = new 
             
-            if(!data) return res.send('sorry this course not found')
+            if(!courseDoc) return res.send('sorry this course not found')
             res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,CategorySearch:'',avg:avg, color:getReviewColor(avg)}})
        }catch(e){
             console.log(e);
@@ -59,8 +70,19 @@ module.exports = {
         console.log('in courseContentByNameAndCategory');
         try{
             // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
-        const data = await coursesCollection.findOne({name: req.params.name})
-        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
+            const courseDoc = await coursesCollection
+                .findOne({ name: req.params.name })
+                .populate('Author', 'name');
+            const course = new Course(
+                courseDoc.name,
+                courseDoc.description,
+                courseDoc.Author.name,
+                courseDoc.tags,
+                courseDoc.paidContent,
+                courseDoc.reviews,
+                courseDoc.Content,
+                courseDoc.date
+            );
         // course.removeContent();
         // console.log(req.params.Category);
         let Category = req.params.Category;
@@ -75,8 +97,8 @@ module.exports = {
             avg = Math.round(sum/Object.keys(reviews).length,2)
         }
 
-        // console.log(data.Content[Category]);
-        let urls = data.Content[Category]
+        // console.log(courseDoc.Content[Category]);
+        let urls = courseDoc.Content[Category]
         let urls_filterd = urls.filter((url)=>{
             return url.name != "" ;
         })
@@ -84,7 +106,7 @@ module.exports = {
         // console.log('urls:',urls_filterd);
         // console.log(Array.isArray(urls));
         // console.log(course.content);
-        if(!data)
+        if(!courseDoc)
             res.send('sorry this course not found')
         else{
             res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, CategorySearch:Category,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
