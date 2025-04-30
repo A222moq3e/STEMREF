@@ -1,5 +1,5 @@
 // const Pages = require('../models/config');
-const { usersCollection, coursesCollection } = require('../models/config');
+const { usersCollection, coursesCollection, reviewsCollection } = require('../models/config');
 const  Course  = require('../models/classes/Course.js');// course not Course, Strange
 // const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
@@ -43,20 +43,10 @@ module.exports = {
                 courseDoc.Content,
                 courseDoc.createdAt
             );
-            let reviews = course.reviews
-            // console.log(course);
-            let sum=0
-            let avg=0
-            if(reviews){
-                console.log('in reviews');
-                for(let r of Object.keys(reviews)){
-                    sum+= parseInt(reviews[r])
-                    console.log(sum);
-                }
-                avg = (sum/Object.keys(reviews).length).toPrecision(2);
-            }
-            // const user = new Student(req.session.user.name,req.session.user.email);
-            // const user = new 
+            // Load all reviews for this course
+            const reviewDocs = await reviewsCollection.find({ course: courseDoc._id }).populate('user','name').lean();
+            const ratings = reviewDocs.map(r => r.rating);
+            const avg = ratings.length ? (ratings.reduce((a,b)=>(a+b),0)/ratings.length).toPrecision(2) : 0;
             
             if(!courseDoc) return res.send('sorry this course not found')
             res.render('courseContent',{data:{
@@ -67,6 +57,7 @@ module.exports = {
                 CategorySearch: '',
                 avg: avg,
                 color: getReviewColor(avg),
+                reviews: reviewDocs,
                 createdAt: courseDoc.createdAt,
                 updatedAt: courseDoc.updatedAt
             }})
@@ -93,69 +84,66 @@ module.exports = {
                 courseDoc.Content,
                 courseDoc.createdAt
             );
-        // course.removeContent();
-        // console.log(req.params.Category);
-        let Category = req.params.Category;
-        let reviews = course.reviews
-        let sum=0
-        let avg=0
-        if(reviews){
-            for(let r of Object.keys(reviews)){
-                sum+= parseInt(reviews[r])
-                console.log(sum);
-            }
-            avg = Math.round(sum/Object.keys(reviews).length,2)
-        }
+            let Category = req.params.Category;
 
-        // console.log(courseDoc.Content[Category]);
-        let urls = courseDoc.Content[Category]
-        let urls_filterd = urls.filter((url)=>{
-            return url.name != "" ;
-        })
-        urls = urls_filterd
-        // console.log('urls:',urls_filterd);
-        // console.log(Array.isArray(urls));
-        // console.log(course.content);
-        if(!courseDoc)
-            res.send('sorry this course not found')
-        else{
-            res.render('courseContent',{data:{
-                name: req.params.name,
-                course: course,
-                content: urls,
-                CategorySearch: Category,
-                icons: iconUse,
-                bgIconUse: bgIconUse,
-                user: req.session.user,
-                avg: avg,
-                color: getReviewColor(avg),
-                createdAt: courseDoc.createdAt,
-                updatedAt: courseDoc.updatedAt
-            }})
-            // res.render('courseContent',{data:{course:course,user:req.session.user}})
-        }
-        // res.render('courseContent')
+            // Load all reviews for this course
+            const reviewDocs = await reviewsCollection.find({ course: courseDoc._id }).populate('user','name').lean();
+            const ratings = reviewDocs.map(r => r.rating);
+            const avg = ratings.length ? (ratings.reduce((a,b)=>(a+b),0)/ratings.length).toPrecision(2) : 0;
+
+            // console.log(courseDoc.Content[Category]);
+            let urls = courseDoc.Content[Category]
+            let urls_filterd = urls.filter((url)=>{
+                return url.name != "" ;
+            })
+            urls = urls_filterd
+
+            if(!courseDoc)
+                res.send('sorry this course not found')
+            else{
+                res.render('courseContent',{data:{
+                    name: req.params.name,
+                    course: course,
+                    content: urls,
+                    CategorySearch: Category,
+                    icons: iconUse,
+                    bgIconUse: bgIconUse,
+                    user: req.session.user,
+                    avg: avg,
+                    color: getReviewColor(avg),
+                    reviews: reviewDocs,
+                    createdAt: courseDoc.createdAt,
+                    updatedAt: courseDoc.updatedAt
+                }})
+            }
         }catch(e){
             console.log(e);
         }
     },
     courseContentRate:async (req,res)=>{
-    console.log('in courseContentRate');
+        console.log('in courseContentRate');
         try{
             const stars = Number(req.body.starsNum);
-            const courseName = req.params.name;
-            const username = req.session.user.name;
-            // Update course reviews
-            const course = await coursesCollection.findOne({ name: courseName });
-            course.reviews = course.reviews || {};
-            course.reviews[username] = stars;
-            await coursesCollection.updateOne({ name: courseName }, { $set: { reviews: course.reviews } });
-            // Update user reviewed list
-            const user = await usersCollection.findOne({ name: username });
-            user.reviewed = user.reviewed || {};
-            user.reviewed[courseName] = stars;
-            await usersCollection.updateOne({ name: username }, { $set: { reviewed: user.reviewed } });
-            return res.status(200).json({ success: true, average: Object.values(course.reviews).reduce((a,b)=>a+Number(b),0) / Object.keys(course.reviews).length });
+            const reviewText = req.body.reviewText || ''; // Get optional review text
+            const course = await coursesCollection.findOne({ name: req.params.name });
+            const user = await usersCollection.findOne({ name: req.session.user.name });
+            
+            // Upsert review in its own collection with optional text
+            await reviewsCollection.updateOne(
+                { course: course._id, user: user._id },
+                { $set: { 
+                    rating: stars,
+                    text: reviewText
+                }},
+                { upsert: true }
+            );
+            
+            // Recompute average
+            const all = await reviewsCollection.find({ course: course._id });
+            const avgVal = all.length
+                ? (all.reduce((sum,r)=> sum + r.rating, 0) / all.length).toPrecision(2)
+                : 0;
+            return res.status(200).json({ success: true, average: avgVal });
         }catch(e){
             console.log(e);
             return res.status(500).json({ error: 'Unable to rate course' });

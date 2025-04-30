@@ -120,26 +120,54 @@
             <div class="bottom-box">
               <div class="tools">
                 <button class="review-btn" title="Review"><i class="fa-solid fa-star btn"></i></button>
-                <!-- TODO: change review to popup review with message -->
-                <div class="stars hide ">
+                <div class="stars hide">
                   <input type="radio" name="start" id="star1" data-num-star="5"><label for="star1"><i class="fa-solid fa-star"></i></label>
                   <input type="radio" name="start" id="star2" data-num-star="4"><label for="star2"><i class="fa-solid fa-star"></i></label>
                   <input type="radio" name="start" id="star3" data-num-star="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
                   <input type="radio" name="start" id="star4" data-num-star="2"><label for="star4"><i class="fa-solid fa-star"></i></label>
                   <input type="radio" name="start" id="star5" data-num-star="1"><label for="star5"><i class="fa-solid fa-star"></i></label>
+                  <div class="review-text">
+                    <textarea id="review-comment" placeholder="Add your comments (optional)" maxlength="500"></textarea>
+                  </div>
                 </div>
-                <!-- Suggession: make button change description to reviews -->
                 <button class="discussion-btn" title="Discussion"><i class="fa-solid fa-message btn"></i></button>
+                <button class="show-reviews-btn" title="Show Reviews"><i class="fa-solid fa-comments btn"></i></button>
               </div>
               <div class="date">
                 <p>Created: <%= new Date(data.createdAt).toLocaleDateString() %></p>
                 <p>Updated: <%= new Date(data.updatedAt).toLocaleDateString() %></p>
               </div>
             </div>
-<!--       
-            <div class="reviewBox">
-              <a href=""></a>
-            </div> -->
+            
+            <!-- Add Reviews Section -->
+            <div class="reviewsContainer hide">
+              <h3>Course Reviews</h3>
+              <div class="reviewsList">
+                <% if (data.reviews && data.reviews.length > 0) { %>
+                  <% data.reviews.forEach(function(review) { %>
+                    <div class="review-item">
+                      <div class="review-header">
+                        <span class="reviewer-name"><%= review.user.name %></span>
+                        <span class="review-rating">
+                          <% for(let i=0; i<review.rating; i++) { %>
+                            <i class="fa-solid fa-star <%= data.color %>"></i>
+                          <% } %>
+                          <% for(let i=review.rating; i<5; i++) { %>
+                            <i class="fa-solid fa-star"></i>
+                          <% } %>
+                        </span>
+                        <span class="review-date"><%= new Date(review.createdAt).toLocaleDateString() %></span>
+                      </div>
+                      <% if (review.text) { %>
+                        <div class="review-text-content"><%= review.text %></div>
+                      <% } %>
+                    </div>
+                  <% }) %>
+                <% } else { %>
+                  <p class="no-reviews">No reviews yet. Be the first to review!</p>
+                <% } %>
+              </div>
+            </div>
           </div>
         </div>
       </div>

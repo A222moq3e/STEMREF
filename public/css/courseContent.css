@@ -217,6 +217,11 @@ main .item-title {
 .tools button .btn:hover {
   opacity: 1;
 }
+/* Active button state */
+.tools button.active .btn {
+  color: #fff;
+  opacity: 1;
+}
 .discussionBox {
   position: absolute;
   top: 0;
@@ -274,6 +279,95 @@ i {
 }
 .two {
   color: #fff209;
+}
+
+/* Review text input */
+.review-text {
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.review-text textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  background-color: rgba(255, 255, 255, 0.9);
+  resize: vertical;
+}
+
+/* Reviews display container */
+.reviewsContainer {
+  background: rgba(35, 35, 35, 0.9);
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.reviewsContainer h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+.reviewsList {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.review-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--main-color);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.reviewer-name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.review-rating {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.review-date {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.review-text-content {
+  color: #eee;
+  font-size: 14px;
+  line-height: 1.5;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.no-reviews {
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Hide utility */
+.hide {
+  display: none;
 }
 
 a {

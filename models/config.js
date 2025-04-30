@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
       required:false
   }
 })
+
 // Create Courses Schema
 const Courseschema = new mongoose.Schema({
   name: {
@@ -46,9 +47,6 @@ const Courseschema = new mongoose.Schema({
   },
   paidContent: {
     type: Boolean
-  },
-  reviews:{
-    type: Mixed
   },
   discussions: {
     type: Mixed
@@ -84,8 +82,17 @@ const Courseschema = new mongoose.Schema({
 // Enable automatic createdAt and updatedAt fields
 Courseschema.set('timestamps', true)
 
+// Define Review schema in its own collection
+const ReviewSchema = new mongoose.Schema({
+  course: { type: mongoose.Schema.Types.ObjectId, ref: 'courses', required: true },
+  user:   { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+  rating: { type: Number, required: true },
+  text:   { type: String }
+}, { timestamps: true });
+
 // Collections
 const usersCollection = new mongoose.model("users", UserSchema)
 const coursesCollection = new mongoose.model("courses", Courseschema)
+const reviewsCollection = mongoose.model('reviews', ReviewSchema);
 
-module.exports = {usersCollection,coursesCollection };
+module.exports = {usersCollection, coursesCollection, reviewsCollection };
