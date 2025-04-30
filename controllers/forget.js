@@ -1,8 +1,7 @@
 // const Pages = require('../models/config');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const argon2 = require('argon2');
 // const cryptoRandomString = require('crypto-random-string');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -50,7 +49,7 @@ module.exports = {
         }
         const user = await usersCollection.findOne({ token, tokenExpires: { $gt: Date.now() } });
         if (!user) return res.send('Password reset link is invalid or has expired');
-        const hashed = await bcrypt.hash(newPassword, saltRounds);
+        const hashed = await argon2.hash(newPassword);
         await usersCollection.findOneAndUpdate(
             { token },
             { $set: { password: hashed }, $unset: { token: '', tokenExpires: '' } }

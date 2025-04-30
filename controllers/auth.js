@@ -1,5 +1,4 @@
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const argon2 = require('argon2');
 const { buildDataBeforeRender } = require('../middlewares/misc.js');
 const Student = require('../models/classes/Student.js');
 const Educator = require('../models/classes/Educator.js');
@@ -28,7 +27,7 @@ module.exports = {
                 return res.status(401).render('login',{data:{err:"user not found!"}});
             }
            
-            const match = await bcrypt.compare(req.body.password, check.password);
+            const match = await argon2.verify(check.password, req.body.password);
             if (!match) {
                 req.session.failedAttempts = (req.session.failedAttempts || 0) + 1;
                 return res.status(401).render('login',{data:{err:'wrong password'}});
@@ -65,7 +64,7 @@ module.exports = {
     },
     registerPost: async (req,res)=>{
         try{
-            const hashed = await bcrypt.hash(req.body.password, saltRounds);
+            const hashed = await argon2.hash(req.body.password);
             const data = {
                 name: req.body.username,
                 password: hashed,
