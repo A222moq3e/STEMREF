@@ -48,7 +48,7 @@
                   <h3 class="disable" ><%= t('LOGINPAGE.Username') %>: <input type="text" value="<%= data.user.name %>" placeholder="@"></h3>
                 <h3 class="disable" ><%= t('LOGINPAGE.Email') %>: <input type="email" value="<%= data.user.email  %>"></h3>
                 <h3 class="disable" ><%= t('PROFILEPAGE.Subscribe') %>: <span><%= t(`PROFILEPAGE.${data.user.paidUser==true?data.user.paidUser:false}`) %></span></h3>
-                <% if(Object.keys(data.user.reviewed).length > 0){ %>
+                <% if(data.user && data.user.reviewed && Object.keys(data.user.reviewed).length > 0){ %>
                   <h3><%= data.user %></h3>
                   <h3><%= t('PROFILEPAGE.Your Reviews') %>:</h3>
                   <div class="reviewes">
