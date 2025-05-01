@@ -232,13 +232,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  /**
-   * Show panel
-   * @param {HTMLElement} panel - The panel to show
-   */
-  function showPanel(panel) {
-    if (panel) {
-      panel.classList.add('active');
-    }
-  }
 });
