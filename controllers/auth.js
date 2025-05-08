@@ -1,16 +1,17 @@
-const crypto = require('crypto');
-const  Course  = require('../models/classes/Course.js');// course not Course, Strange
-const  Student  = require('../models/classes/Student.js');
-const  Educator  = require('../models/classes/Educator.js');
+const argon2 = require('argon2');
+const { buildDataBeforeRender } = require('../middlewares/misc.js');
+const Student = require('../models/classes/Student.js');
+const Educator = require('../models/classes/Educator.js');
+const Admin = require('../models/classes/Admin.js');
 
-const Swal = require('sweetalert2');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config.js');
 
 module.exports = {
     loginGet:(req,res)=>{
-        if(req.session.user && req.session.user.authenticated) res.redirect("/search")
-        res.render("login")
+        const err = req.query.err;
+        const data = err ? { err: decodeURIComponent(err) } : undefined;
+        res.render("login", { data });
     },
     loginPost:async  (req,res)=>{
         const MaxAttemps = 5;
@@ -26,23 +27,28 @@ module.exports = {
                 return res.status(401).render('login',{data:{err:"user not found!"}});
             }
            
-            if(check.password != createHash(req.body.password)){
-                console.log('wrong password');
-                return res.status(401).render('login',{data:{err:'wrong password'}})
-            } 
+            const match = await argon2.verify(check.password, req.body.password);
+            if (!match) {
+                req.session.failedAttempts = (req.session.failedAttempts || 0) + 1;
+                return res.status(401).render('login',{data:{err:'wrong password'}});
+            }
             // console.log(check.userType);
             switch(check.userType){
                 case 'student':
-                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('search');
                 case 'user':
-                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed); 
+                    req.session.user = new Student(check.name,check.email,check.subscribe, check.reviewed);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/search');
                 case 'educator':
                     req.session.user = new Educator(check.name,check.email);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/EducatorDashboard');
                 case 'admin':
-                    req.session.user = new Admin(check.name,check.email); 
+                    req.session.user = new Admin(check.name,check.email);
+                    req.session.userId = check._id;
                     return res.status(302).redirect('/');
 
                 default:
@@ -62,9 +68,10 @@ module.exports = {
     },
     registerPost: async (req,res)=>{
         try{
-            const data= {
-                name:req.body.username,
-                password: createHash(req.body.password),
+            const hashed = await argon2.hash(req.body.password);
+            const data = {
+                name: req.body.username,
+                password: hashed,
                 email: req.body.email,
                 userType: "user"
             }
@@ -73,9 +80,9 @@ module.exports = {
             if(userIsExist){
                 return res.render('register',{data:{err:"User already exists. Please choose diffrent Name"}});
             }
-            const emailIsExist = await usersCollection.findOne({name: data.name})
+            const emailIsExist = await usersCollection.findOne({email: data.email});
             if(emailIsExist){
-                return res.render('register',{data:{err:"Email already exists. Please choose diffrent email"}});
+                return res.render('register',{data:{err:"Email already exists. Please choose a different email"}});
             }
             // add Data   
             const userdata = await usersCollection.insertMany(data);
@@ -88,11 +95,13 @@ module.exports = {
     
     },
     signout:(req,res)=>{
-        // req.session.user.authenticated = false;
-        // console.log('session',req.session);
-        req.session = null
-        // delete req.session
-
-        return res.redirect("/")
+        req.session.destroy(error => {
+            if (error) {
+                console.log(error);
+                res.send("Error Logging out");
+            } else {
+                res.redirect('/');
+            }
+        });
     }
 }

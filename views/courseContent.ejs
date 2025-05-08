@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="STEMREF | Course Content Page.">
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;"> -->
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,17 +13,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-DTZ0K15FEB');
     </script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;900&family=Tulpen+One&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/libs/bootstrap.min.css"> 
-    <!-- font awesome Library -->
-    <link rel="stylesheet" href="/libs/all.css"> 
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="/libs/all.min.css"> 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="/libs/sweetalert2.min.css">
@@ -33,131 +28,203 @@
     <!-- CSS  -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/courseContent.css">
-      <title>STEMREF | Course Content Page</title>
+    <title>STEMREF | <%= data.course.name %></title>
   </head>
   <body>
     <main>
-      
       <%- include('partials/header.ejs') %>
+      
+      <div class="course-container">
+        <!-- Course Header -->
+        <section class="course-header">
+          <% if((!data.CategorySearch)){ %>
+            <a href="/search" class="course-header__back"><i class="fa-solid fa-arrow-left"></i></a>
+          <% } else { %>
+            <a href="/courseContent/<%=data.course.name%>" class="course-header__back"><i class="fa-solid fa-arrow-left"></i></a>
+          <% } %>
           
-        <div class="overlap">
-          <div class="container">
-            <div class="box">
-              <div class="motivation-img">
-                <%if(data.catograySearch){%>
-                  <img src="/assets/imgs/<%= data.bgIconUse[data.catograySearch]%>" alt="img">
-                  <%}%>
-                <%if(!data.catograySearch){%>
-                  <img src="/assets/imgs/undraw_mathematics_-4-otb.svg" alt="img">
-                  <%}%>
+          <div class="course-title">
+            <h1><%= data.course.name %></h1>
+            <% if(data.CategorySearch) { %>
+              <span><%= data.CategorySearch %></span>
+            <% } %>
+          </div>
+          
+          <div class="course-rating">
+            <% if(data.avg > 0){ %>
+              <div class="rating-display">
+                <% for(let i=0; i<Math.floor(data.avg); i++){ %>
+                  <span class="star filled <%= data.color %>">★</span>
+                <% } %>
+                <% for(let i=data.avg; i<5; i++){ %>
+                  <span class="star">☆</span>
+                <% } %>
               </div>
-              <div class="descritpion" >
-                <h2>Description</h2>
-                <p><%= data.course.description %></p>
-              </div>
-              <% if((!data.catograySearch)){ %>
-                <a style="color: white;" href="/search"><i class="fa-solid fa-arrow-left"></i></a>
-                <% } %>
-              <% if((data.catograySearch)){ %>
-                <a style="color: white;" href="/courseContent/<%=data.course.name%>"><i class="fa-solid fa-arrow-left"></i></a>
-                <% } %>
-                
-          <div class="top-text">
-            <h1><%= data.course.name %><span><%= data.catograySearch %></span></h1>
-            <div class="tags">
-                <!-- <div class="tag">course</div> -->
-                <!-- <div class="tag">CS205</div> -->
-                <% for(let tag of data.course.tags){ %>
-                  <div class="tag"><%= tag %></div>
-                <% } %>
+              <span class="rating-value"><%= data.avg %></span>
+            <% } else { %>
+              <span class="rating-value">No ratings yet</span>
+            <% } %>
+          </div>
+          
+          <div class="course-tags">
+            <% for(let tag of data.course.tags){ %>
+              <div class="course-tag"><%= tag %></div>
+            <% } %>
+          </div>
+                  <!-- Course Description -->
+        <section class="course-description">
+          <h2>Description</h2>
+          <p><%= data.course.description %></p>
+        </section>
+          <div class="course-metadata">
+            <span>Created: <%= new Date(data.createdAt).toLocaleDateString() %></span>
+            <span>Updated: <%= new Date(data.updatedAt).toLocaleDateString() %></span>
+          </div>
+        </section>
+        
+
+        
+        <!-- Course Content -->
+        <section class="course-content">
+          <h2 class="content-title"><%= data.CategorySearch ? data.CategorySearch : 'Content Categories' %></h2>
+          
+          <div class="content-grid">
+            <% if(!data.CategorySearch) { %>
+              <% for(const [key, value] of Object.entries(data.course.content)){ %>
+                <a class="content-item" href="<%= data.course.name +'/'+key %>" title="<%= key %>">
+                  <div class="content-item__title">
+                    <i class="<%= data.icons[key]%> content-item__icon"></i>
+                    <%= key %>
+                  </div>
+                  <i class="fa-solid fa-chevron-right content-item__arrow"></i>
+                </a>          
+              <% } %>
+            <% } else { %>
+              <% for(let {name, url} of data.course.content[data.CategorySearch]){ %>
+                <a class="content-item" href="<%= url %>" target="_blank" title="<%= name %>">
+                  <div class="content-item__title">
+                    <i class="<%= data.icons[data.CategorySearch]%> content-item__icon"></i>
+                    <%= name %>
+                  </div>
+                  <i class="fa-solid fa-chevron-right content-item__arrow"></i>
+                </a>          
+              <% } %>
+            <% } %>
+          </div>
+        </section>
+        
+        <!-- Course Interaction -->
+        <section class="course-interaction">
+          <div class="interaction-buttons">
+            <button class="interaction-button review-btn" title="Write a Review">
+              <i class="fa-solid fa-star"></i>
+              <span>Rate Course</span>
+            </button>
+            
+            <button class="interaction-button discussion-btn" title="Join Discussion">
+              <i class="fa-solid fa-message"></i>
+              <span>Discussion</span>
+            </button>
+            
+            <button class="interaction-button show-reviews-btn" title="View Reviews">
+              <i class="fa-solid fa-comments"></i>
+              <span>View Reviews</span>
+            </button>
+          </div>
+          
+          <!-- Reviews Panel -->
+          <div class="reviews-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Course Reviews</h3>
+              <button class="panel-close close-reviews-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="rating">
-              <% if(data.avg>0){ %>
-                <i class="fa-solid fa-star <%= data.color %>"></i>
-                <%for(let i=1;i<Math.floor(data.avg);i++){%>
-                  <i class="fa-solid fa-star <%= data.color %>"></i>
-                <% } %>
-                <%for(let i=data.avg;i<5;i++){%>
-                  <i class="fa-solid fa-star"></i>
-                <% } %>
-
-                <span class="ms-1"><%= data.avg %></span>
-              <% }  %>
-
-              <% if(data.avg<=0){ %>
-                <i class="fa-solid fa-star"></i> No Rating
+            
+            <div class="reviews-list">
+              <% if (data.reviews && data.reviews.length > 0) { %>
+                <% data.reviews.forEach(function(review) { %>
+                  <div class="review-item">
+                    <div class="review-header">
+                      <span class="reviewer-name"><%= review.user.name %></span>
+                      <div class="review-rating">
+                        <% for(let i=0; i<review.rating; i++) { %>
+                          <span class="star filled <%= data.color %>">★</span>
+                        <% } %>
+                        <% for(let i=review.rating; i<5; i++) { %>
+                          <span class="star">☆</span>
+                        <% } %>
+                      </div>
+                    </div>
+                    <span class="review-date"><%= new Date(review.createdAt).toLocaleDateString() %></span>
+                    <% if (review.text) { %>
+                      <div class="review-text-content"><%= review.text %></div>
+                    <% } %>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                <p class="no-reviews">No reviews yet. Be the first to review!</p>
               <% } %>
             </div>
           </div>
-          <div class="items">
-            <% if(!data.catograySearch) { %>
-              <% for(const [key, value] of Object.entries(data.course.content)){ %>
-                <a class="item" href="<%= data.course.name +'/'+key %>"  title="<%= key %>">
-                  <div class="item-title"><%= key %>  <i class="<%= data.icons[key]%>"></i> <i class="<%= data.icons[key]%> mask"></i></div>
-                  <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                </a>          
-              <% } } %>
-              <% if(data.catograySearch){ %>
-                <% for(let {name, url} of data.course.content[data.catograySearch]){ %>
-                    <a class="item" href="<%= url %>" target="_blank"  title="<%= name %>">
-                      <div class="item-title"><%= name %><i class="<%= data.icons[data.catograySearch]%>"></i></div>
-                      <i class="fa-solid fa-chevron-down fa-rotate-270"></i>
-                    </a>          
-                  <% }  %>
-            <% } %>
-            <div class="discussionBox row hide">
-              <div class="discussions col-12">
-                <div class="message">not work</div>
-              </div>
-                <div class="message-tools input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Write Message..." aria-label="" aria-describedby="basic-addon1">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-paper-plane"></i></button>
-                  </div>
-                </div>
+          
+          <!-- Add Review Panel -->
+          <div class="add-review-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Rate this Course</h3>
+              <button class="panel-close close-add-review-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
+            
+            <div class="star-rating">
+              <input type="radio" name="rating" id="star5" value="5">
+              <label for="star5" title="5 stars">★</label>
+              <input type="radio" name="rating" id="star4" value="4">
+              <label for="star4" title="4 stars">★</label>
+              <input type="radio" name="rating" id="star3" value="3">
+              <label for="star3" title="3 stars">★</label>
+              <input type="radio" name="rating" id="star2" value="2">
+              <label for="star2" title="2 stars">★</label>
+              <input type="radio" name="rating" id="star1" value="1">
+              <label for="star1" title="1 star">★</label>
             </div>
-            <div class="bottom-box">
-              <div class="tools">
-                <button class="review-btn" title="Review"><i class="fa-solid fa-star btn"></i></button>
-                <!-- TODO: change review to popup review with message -->
-                <div class="stars hide ">
-                  <input type="radio" name="start" id="star1" data-num-star="5"><label for="star1"><i class="fa-solid fa-star"></i></label>
-                  <input type="radio" name="start" id="star2" data-num-star="4"><label for="star2"><i class="fa-solid fa-star"></i></label>
-                  <input type="radio" name="start" id="star3" data-num-star="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
-                  <input type="radio" name="start" id="star4" data-num-star="2"><label for="star4"><i class="fa-solid fa-star"></i></label>
-                  <input type="radio" name="start" id="star5" data-num-star="1"><label for="star5"><i class="fa-solid fa-star"></i></label>
-                </div>
-                <!-- Suggession: make button change description to reviews -->
-                <button class="discussion-btn" title="Discussion"><i class="fa-solid fa-message btn"></i></button>
-              </div>
-              <div class="date">
-                <p><%= data.course.showDate() %></p>
-              </div>
-            </div>
-<!--       
-            <div class="reviewBox">
-              <a href=""></a>
-            </div> -->
+            
+            <textarea id="review-comment" class="review-text-area" placeholder="Share your thoughts about this course (optional)" maxlength="500"></textarea>
+            
+            <button class="submit-review-btn">Submit Review</button>
           </div>
-        </div>
+          
+          <!-- Discussion Panel -->
+          <div class="discussion-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Course Discussion</h3>
+              <button class="panel-close close-discussion-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="discussions-list">
+              <div class="message">This feature is coming soon</div>
+            </div>
+            
+            <div class="discussion-input-container">
+              <input type="text" class="discussion-input" placeholder="Write a message...">
+              <button class="send-message-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </section>
       </div>
+      
+      <!-- Waves Background -->
+      <div class="waves"></div>
     </main>
-    <!-- Bootstrap JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    
     <footer class="text-center w-100">
       <p>Created by <a href="https://github.com/A222moq3e/STEMREF/" target="_blank">STEMREF Team</a></p>
-   </footer>
-   <!-- Google tag (gtag.js) -->
+    </footer>
+    
     <!-- Bootstrap JS -->
-   <script src="/libs/bootstrap.min.js"></script>
+    <script src="/libs/bootstrap.min.js"></script>
     <!-- SweetAlert2 JavaScript -->
     <script src="/libs/sweetalert2.all.min.js"></script>
-    <!-- font awesome Library -->
-    <script src="/libs/all.min.js"> </script>
+    <!-- Font Awesome Library -->
+    <script src="/libs/all.min.js"></script>
     <script src="/js/main.js" type="module"></script>
     <script src="/js/courseContent.js"></script>
-
-    <div class="waves" ></div>
   </body>
 </html>

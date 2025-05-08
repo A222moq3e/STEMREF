@@ -1,7 +1,8 @@
 class Course{
 
-    constructor(name, description, Author, tags, paidContent,reviews, content,date,inserter){
+    constructor(name, description, Author, tags, paidContent, reviews, content, date){
         // TODO: add course create date
+        // TODO: GUT ALL THIS SHIT OUT , JUST BE FUNCTIONAL BROOOOOOO
             this.name=name;
             this.description=description;
             this.Author=Author;
@@ -11,7 +12,7 @@ class Course{
             this.content=content;
             this.filterEmptyUrls()
             this.date = date?date:new Date(2024,5,4);
-            this.inserter = inserter?inserter:'Unknown';
+            // removed inserter field
             
     }
     getName() {
@@ -48,8 +49,8 @@ class Course{
     }
     filterEmptyUrls(){
         let keys = Object.keys(this.content)
-        for(let catogray of keys){
-            this.content[catogray] = this.content[catogray].filter((url)=>{
+        for(let Category of keys){
+            this.content[Category] = this.content[Category].filter((url)=>{
                 return url.name != "" ;
             })
         }

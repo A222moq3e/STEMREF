@@ -1,7 +1,7 @@
 
 
 const  Admin  = require('../models/classes/Admin.js');
-const { usersCollection, coursesCollection } = require('../models/config');
+const {usersCollection} = require('../models/config');
 
 module.exports = {
     adminGet:async (req,res)=>{

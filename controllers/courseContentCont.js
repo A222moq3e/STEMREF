@@ -1,10 +1,10 @@
 // const Pages = require('../models/config');
-const { usersCollection, coursesCollection } = require('../models/config');
+const { usersCollection, coursesCollection, reviewsCollection } = require('../models/config');
 const  Course  = require('../models/classes/Course.js');// course not Course, Strange
 // const  Student  = require('../interface/Student.js');
 console.log('process.env.TEST courseContentCont');
 console.log(process.env.TEST);
-let iconUse = {
+const iconUse = {
     "Videos":"fa-solid fa-circle-play",
     "Articles":"fa-regular fa-newspaper",
     "Quizzes":"fa-solid fa-spell-check",
@@ -12,7 +12,7 @@ let iconUse = {
     "Others":"fa-solid fa-arrow-up-right-from-square",
     "share":"fa-solid fa-share"
 }
-let bgIconUse = {
+const bgIconUse = {
     "Videos":"undraw_video_files_fu10.svg",
     "Articles":"undraw_online_articles_re_yrkj.svg",
     "Quizzes":"undraw_online_test_re_kyfx.svg",
@@ -22,112 +22,131 @@ let bgIconUse = {
     "normal":"undraw_mathematics_-4-otb.svg"
 }
 module.exports = {
-    courseContent:async (req,res)=>{
-        return res.redirect('search',{data:{user:req.session.user}})
+    courseContent: async (req, res) => {
+        // Redirect to search with session user context
+        return res.redirect('/search');
     },
     courseContentByName:async (req,res)=>{
         console.log('in courseContentByName');
        try{
             // if(req.session.user && !req.session.user.authenticated ) res.redirect("/login")
-            const data = await coursesCollection.findOne({name: req.params.name})
-            const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
-            let reviews = course.reviews
-            // console.log(course);
-            let sum=0
-            let avg=0
-            if(reviews){
-                console.log('in reviews');
-                for(let r of Object.keys(reviews)){
-                    sum+= parseInt(reviews[r])
-                    console.log(sum);
-                }
-                avg = (sum/Object.keys(reviews).length).toPrecision(2);
-            }
-            // const user = new Student(req.session.user.name,req.session.user.email);
-            // const user = new 
+            const courseDoc = await coursesCollection
+                .findOne({ name: req.params.name })
+                .populate('Author', 'name');
+            const course = new Course(
+                courseDoc.name,
+                courseDoc.description,
+                courseDoc.Author.name,
+                courseDoc.tags,
+                courseDoc.paidContent,
+                courseDoc.reviews,
+                courseDoc.Content,
+                courseDoc.createdAt
+            );
+            // Load all reviews for this course
+            const reviewDocs = await reviewsCollection.find({ course: courseDoc._id }).populate('user','name').lean();
+            const ratings = reviewDocs.map(r => r.rating);
+            const avg = ratings.length ? (ratings.reduce((a,b)=>(a+b),0)/ratings.length).toPrecision(2) : 0;
             
-            if(!data) return res.send('sorry this course not found')
-            res.render('courseContent',{data:{course:course,user:req.session.user,icons:iconUse,bgIconUse:bgIconUse,catograySearch:'',avg:avg, color:getReviewColor(avg)}})
+            if(!courseDoc) return res.send('sorry this course not found')
+            res.render('courseContent',{data:{
+                course: course,
+                user: req.session.user,
+                icons: iconUse,
+                bgIconUse: bgIconUse,
+                CategorySearch: '',
+                avg: avg,
+                color: getReviewColor(avg),
+                reviews: reviewDocs,
+                createdAt: courseDoc.createdAt,
+                updatedAt: courseDoc.updatedAt
+            }})
        }catch(e){
             console.log(e);
        }
         
         // res.render('courseContent')
     },
-    courseContentByNameAndCatogray:async (req,res)=>{
-        console.log('in courseContentByNameAndCatogray');
+    courseContentByNameAndCategory:async (req,res)=>{
+        console.log('in courseContentByNameAndCategory');
         try{
             // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
-        const data = await coursesCollection.findOne({name: req.params.name})
-        const course = new Course(data.name,data.description,data.Author,data.tags,data.paidContent,data.reviews,data.Content);
-        // course.removeContent();
-        // console.log(req.params.catogray);
-        let catogray = req.params.catogray;
-        let reviews = course.reviews
-        let sum=0
-        let avg=0
-        if(reviews){
-            for(let r of Object.keys(reviews)){
-                sum+= parseInt(reviews[r])
-                console.log(sum);
-            }
-            avg = Math.round(sum/Object.keys(reviews).length,2)
-        }
+            const courseDoc = await coursesCollection
+                .findOne({ name: req.params.name })
+                .populate('Author', 'name');
+            const course = new Course(
+                courseDoc.name,
+                courseDoc.description,
+                courseDoc.Author.name,
+                courseDoc.tags,
+                courseDoc.paidContent,
+                courseDoc.reviews,
+                courseDoc.Content,
+                courseDoc.createdAt
+            );
+            let Category = req.params.Category;
 
-        // console.log(data.Content[catogray]);
-        let urls = data.Content[catogray]
-        let urls_filterd = urls.filter((url)=>{
-            return url.name != "" ;
-        })
-        urls = urls_filterd
-        // console.log('urls:',urls_filterd);
-        // console.log(Array.isArray(urls));
-        // console.log(course.content);
-        if(!data)
-            res.send('sorry this course not found')
-        else{
-            res.render('courseContent',{data:{name:req.params.name, course:course, content:urls, catograySearch:catogray,icons:iconUse,bgIconUse:bgIconUse,user:req.session.user,avg:avg, color:getReviewColor(avg)}})
-            // res.render('courseContent',{data:{course:course,user:req.session.user}})
-        }
-        // res.render('courseContent')
+            // Load all reviews for this course
+            const reviewDocs = await reviewsCollection.find({ course: courseDoc._id }).populate('user','name').lean();
+            const ratings = reviewDocs.map(r => r.rating);
+            const avg = ratings.length ? (ratings.reduce((a,b)=>(a+b),0)/ratings.length).toPrecision(2) : 0;
+
+            // console.log(courseDoc.Content[Category]);
+            let urls = courseDoc.Content[Category]
+            let urls_filterd = urls.filter((url)=>{
+                return url.name != "" ;
+            })
+            urls = urls_filterd
+
+            if(!courseDoc)
+                res.send('sorry this course not found')
+            else{
+                res.render('courseContent',{data:{
+                    name: req.params.name,
+                    course: course,
+                    content: urls,
+                    CategorySearch: Category,
+                    icons: iconUse,
+                    bgIconUse: bgIconUse,
+                    user: req.session.user,
+                    avg: avg,
+                    color: getReviewColor(avg),
+                    reviews: reviewDocs,
+                    createdAt: courseDoc.createdAt,
+                    updatedAt: courseDoc.updatedAt
+                }})
+            }
         }catch(e){
             console.log(e);
         }
     },
     courseContentRate:async (req,res)=>{
-    console.log('in courseContentRate');
+        console.log('in courseContentRate');
         try{
-            // if(req.session.user && !req.session.user.authenticated) res.redirect("/login")
-            let stars = req.body.starsNum;
-            let courseName = req.params.name;
-            let username = req.session.user.name;
-            let courseData = await coursesCollection.findOne({name:courseName})
-            let userData = await usersCollection.findOne({name:username})
-            courseData.reviews = courseData.reviews?courseData.reviews:{};
+            const stars = Number(req.body.starsNum);
+            const reviewText = req.body.reviewText || ''; // Get optional review text
+            const course = await coursesCollection.findOne({ name: req.params.name });
+            const user = await usersCollection.findOne({ name: req.session.user.name });
             
-            userData.reviewed = userData.reviewed?userData.reviewed:{};
+            // Upsert review in its own collection with optional text
+            await reviewsCollection.updateOne(
+                { course: course._id, user: user._id },
+                { $set: { 
+                    rating: stars,
+                    text: reviewText
+                }},
+                { upsert: true }
+            );
             
-
-            courseData.reviews[username]=stars;
-            userData.reviewed[courseName] =stars
-            console.log(courseData);
-            
-            let courseDelete = await coursesCollection.findOneAndRemove({name:courseName})
-            let courseInserted = await coursesCollection.insertMany(courseData)
-            let userDelete = await usersCollection.findOneAndRemove({name:username})
-            let userInserted = await usersCollection.insertMany(userData)
-            // let updateByReview = await  usersCollection.findOneAndUpdate({name:username},userData.reviewed)
-
-            // console.log({review:previousReviews});
-
-
- 
-            // let updateByReview = await  coursesCollection.updateOne({name:courseName},{review:previousReviews})
-
-            // console.log(updateByReview);
-            return true
+            // Recompute average
+            const all = await reviewsCollection.find({ course: course._id });
+            const avgVal = all.length
+                ? (all.reduce((sum,r)=> sum + r.rating, 0) / all.length).toPrecision(2)
+                : 0;
+            return res.status(200).json({ success: true, average: avgVal });
         }catch(e){
             console.log(e);
+            return res.status(500).json({ error: 'Unable to rate course' });
         }
     }
 

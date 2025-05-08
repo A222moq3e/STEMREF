@@ -1,11 +1,6 @@
-// const Pages = require('../models/config');
-const crypto = require('crypto');
-const  Course  = require('../models/classes/Course.js');// course not Course, Strange
-const  Student  = require('../models/classes/Student.js');
-const  Educator  = require('../models/classes/Educator.js');
-const  Admin  = require('../models/classes/Admin.js');
+// Removed unused class model imports
+const { buildDataBeforeRender } = require('../middlewares/misc.js');
 
-const Swal = require('sweetalert2');
 // console.log('in pages.js');
 const { usersCollection, coursesCollection } = require('../models/config');
 
@@ -74,43 +69,42 @@ module.exports = {
     },
 
     EducatorDashboardPost:async (req,res)=>{
-        // const educator = new Educator(req.session.user,req.session.email);
+        // Add course author from session
         if( !Array.isArray(req.body.tags)) return res.send('wrong tags type')
         let filteredTags = req.body.tags.filter((el)=> {
             return el != null && el != '';
         });
         try{
-            const data= {
-                name:req.body.CourseName,
+            const data = {
+                name: req.body.CourseName,
                 description: req.body.description,
                 tags: filteredTags,
-                review:[],
-                discussions:{},
+                reviews: [],
+                discussions: {},
                 Content: {
-                    Videos:[],
-                    Articles:[],
-                    Quizzes:[],
-                    Assignments:[],
-                    Others:[],
+                    Videos: [],
+                    Articles: [],
+                    Quizzes: [],
+                    Assignments: [],
+                    Others: [],
                 },
                 date: new Date(),
-                inserter:req.session.user
-
+                Author: req.session.userId
             }
-            for(let catograyOfContent of Object.keys(data.Content)){
-                if(req.body[catograyOfContent]){
-                    let arrCatagory= req.body[catograyOfContent];
-                    let arrCatagoryUrl= req.body[catograyOfContent+'Url'];
+            for(let CategoryOfContent of Object.keys(data.Content)){
+                if(req.body[CategoryOfContent]){
+                    let arrCatagory= req.body[CategoryOfContent];
+                    let arrCatagoryUrl= req.body[CategoryOfContent+'Url'];
                     if(!Array.isArray(arrCatagory) && arrCatagory!='' && arrCatagoryUrl!='' ){
                         let minData ={ name: arrCatagory, url:arrCatagoryUrl}
-                        data.Content[catograyOfContent].push(minData)
+                        data.Content[CategoryOfContent].push(minData)
                     }
                     else
                     for(let i=0;i<arrCatagory.length;i++)
                     {
                         if(arrCatagory[i]=='') continue
                         let minData ={ name: arrCatagory[i], url:arrCatagoryUrl[i]}
-                        data.Content[catograyOfContent].push(minData)
+                        data.Content[CategoryOfContent].push(minData)
                     }
                 }
                 console.log(data);
@@ -119,13 +113,16 @@ module.exports = {
         
             const courseIsExist = await coursesCollection.findOne({name: data.name})
             if(courseIsExist){
-                const coursedata = await coursesCollection.updateOne({name: data.name},data);
+                const coursedata = await coursesCollection.updateOne(
+                    { name: data.name },
+                    { $set: data }
+                );
                 console.log('course Updated:',coursedata);
                 // res.status(200).send('course update!');
                 res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'Updated',path:'/'+req.path.split('/')[1]}});
             }else{
                 // add Data   
-                const coursedata = await coursesCollection.insertMany(data);
+                const coursedata = await coursesCollection.insertOne(data);
                 console.log('course Added:',coursedata);
                 // res.status(200).send('course add!');
                 res.render('EducatorDashboard',{ data:{user:req.session.user,acc:'inserted',path:'/'+req.path.split('/')[1]}});
@@ -140,17 +137,8 @@ module.exports = {
 }
 
 
-function createHash(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
 
-// TODO: Make this as middleware
-function buildDataBeforeRender(req){
-    let renderData = {data:{accesses:false}};
-    if(req.session.user)
-    renderData = {data:{accesses:req.session.user.authenticated, user:req.session.user,path:'/'+req.path.split('/')[1]}};
-    return renderData;
-}
+
 
 
 

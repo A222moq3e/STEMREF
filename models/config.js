@@ -1,21 +1,9 @@
 const mongoose = require('mongoose');
-// const mongoUrl = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWORD}@monorail.proxy.rlwy.net:14370`
-// const mongoUrl = "mongodb://localhost:27017/STEMREF"
-const mongoUrl = process.env.MONGODB_CLUSTER
-// const mongoUrl = process.env.MONGODB_CLUSTER
-const connect = mongoose.connect(mongoUrl)
-// mongodb+srv://A1222:pass123@cluster0.ct1c2i5.mongodb.net/?retryWrites=true&w=majority
-
+const Mixed = mongoose.Schema.Types.Mixed
 console.log('in config.js');
-connect.then(()=>{
-    console.log('db Connected Successfuly');
-    console.log('url',mongoUrl);
-}).catch(()=>{
-    console.log('db Connecte Faild!');
-})
 
 // Create User Schema
-const LoginSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -36,65 +24,75 @@ const LoginSchema = new mongoose.Schema({
       type:String,
       required:false
     },reviewed:{
-      type: "Mixed",
+      type: Mixed,
       required:false
   }
 })
+
 // Create Courses Schema
 const Courseschema = new mongoose.Schema({
-    "name": {
-      "type": "String"
+  name: {
+    type: String
+  },
+  description: {
+    type: String
+  },
+  Author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+  },
+  tags: {
+    type: [String]
+  },
+  paidContent: {
+    type: Boolean
+  },
+  discussions: {
+    type: Mixed
+  },
+  Content: {
+    Videos: {
+      type: [
+        Mixed
+      ]
     },
-    "description": {
-      "type": "String"
+    Articles: {
+      type: [
+        Mixed
+      ]
     },
-    "Author": {
-      "name": "String"
+    Quizzes: {
+      type: [
+        Mixed
+      ]
     },
-    "tags": {
-      "type": ["String"]
+    Assignments: {
+      type: [
+        Mixed
+      ]
     },
-    "paidContent": {
-      "type": "boolean"
-    },
-    "reviews":{
-      "type": "Mixed"
-    },
-    "discussions": {
-      "type": "Mixed"
-    },
-    "Content": {
-      "Videos": {
-        "type": [
-          "Mixed"
-        ]
-      },
-      "Articles": {
-        "type": [
-          "Mixed"
-        ]
-      },
-      "Quizzes": {
-        "type": [
-          "Mixed"
-        ]
-      },
-      "Assignments": {
-        "type": [
-          "Mixed"
-        ]
-      },
-      "Others": {
-        "type": [
-          "Mixed"
-        ]
-      }
+    Others: {
+      type: [
+        Mixed
+      ]
     }
-  })
+  }
+})
+// Enable automatic createdAt and updatedAt fields
+Courseschema.set('timestamps', true)
 
+// Define Review schema in its own collection
+const ReviewSchema = new mongoose.Schema({
+  course: { type: mongoose.Schema.Types.ObjectId, ref: 'courses', required: true },
+  user:   { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+  rating: { type: Number, required: true },
+  text:   { type: String }
+}, { timestamps: true });
 
 // Collections
-const usersCollection = new mongoose.model("users", LoginSchema)
+const usersCollection = new mongoose.model("users", UserSchema)
 const coursesCollection = new mongoose.model("courses", Courseschema)
+const reviewsCollection = mongoose.model('reviews', ReviewSchema);
 
-module.exports = {usersCollection,coursesCollection };
+module.exports = {usersCollection, coursesCollection, reviewsCollection };

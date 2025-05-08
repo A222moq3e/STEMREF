@@ -1,12 +1,12 @@
-document.querySelectorAll('.content > div.row').forEach((catograyBox)=>{
+document.querySelectorAll('.content > div.row').forEach((CategoryBox)=>{
 
-    catograyBox.querySelector('.add-field').addEventListener('click',()=>{
-        let catogray = catograyBox.getAttribute('id')
-        let inputs = catograyBox.querySelectorAll('input')
+    CategoryBox.querySelector('.add-field').addEventListener('click',()=>{
+        let Category = CategoryBox.getAttribute('id')
+        let inputs = CategoryBox.querySelectorAll('input')
         let inputName= inputs[0].cloneNode(false)
         let  inputUrl = inputs[1].cloneNode(false);
-        catograyBox.insertBefore(inputName, catograyBox.querySelector('.add-field'));
-        catograyBox.insertBefore(inputUrl, catograyBox.querySelector('.add-field'));
-        if(inputs.length>=8) catograyBox.querySelector('.add-field').style.display = 'none';
+        CategoryBox.insertBefore(inputName, CategoryBox.querySelector('.add-field'));
+        CategoryBox.insertBefore(inputUrl, CategoryBox.querySelector('.add-field'));
+        if(inputs.length>=8) CategoryBox.querySelector('.add-field').style.display = 'none';
     })
 })

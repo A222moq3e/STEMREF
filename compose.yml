@@ -1,0 +1,26 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: test
+
+  node_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/test
+      NODE_ENV: production
+      PORT: 3000
+volumes:
+  mongo_data:

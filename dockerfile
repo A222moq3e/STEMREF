@@ -1,20 +1,19 @@
-# Use an official Node.js runtime as the base image
-FROM node:21.6.1-alpine
+FROM node:23-alpine
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# Install pnpm globally
+RUN npm install -g pnpm
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Create and set working directory
+WORKDIR /usr/src/app
 
-# Install the application dependencies
-RUN npm install
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml* ./
 
-# Copy the rest of the application code to the working directory
+# Install dependencies using pnpm
+RUN pnpm install
+
+# Copy remaining application code
 COPY . .
 
-# Expose port 3000 for the application
-EXPOSE 443
-
-# Define the command to run the application
-CMD [ "node", "index.js" ]
+# Command to run the application
+CMD ["pnpm", "start"]

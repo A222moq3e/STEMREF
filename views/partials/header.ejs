@@ -15,26 +15,20 @@
                     <% } %>
                     <% if(navData.accesses){ %>
                     <% for(let i of navData.user.navs){ %>
-                    <li class="nav-item <% if(navData.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href=" <%= settings.navsTranslator[i] %>"><%= t(i) %></a></li>
+                    <li class="nav-item <% if(navData.path == settings.navsTranslator[i]){ %> active <% } %>"><a class="nav-link" aria-current="page" href="<%= settings.navsTranslator[i] %>"><%= t(i) %></a></li>
                     <% } %>
-                       
-                        <!-- <li class="nav-item active"><a class="nav-link" aria-current="page" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li> -->
-                    
-                    <div class="dropstart ms-md-auto">
+                    <li class="nav-item dropstart ms-md-auto">
                         <button class="btn dropdown-toggle d-flex justify-content-center align-items-center h-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <!-- <img src="/avatars/avatar3.svg" class="rounded-circle navbar-user-avatar " style="width: 50px;"> -->
-                          <img src="/assets/imgs/avatars/<%= navData.user.img %>" class="rounded-circle navbar-user-avatar " style="width: 50px;">
+                          <img src="/assets/imgs/avatars/<%= navData.user.img %>" class="rounded-circle navbar-user-avatar" style="width: 50px;">
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAvatarDropdown">
-                        <a class="dropdown-item disabled" href="/"><%= t('Hi') %> <%= navData.user.name %></a>
-                        <a class="dropdown-item" href="/profile"><%= t('Profile') %></a>
-                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://stemref.askardesign.com/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank"><%= t('Refer to friends') %></a>
-                        <a class="dropdown-item" href="mailto:stemref@gmail.com"><%= t('Give Feedback') %></a>
-                        <a class="dropdown-item" href="/signout"><%= t('Signout') %> <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                    </div>
-                    
+                          <a class="dropdown-item disabled" href="/"><%= t('Hi') %> <%= navData.user.name %></a>
+                          <a class="dropdown-item" href="/profile"><%= t('Profile') %></a>
+                          <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://stemref.askardesign.com/&text=you+search+for+whatever+learning+matirial+here&hashtags=STEMREF" target="_blank"><%= t('Refer to friends') %></a>
+                          <a class="dropdown-item" href="mailto:stemref@gmail.com"><%= t('Give Feedback') %></a>
+                          <a class="dropdown-item" href="/signout"><%= t('Signout') %> <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                        </div>
+                    </li>
                 <% } %>
             </ul>
             <form class="lang-form-select" action="#" method="get">
