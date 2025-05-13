@@ -713,15 +713,14 @@ main {
   /* start collapsed */
   padding-top: 0;
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.8) translateY(50px);
   overflow: hidden;
-  transition: padding-top 0.6s ease-out, opacity 0.6s ease-out, transform 0.6s ease-out;
+  /* remove direct transitions to use keyframe animation */
 }
 .video-embed-container.loaded {
-  /* expand to 16:9 */
+  /* expand to 16:9 and trigger pop-in animation */
   padding-top: 56.25%;
-  opacity: 1;
-  transform: scale(1);
+  animation: popInUp 0.8s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
 }
 .video-embed-container iframe {
   position: absolute;
@@ -730,6 +729,29 @@ main {
   width: 100%;
   height: 100%;
   border: 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+.video-embed-container.loaded iframe {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Keyframe for improved pop-in and slide-up */
+@keyframes popInUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(60px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Responsive design */
