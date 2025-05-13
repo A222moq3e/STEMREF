@@ -3,6 +3,9 @@ const express = require("express");
 const session = require("express-session");
 const rateLimit = require("express-rate-limit");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 // MISC
 const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
