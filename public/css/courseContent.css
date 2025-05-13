@@ -720,7 +720,7 @@ main {
 .video-embed-container.loaded {
   /* expand to 16:9 and trigger pop-in animation */
   padding-top: 56.25%;
-  animation: popInUp 0.8s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
+  animation: popInUp 0.6s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
 }
 .video-embed-container iframe {
   position: absolute;
@@ -731,7 +731,7 @@ main {
   border: 0;
   opacity: 0;
   transform: scale(0.95);
-  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
 }
 .video-embed-container.loaded iframe {
   opacity: 1;
