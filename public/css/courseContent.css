@@ -706,6 +706,35 @@ main {
   border-radius: 10px;
 }
 
+/* Video Embed Responsive Container */
+.video-embed-container {
+  position: relative;
+  width: 100%;
+  /* Start collapsed then expand to 16:9 */
+  padding-top: 0;
+  overflow: hidden;
+  animation: expandVideo 0.6s ease-out forwards;
+}
+.video-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@keyframes expandVideo {
+  from {
+    padding-top: 0;
+    opacity: 0;
+  }
+  to {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    opacity: 1;
+  }
+}
+
 /* Responsive design */
 @media screen and (min-width: 768px) {
   .course-container {

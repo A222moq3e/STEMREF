@@ -136,6 +136,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // YouTube video embedding: setup embed player for video links
+  const category = document.body.dataset.category;
+  if (category === 'Videos') {
+    const allLinks = document.querySelectorAll('.content-item');
+    console.log('All content-item links count:', allLinks.length);
+    const videoLinks = Array.from(allLinks).filter(link => /youtube\.com|youtu\.be/.test(link.href));
+    console.log('Filtered video links count:', videoLinks.length, videoLinks);
+    // On click, prevent default and embed selected video
+    videoLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        embedVideo(this.href);
+      });
+    });
+  }
+
+  function embedVideo(videoUrl) {
+    try {
+      const urlObj = new URL(videoUrl);
+      let videoId = urlObj.hostname.includes('youtu.be') ? urlObj.pathname.slice(1) : urlObj.searchParams.get('v');
+      const params = new URLSearchParams();
+      if (urlObj.searchParams.get('list')) params.set('list', urlObj.searchParams.get('list'));
+      if (urlObj.searchParams.get('index')) params.set('index', urlObj.searchParams.get('index'));
+      const embedSrc = `https://www.youtube.com/embed/${videoId}${params.toString() ? `?${params.toString()}` : ''}`;
+      const headerSection = document.querySelector('.course-header');
+      if (headerSection && videoId) {
+        // Keep the back button intact
+        const backBtnEl = headerSection.querySelector('.course-header__back');
+        const backBtnHTML = backBtnEl ? backBtnEl.outerHTML : '';
+        // Replace header content with back button and embedded player
+        headerSection.innerHTML = backBtnHTML + 
+          `<div class=\"video-embed-container\">` +
+            `<iframe width=\"100%\" height=\"400\" src=\"${embedSrc}\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>` +
+          `</div>`;
+      }
+    } catch (e) {
+      console.error('Invalid video URL', e);
+    }
+  }
+  
   /**
    * Submit a review for the current course
    */
