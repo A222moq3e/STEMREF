@@ -167,9 +167,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const backBtnHTML = backBtnEl ? backBtnEl.outerHTML : '';
         // Replace header content with back button and embedded player
         headerSection.innerHTML = backBtnHTML + 
-          `<div class=\"video-embed-container\">` +
-            `<iframe width=\"100%\" height=\"400\" src=\"${embedSrc}\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>` +
+          `<div class="video-embed-container">` +
+            `<iframe width="100%" height="400" src="${embedSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` +
           `</div>`;
+        // Trigger transition after insertion
+        const videoContainer = headerSection.querySelector('.video-embed-container');
+        if (videoContainer) {
+          // Delay to ensure initial styles applied
+          setTimeout(() => videoContainer.classList.add('loaded'), 20);
+        }
       }
     } catch (e) {
       console.error('Invalid video URL', e);
