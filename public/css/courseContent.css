@@ -706,6 +706,54 @@ main {
   border-radius: 10px;
 }
 
+/* Video Embed Responsive Container */
+.video-embed-container {
+  position: relative;
+  width: 100%;
+  /* start collapsed */
+  padding-top: 0;
+  opacity: 0;
+  transform: scale(0.8) translateY(50px);
+  overflow: hidden;
+  /* remove direct transitions to use keyframe animation */
+}
+.video-embed-container.loaded {
+  /* expand to 16:9 and trigger pop-in animation */
+  padding-top: 56.25%;
+  animation: popInUp 0.6s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
+}
+.video-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+}
+.video-embed-container.loaded iframe {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Keyframe for improved pop-in and slide-up */
+@keyframes popInUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(60px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 /* Responsive design */
 @media screen and (min-width: 768px) {
   .course-container {
