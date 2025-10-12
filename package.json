@@ -11,7 +11,7 @@
     "connect-mongo": "^5.1.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "express-rate-limit": "^7.5.0",
+    "express-rate-limit": "^7.5.1",
     "express-session": "^1.18.1",
     "i18next": "^25.0.0",
     "i18next-fs-backend": "^2.6.0",
