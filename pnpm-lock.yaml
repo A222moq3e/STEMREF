@@ -29,6 +29,9 @@ importers:
       express-session:
         specifier: ^1.18.1
         version: 1.18.1
+      express-slow-down:
+        specifier: ^1.0.0
+        version: 1.6.0
       i18next:
         specifier: ^25.0.0
         version: 25.0.0
@@ -220,6 +223,9 @@ packages:
   express-session@1.18.1:
     resolution: {integrity: sha512-a5mtTqEaZvBCL9A9aqkrtfz+3SMDhOVUnjafjo+s7A9Txkq+SVX2DLvSp1Zrv4uCXa3lMSK3viWnh9Gg07PBUA==}
     engines: {node: '>= 0.8.0'}
+
+  express-slow-down@1.6.0:
+    resolution: {integrity: sha512-M2+Gl6vtvHW5CiRwy82epoiMHWWDVsLws+YnhO2C0lY6eAbRSvRdCA1G1VxSY68y+Urfb74npTO0kdHgC6OPHg==}
 
   express@5.1.0:
     resolution: {integrity: sha512-DT9ck5YIRU+8GYzzU5kT3eHGA5iL+1Zd0EutOmTE9Dtk+Tvuzd23VBU+ec7HPNSTxXYO55gPV/hq4pSBJDjFpA==}
@@ -712,6 +718,8 @@ snapshots:
       uid-safe: 2.1.5
     transitivePeerDependencies:
       - supports-color
+
+  express-slow-down@1.6.0: {}
 
   express@5.1.0:
     dependencies:

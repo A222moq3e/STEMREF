@@ -19,7 +19,7 @@ function isNotAuthenticated(req, res, next) {
   if (!req.session.user || !req.session.user.authenticated) {
     return next();
   }
-  res.send("You are already logged in");
+  return res.redirect("/");
 }
 
 function isEducator(req, res, next) {
@@ -41,6 +41,7 @@ router.get("/login", isNotAuthenticated, controllerAuth.loginGet);
 router.post(
   "/login",
   isNotAuthenticated,
+  rateLimiters.loginSlowDown,
   rateLimiters.loginLimiter,
   controllerAuth.loginPost,
 );
@@ -48,6 +49,7 @@ router.get("/register", isNotAuthenticated, controllerAuth.registerGet);
 router.post(
   "/register",
   isNotAuthenticated,
+  rateLimiters.registerSlowDown,
   rateLimiters.registerLimiter,
   controllerAuth.registerPost,
 );
@@ -55,6 +57,7 @@ router.get("/signout", isAuthenticated, controllerAuth.signout);
 router.get(
   "/search",
   isAuthenticated,
+  rateLimiters.searchSlowDown,
   rateLimiters.searchLimiter,
   controller.search,
 );
@@ -77,6 +80,7 @@ router.post(
   "/admin",
   isAuthenticated,
   isAdmin,
+  rateLimiters.globalSlowDown,
   rateLimiters.globalLimiter,
   controllerAdmin.adminPost,
 );

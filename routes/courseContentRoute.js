@@ -11,6 +11,7 @@ router.get("/courseContent", controller.courseContent);
 router.get("/courseContent/:name", controller.courseContentByName);
 router.post(
   "/courseContent/:name/stars",
+  rateLimiters.courseActionSlowDown,
   rateLimiters.courseActionLimiter,
   controller.courseContentRate,
 );

@@ -56,7 +56,8 @@ connectDB().then(() => {
 
   // Static files middleware
   app.use(express.static(path.join(__dirname, "public")));
-  // Global Rate Limit (applies to non-static routes)
+  // Global slow-down then hard rate limit (applies to non-static routes)
+  app.use(rateLimiters.globalSlowDown);
   app.use(rateLimiters.globalLimiter);
 
   i18next
@@ -73,11 +74,8 @@ connectDB().then(() => {
         caches: ["cookie"],
       },
     });
-  console.log(i18next.t("welcome"));
 
   app.use(i18nextMiddleware.handle(i18next));
-
-  console.log("[+]", "process.env.TEST", process.env.TEST);
 
   // Session (using MongoDB store for production)
   app.set("trust proxy", 1);
@@ -122,7 +120,7 @@ connectDB().then(() => {
   app.use(courseContentRoute);
 
   // Port Listner, [Do not remove this]
-  app.listen(process.env.PORT || 3005, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log("port Connected in", `http://localhost:3005`);
   });
 });
