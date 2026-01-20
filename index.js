@@ -1,7 +1,7 @@
 // Express Modules
 const express = require("express");
 const session = require("express-session");
-const rateLimit = require("express-rate-limit");
+const rateLimiters = require("./middlewares/rateLimiters");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -56,19 +56,8 @@ connectDB().then(() => {
 
   // Static files middleware
   app.use(express.static(path.join(__dirname, "public")));
-  // Rate Limit
-  const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000,
-    delayAfter: 20,
-    delayMs: 100,
-    max: 100,
-    standardHeaders: true,
-    legacyHeaders: false,
-    message:
-      "Too many requests made from this IP, please try again in a few minutes",
-  });
-
-  app.use(limiter);
+  // Global Rate Limit (applies to non-static routes)
+  app.use(rateLimiters.globalLimiter);
 
   i18next
     .use(Backend)
