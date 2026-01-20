@@ -6,6 +6,20 @@ const rateLimit = require("express-rate-limit");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+// check for environment variables
+required = [
+  "SECRET_SESSION",
+  "MONGO_URI",
+  "BASE_URL",
+  "MY_EMAIL_PASSWORD",
+  "EMAIL",
+];
+required.forEach((envVar) => {
+  if (!process.env[envVar]) {
+    console.error(`Error: Missing required environment variable ${envVar}`);
+    process.exit(1);
+  }
+});
 // MISC
 const MongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
@@ -20,8 +34,6 @@ const path = require("path");
 const router = require("./routes/routes");
 const courseContentRoute = require("./routes/courseContentRoute");
 
-// check for environment variables
-required = ["SECRET_SESSION", "MONGO_URI", "BASE_URL", "MY_EMAIL_PASSWORD"];
 connectDB().then(() => {
   const secretSessionString = process.env.SECRET_SESSION;
 
@@ -46,12 +58,12 @@ connectDB().then(() => {
   app.use(express.static(path.join(__dirname, "public")));
   // Rate Limit
   const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour window
-    delayAfter: 20, // begin slowing down responses after the first 10 requests
-    delayMs: 100, // slow down subsequent responses by 100 milliseconds per request
-    max: 100, // start blocking after 50 requests
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    windowMs: 60 * 60 * 1000,
+    delayAfter: 20,
+    delayMs: 100,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
     message:
       "Too many requests made from this IP, please try again in a few minutes",
   });
