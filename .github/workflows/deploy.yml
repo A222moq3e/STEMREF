@@ -85,5 +85,5 @@ jobs:
             --allow-unauthenticated \
             --port 3000 \
             --set-env-vars NODE_ENV=production,\
-            --set-secrets MONGO_URI=NOTE_MONGODB_URI:latest,SECRET_SESSION=NOTE_SESSION_SECRET:latest\
+            --set-secrets MONGO_URI=NOTE_MONGODB_URI:latest,SECRET_SESSION=NOTE_SESSION_SECRET:latest,EMAIL=STEMREF_EMAIL:latest,MY_EMAIL_PASSWORD=STEMREF_EMAIL_PASSWORD:latest \
             --min-instances=0 --max-instances=2
