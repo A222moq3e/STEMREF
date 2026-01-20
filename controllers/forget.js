@@ -11,7 +11,12 @@ module.exports = {
   },
   forgetPost: async (req, res) => {
     const { email } = req.body;
-    const baseUrl = process.env.BASE_URL || "https://127.0.0.1:3443";
+    const baseUrl = (() => {
+      const proto = req.get("x-forwarded-proto") || req.protocol;
+      const host = req.get("host") || req.headers.host;
+      if (host) return `${proto}://${host}`;
+      return process.env.BASE_URL || "http://127.0.0.1:3443";
+    })();
     const resetToken = crypto.randomBytes(20).toString("hex");
     const tokenExpires = Date.now() + 3600000; // 1 hour
     const user = await usersCollection.findOne({ email });

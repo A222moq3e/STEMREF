@@ -7,13 +7,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 // check for environment variables
-required = [
-  "SECRET_SESSION",
-  "MONGO_URI",
-  "BASE_URL",
-  "MY_EMAIL_PASSWORD",
-  "EMAIL",
-];
+required = ["SECRET_SESSION", "MONGO_URI", "MY_EMAIL_PASSWORD", "EMAIL"];
 required.forEach((envVar) => {
   if (!process.env[envVar]) {
     console.error(`Error: Missing required environment variable ${envVar}`);
