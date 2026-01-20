@@ -86,8 +86,7 @@ connectDB().then(() => {
       saveUninitialized: false,
       store: MongoStore.create({
         client: mongoose.connection.getClient(),
-        dbname: "stemref",
-        collectionName: "sessions",
+        dbName: "stemref",
         ttl: 14 * 24 * 60 * 60, // 14 days
       }),
       cookie: {
@@ -120,7 +119,8 @@ connectDB().then(() => {
   app.use(courseContentRoute);
 
   // Port Listner, [Do not remove this]
-  app.listen(process.env.PORT || 3000, () => {
-    console.log("port Connected in", `http://localhost:3005`);
+  port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log("port Connected in", `http://localhost:${port}`);
   });
 });
